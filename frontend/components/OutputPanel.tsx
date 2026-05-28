@@ -1,0 +1,1 @@
+export default function OutputPanel() { return <div>Output Panel</div> }

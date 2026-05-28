@@ -1,0 +1,1 @@
+export default function PipelineDashboard() { return <div>Pipeline Dashboard</div> }

@@ -1,0 +1,1 @@
+export default function DealCard() { return <div>Deal Card</div> }

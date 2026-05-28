@@ -1,0 +1,1 @@
+export default function QueryInspector() { return <div>Query Inspector</div> }
