@@ -1,0 +1,11 @@
+email_id,deal_id,contact_email,last_email_sent,last_reply_from_prospect,days_silent,thread_length,has_legal,contract_sent_date
+em_01,deal_001,sarah@acme.com,2024-05-16,2024-05-04,12,5,False,
+em_02,deal_002,mike@globex.com,2024-05-20,2024-05-10,10,3,False,
+em_03,deal_003,peter@initech.com,2024-05-25,2024-05-17,8,8,True,2024-05-15
+em_04,deal_004,alice@umbrella.com,2024-05-26,2024-05-21,5,2,False,
+em_05,deal_005,pepper@stark.com,2024-05-27,2024-05-23,4,12,True,
+em_06,deal_006,lucius@wayne.com,2024-05-25,2024-05-19,6,7,False,2024-05-18
+em_07,deal_007,norman@oscorp.com,2024-05-28,2024-05-27,1,15,True,2024-05-25
+em_08,deal_008,nina@massive.com,2024-05-28,2024-05-28,0,22,True,2024-05-20
+em_09,deal_009,miles@cyberdyne.com,2024-05-27,2024-05-26,1,9,True,2024-05-24
+em_10,deal_010,richard@hooli.com,2024-05-28,2024-05-27,1,4,True,2024-05-21

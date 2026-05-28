@@ -1,0 +1,11 @@
+message_id,deal_id,channel,timestamp,sentiment,mentions_competitor,escalation_flag,content_summary
+msg_01,deal_001,#deal-acme,2024-05-17T10:00:00,negative,True,False,Competitor XYZ mentioned in pricing discussion
+msg_02,deal_002,#deal-globex,2024-05-21T11:00:00,neutral,True,False,Checking if we can match competitor features
+msg_03,deal_003,#deal-initech,2024-05-26T09:00:00,negative,False,True,Legal delayed the review by 7 days
+msg_04,deal_004,#deal-umbrella,2024-05-22T14:00:00,neutral,False,False,Follow up needed on security questionnaire
+msg_05,deal_005,#deal-stark,2024-05-25T15:00:00,neutral,True,False,They are evaluating one other vendor
+msg_06,deal_006,#deal-wayne,2024-05-23T16:00:00,negative,False,False,Budget might be tighter than expected
+msg_07,deal_007,#deal-oscorp,2024-05-28T10:00:00,positive,False,False,Verbal approval received
+msg_08,deal_008,#deal-massive,2024-05-28T11:00:00,positive,False,False,Contract signed by economic buyer
+msg_09,deal_009,#deal-cyberdyne,2024-05-27T14:00:00,positive,False,False,Security review passed
+msg_10,deal_010,#deal-hooli,2024-05-28T16:00:00,positive,False,False,Implementation kick-off scheduled

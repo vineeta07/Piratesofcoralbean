@@ -1,3 +1,9 @@
+import PipelineDashboard from '../components/PipelineDashboard';
+
 export default function Home() {
-  return <main>Pipeline Dashboard</main>
+  return (
+    <main>
+      <PipelineDashboard />
+    </main>
+  );
 }

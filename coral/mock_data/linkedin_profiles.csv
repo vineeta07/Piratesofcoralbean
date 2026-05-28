@@ -1,0 +1,11 @@
+profile_id,deal_id,person_name,current_company,current_role,changed_jobs_date,previous_company,hired_recently
+prof_01,deal_001,Sarah Chen,Microsoft,VP Sales,2024-05-10,Acme Corp,True
+prof_02,deal_002,Mike Ross,Globex Inc,Director IT,,Pearson Specter,False
+prof_03,deal_003,Peter Gibbons,Initech,Software Engineer,,,False
+prof_04,deal_004,Alice Abernathy,Umbrella Corp,Head of Security,,,False
+prof_05,deal_005,Pepper Potts,Stark Ind,CEO,,,False
+prof_06,deal_006,Lucius Fox,Wayne Ent,CTO,,,False
+prof_07,deal_007,Norman Osborn,Oscorp,CEO,,,False
+prof_08,deal_008,Nina Sharp,Massive Dynamic,COO,,,False
+prof_09,deal_009,Miles Dyson,Cyberdyne,Director AI,,,False
+prof_10,deal_010,Richard Hendricks,Hooli,Engineer,,,False

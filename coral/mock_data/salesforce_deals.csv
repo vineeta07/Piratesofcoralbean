@@ -1,0 +1,11 @@
+deal_id,deal_name,value,stage,owner,close_date,champion_name,economic_buyer
+deal_001,Acme Corp,340000,Negotiation,Alice Smith,2024-06-15,Sarah Chen,David Park
+deal_002,Globex Inc,180000,Proposal,Bob Jones,2024-06-20,Mike Ross,Jessica Pearson
+deal_003,Initech,450000,Contract Review,Charlie Day,2024-05-30,Peter Gibbons,Bill Lumbergh
+deal_004,Umbrella Corp,650000,Discovery,Alice Smith,2024-07-10,Alice Abernathy,Albert Wesker
+deal_005,Stark Ind,850000,Negotiation,Bob Jones,2024-06-05,Pepper Potts,Tony Stark
+deal_006,Wayne Ent,500000,Proposal,Charlie Day,2024-06-25,Lucius Fox,Bruce Wayne
+deal_007,Oscorp,250000,Late Stage,Alice Smith,2024-05-25,Norman Osborn,Harry Osborn
+deal_008,Massive Dynamic,720000,Contract Review,Bob Jones,2024-05-28,Nina Sharp,William Bell
+deal_009,Cyberdyne,900000,Negotiation,Charlie Day,2024-06-10,Miles Dyson,John Connor
+deal_010,Hooli,120000,Late Stage,Alice Smith,2024-05-22,Richard Hendricks,Gavin Belson
