@@ -1,10 +1,10 @@
-from backend.agents.mock_claude import MockClaudeService
+from backend.agents.crew_config import crew_manager
 
 class ParserAgent:
     def execute(self, query: str) -> dict:
         """
-        Parses the natural language query into a structured intent.
+        Parses the natural language query into a structured intent using CrewAI.
         """
-        return MockClaudeService.parse_intent(query)
+        return crew_manager.get_parser_result(query)
 
 parser_agent = ParserAgent()
