@@ -310,7 +310,9 @@ class RiskScoringAgent:
                 "score": teammate_result["score"],
                 "risk_level": risk_level,
                 "primary_reason": teammate_result["reasons"][0] if teammate_result["reasons"] else "Healthy",
-                "all_reasons": teammate_result["reasons"]
+                "all_reasons": teammate_result["reasons"],
+                "colour": teammate_result["colour"].split()[-1],
+                "close_date": raw_deal.get("close_date", "Unknown")
             })
 
         # Sort by score ascending
