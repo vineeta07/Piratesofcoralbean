@@ -1,0 +1,30 @@
+name: gmail
+version: 1.0.0
+dsl_version: 3
+backend: file
+tables:
+  - name: threads
+    description: Mock Gmail Threads
+    format: csv
+    source:
+      location: file:///C:/Users/VINITA/Piratesofcoralbean/Piratesofcoralbean/backend/coral/mock_data/
+      glob: "gmail_threads.csv"
+    columns:
+      - name: email_id
+        type: Utf8
+      - name: deal_id
+        type: Utf8
+      - name: contact_email
+        type: Utf8
+      - name: last_email_sent
+        type: Utf8
+      - name: last_reply_from_prospect
+        type: Utf8
+      - name: days_silent
+        type: Float64
+      - name: thread_length
+        type: Float64
+      - name: has_legal
+        type: Boolean
+      - name: contract_sent_date
+        type: Utf8

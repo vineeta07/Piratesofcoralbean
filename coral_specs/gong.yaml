@@ -1,0 +1,28 @@
+name: gong
+version: 1.0.0
+dsl_version: 3
+backend: file
+tables:
+  - name: calls
+    description: Mock Gong Calls
+    format: csv
+    source:
+      location: file:///C:/Users/VINITA/Piratesofcoralbean/Piratesofcoralbean/backend/coral/mock_data/
+      glob: "gong_calls.csv"
+    columns:
+      - name: call_id
+        type: Utf8
+      - name: deal_id
+        type: Utf8
+      - name: contact_name
+        type: Utf8
+      - name: call_date
+        type: Utf8
+      - name: duration_min
+        type: Float64
+      - name: sentiment_score
+        type: Float64
+      - name: objections_count
+        type: Float64
+      - name: economic_buyer_attended
+        type: Boolean

@@ -1,0 +1,28 @@
+name: salesforce
+version: 1.0.0
+dsl_version: 3
+backend: file
+tables:
+  - name: deals
+    description: Mock Salesforce Deals
+    format: csv
+    source:
+      location: file:///C:/Users/VINITA/Piratesofcoralbean/Piratesofcoralbean/backend/coral/mock_data/
+      glob: "salesforce_deals.csv"
+    columns:
+      - name: deal_id
+        type: Utf8
+      - name: deal_name
+        type: Utf8
+      - name: value
+        type: Float64
+      - name: stage
+        type: Utf8
+      - name: owner
+        type: Utf8
+      - name: close_date
+        type: Utf8
+      - name: champion_name
+        type: Utf8
+      - name: economic_buyer
+        type: Utf8

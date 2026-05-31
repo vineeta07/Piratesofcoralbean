@@ -36,11 +36,11 @@ llm = get_llm()
 # Coral SQL Schema Definition
 CORAL_SCHEMA = """
 Tables & Columns:
-1. salesforce.deals: [deal_id, deal_name, value, stage, close_date, probability, contact_email]
-2. gmail.threads: [deal_id, recipient, last_reply, sentiment_score]
-3. gong.calls: [deal_id, transcript_summary, objections_identified]
-4. slack.messages: [deal_id, message_content, unseen_objections]
-5. linkedin.profiles: [deal_id, job_title, tenure]
+1. salesforce.deals: [deal_id, deal_name, value, stage, owner, close_date, champion_name, economic_buyer]
+2. gmail.threads: [email_id, deal_id, contact_email, last_email_sent, last_reply_from_prospect, days_silent, thread_length, has_legal, contract_sent_date]
+3. gong.calls: [call_id, deal_id, contact_name, call_date, duration_min, sentiment_score, objections_count, economic_buyer_attended]
+4. slack.messages: [message_id, deal_id, channel, timestamp, sentiment, mentions_competitor, escalation_flag, content_summary]
+5. linkedin.profiles: [profile_id, deal_id, person_name, current_company, current_role, changed_jobs_date, previous_company, hired_recently]
 
 Relationships:
 - All tables can be joined on 'deal_id'.
@@ -102,7 +102,8 @@ def create_crew(query: str):
             "1. Join tables only if necessary based on the required sources.\n"
             "2. Use the 'deal_id' for joins.\n"
             "3. Apply filters based on intent and timeframe (e.g., stage, close_date).\n"
-            "4. Return only valid Coral SQL."
+            "4. IMPORTANT: Do NOT pre-filter deals by subjective criteria like 'risk', 'sentiment_score', 'days_silent', etc. The RiskScoringAgent will handle all risk calculations downstream. Just fetch the raw data for all open deals unless a specific deal is requested.\n"
+            "5. Return only valid Coral SQL."
         ),
         expected_output="A raw SQL query string.",
         agent=query_agent_node,

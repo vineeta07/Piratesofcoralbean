@@ -1,0 +1,28 @@
+name: slack
+version: 1.0.0
+dsl_version: 3
+backend: file
+tables:
+  - name: messages
+    description: Mock Slack Messages
+    format: csv
+    source:
+      location: file:///C:/Users/VINITA/Piratesofcoralbean/Piratesofcoralbean/backend/coral/mock_data/
+      glob: "slack_messages.csv"
+    columns:
+      - name: message_id
+        type: Utf8
+      - name: deal_id
+        type: Utf8
+      - name: channel
+        type: Utf8
+      - name: timestamp
+        type: Utf8
+      - name: sentiment
+        type: Utf8
+      - name: mentions_competitor
+        type: Boolean
+      - name: escalation_flag
+        type: Boolean
+      - name: content_summary
+        type: Utf8

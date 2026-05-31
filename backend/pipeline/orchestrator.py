@@ -1,6 +1,9 @@
 import time
 from backend.agents.parser_agent import parser_agent
+from backend.agents.context_agent import context_agent
 from backend.agents.query_agent import query_builder
+from backend.agents.risk_scoring_agent import risk_scoring_agent
+from backend.coral.coral_client import coral_client
 from backend.agents.summarising_agent import summarising_agent
 from backend.agents.formatter_agent import formatter_agent
 
@@ -13,33 +16,38 @@ class Orchestrator:
             start = time.time()
             intent = parser_agent.execute(query)
             t_parse = (time.time() - start) * 1000
-            print(f"✅ Parser Agent finished in {t_parse:.1f}ms. Intent: {intent['intent']}")
+            print(f"[OK] Parser Agent finished in {t_parse:.1f}ms. Intent: {intent['intent']}")
             
             # 2. Build Query & Score Risk
             start = time.time()
-            scored_deals = query_builder.execute(intent)
+            context = context_agent.execute(intent)
+            sql_query = query_builder.execute(context, intent)
+            print(f"[OK] Generated SQL: {sql_query}")
+            
+            raw_data = coral_client.execute_query(sql_query)
+            scored_deals = risk_scoring_agent.execute(raw_data)
             t_query = (time.time() - start) * 1000
-            print(f"✅ Query/Risk Agent finished in {t_query:.1f}ms. Scored {len(scored_deals)} deals.")
+            print(f"[OK] Query/Risk Agent finished in {t_query:.1f}ms. Scored {len(scored_deals)} deals.")
             
             # 3. Summarise
             start = time.time()
             summaries = summarising_agent.execute(scored_deals)
             t_sum = (time.time() - start) * 1000
-            print(f"✅ Summariser Agent finished in {t_sum:.1f}ms.")
+            print(f"[OK] Summariser Agent finished in {t_sum:.1f}ms.")
             
             # 4. Format Output
             start = time.time()
             final_output = formatter_agent.execute(summaries)
             t_fmt = (time.time() - start) * 1000
-            print(f"✅ Formatter Agent finished in {t_fmt:.1f}ms.")
+            print(f"[OK] Formatter Agent finished in {t_fmt:.1f}ms.")
             
             total_time = t_parse + t_query + t_sum + t_fmt
-            print(f"🚀 Total Pipeline Time: {total_time:.1f}ms")
+            print(f"[DONE] Total Pipeline Time: {total_time:.1f}ms")
             
             return final_output
             
         except Exception as e:
-            print(f"❌ Error in Orchestrator: {str(e)}")
+            print(f"Error in Orchestrator: {str(e)}")
             # Fallback
             return {
                 "success": False,

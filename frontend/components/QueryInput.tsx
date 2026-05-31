@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 interface QueryInputProps {
-  onAnalyze: (query: str) => void;
+  onAnalyze: (query: string) => void;
   isLoading: boolean;
 }
 
 export default function QueryInput({ onAnalyze, isLoading }: QueryInputProps) {
-  const [query, setQuery] = useState("Show me deals at risk this month");
+  const [query, setQuery] = useState("Show me all deals at risk")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

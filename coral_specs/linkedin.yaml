@@ -1,0 +1,28 @@
+name: linkedin
+version: 1.0.0
+dsl_version: 3
+backend: file
+tables:
+  - name: profiles
+    description: Mock LinkedIn Profiles
+    format: csv
+    source:
+      location: file:///C:/Users/VINITA/Piratesofcoralbean/Piratesofcoralbean/backend/coral/mock_data/
+      glob: "linkedin_profiles.csv"
+    columns:
+      - name: profile_id
+        type: Utf8
+      - name: deal_id
+        type: Utf8
+      - name: person_name
+        type: Utf8
+      - name: current_company
+        type: Utf8
+      - name: current_role
+        type: Utf8
+      - name: changed_jobs_date
+        type: Utf8
+      - name: previous_company
+        type: Utf8
+      - name: hired_recently
+        type: Boolean
