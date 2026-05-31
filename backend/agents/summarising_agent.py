@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
-from risk_scoring_agent import run_risk_scorer
+from backend.agents.risk_scoring_agent import run_risk_scorer
 
 load_dotenv()
 llm=ChatGroq(
@@ -32,8 +32,8 @@ Rules:
 - Keep the entire output under 90 words.
 """
 
-    color_map = {"GREEN": "🟢", "AMBER": "🟡", "RED": "🔴"}
-    deal["colour_emoji"] = color_map.get(deal["colour"].upper(), "⚪")
+    color_map = {"GREEN": "≡ƒƒó", "AMBER": "≡ƒƒí", "RED": "≡ƒö┤"}
+    deal["colour_emoji"] = color_map.get(deal["colour"].upper(), "ΓÜ¬")
 
     prompt_template = ChatPromptTemplate.from_messages([
         ("system", system_instructions),
@@ -65,3 +65,10 @@ def run_summarising_agent(scored_deals: list) -> list[dict]:
         })
 
     return summarised
+
+
+class SummarisingAgent:
+    def execute(self, scored_deals: list) -> list[dict]:
+        return run_summarising_agent(scored_deals)
+
+summarising_agent = SummarisingAgent()

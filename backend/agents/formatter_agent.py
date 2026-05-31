@@ -238,3 +238,10 @@ def run_formatter_agent(summarised_deals: list[dict], output_dir: str =os.getcwd
         "docx_path":  docx_path,
         "pptx_path":  pptx_path,
     }
+
+
+class FormatterAgent:
+    def execute(self, summarised_deals: list[dict], output_dir: str = os.getcwd()) -> dict:
+        return run_formatter_agent(summarised_deals, output_dir)
+
+formatter_agent = FormatterAgent()
