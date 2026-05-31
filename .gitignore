@@ -5,3 +5,7 @@ __pycache__/
 .DS_Store
 .agent/
 brain/
+node_modules/
+.next/
+coral/coral.exe
+out.json
