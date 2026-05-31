@@ -49,5 +49,5 @@ def run_pipeline(query: str):
     return results
 
 if __name__ == "__main__":
-    query = input("Sales Manager Query: ")
+    query = sys.argv[1] if len(sys.argv) > 1 else "What's closing this month?"
     run_pipeline(query)
