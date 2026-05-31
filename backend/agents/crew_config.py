@@ -25,10 +25,8 @@ class QueryOutput(BaseModel):
 # Agent Definitions
 def get_llm():
     api_key = os.getenv("GROQ_API_KEY")
-    # CrewAI can handle many providers natively via LiteLLM strings 
-    # format: 'provider/model-name'
     if api_key:
-        return "groq/llama-3.3-70b-versatile"
+        return "groq/llama-3.1-8b-instant"
     return None
 
 llm = get_llm()
@@ -41,10 +39,13 @@ Tables & Columns:
 3. gong.calls: [call_id, deal_id, contact_name, call_date, duration_min, sentiment_score, objections_count, economic_buyer_attended]
 4. slack.messages: [message_id, deal_id, channel, timestamp, sentiment, mentions_competitor, escalation_flag, content_summary]
 5. linkedin.profiles: [profile_id, deal_id, person_name, current_company, current_role, changed_jobs_date, previous_company, hired_recently]
+6. notion.search: [id, url, raw, properties] (Use object_filter => '{"property":"object","value":"page"}' for pages)
+7. google_calendar.events: [id, summary, description, start_date_time, end_date_time, attendees]
 
 Relationships:
-- All tables can be joined on 'deal_id'.
+- All mock tables (1-5) can be joined on 'deal_id'.
 - salesforce.deals.contact_email maps to gmail.threads.recipient.
+- notion and google_calendar queries should be isolated or loosely joined via LIKE/ILIKE on deal names or champion names.
 """
 
 # Parser Agent
@@ -60,8 +61,8 @@ parser_agent_node = Agent(
 # Context Agent
 context_agent_node = Agent(
     role="Data Source Strategist",
-    goal="Determine the minimum required data sources for a given query.",
-    backstory="You understand exactly which tables (Salesforce, Gmail, Gong, Slack, LinkedIn) hold which types of sales signals.",
+    goal="Determine the minimum required data sources for a given query. IMPORTANT: For ANY query about pipeline health, deals, or risk, you MUST include 'salesforce', 'gmail', 'gong', 'slack', and 'linkedin' to ensure the Risk Scoring engine has full context.",
+    backstory="You understand exactly which tables (Salesforce, Gmail, Gong, Slack, LinkedIn, Notion, Google Calendar) hold which types of sales signals.",
     allow_delegation=False,
     llm=llm,
     verbose=True
@@ -99,11 +100,13 @@ def create_crew(query: str):
             "Write a dynamic Coral SQL query to answer the user's question.\n"
             f"Schema Details:\n{CORAL_SCHEMA}\n"
             "Requirements:\n"
-            "1. Join tables only if necessary based on the required sources.\n"
-            "2. Use the 'deal_id' for joins.\n"
-            "3. Apply filters based on intent and timeframe (e.g., stage, close_date).\n"
-            "4. IMPORTANT: Do NOT pre-filter deals by subjective criteria like 'risk', 'sentiment_score', 'days_silent', etc. The RiskScoringAgent will handle all risk calculations downstream. Just fetch the raw data for all open deals unless a specific deal is requested.\n"
-            "5. Return only valid Coral SQL."
+            "1. You MUST ALWAYS start your query EXACTLY with this string to ensure all risk data is available:\n"
+            "SELECT sf.*, gm.days_silent, gm.has_legal, g.sentiment_score, g.objections_count, g.economic_buyer_attended, sl.mentions_competitor, sl.escalation_flag, l.hired_recently FROM salesforce.deals sf LEFT JOIN gmail.threads gm ON sf.deal_id = gm.deal_id LEFT JOIN gong.calls g ON sf.deal_id = g.deal_id LEFT JOIN slack.messages sl ON sf.deal_id = sl.deal_id LEFT JOIN linkedin.profiles l ON sf.deal_id = l.deal_id\n"
+            "2. Then, append the appropriate WHERE clause based on intent and timeframe (e.g., stage, close_date). Note: Open deals are deals where stage IN ('Discovery', 'Proposal', 'Negotiation').\n"
+            "3. IMPORTANT: Do NOT pre-filter deals by subjective criteria like 'risk', 'sentiment_score', 'days_silent', etc. The RiskScoringAgent will handle all risk calculations downstream. Just fetch the raw data for all open deals unless a specific deal is requested.\n"
+            "4. To extract the month or year, use `EXTRACT(MONTH FROM CAST(close_date AS DATE))` and `EXTRACT(YEAR FROM CAST(close_date AS DATE))`.\n"
+            "5. DO NOT use column aliases as functions (e.g. NEVER write `sf(close_date)`, always write `sf.close_date`).\n"
+            "6. Return ONLY the raw SQL query string, without markdown formatting, quotes, or explanation."
         ),
         expected_output="A raw SQL query string.",
         agent=query_agent_node,

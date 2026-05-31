@@ -1,11 +1,323 @@
 message_id,deal_id,channel,timestamp,sentiment,mentions_competitor,escalation_flag,content_summary
-msg_01,deal_001,#deal-acme,2024-05-17T10:00:00,negative,True,False,Competitor XYZ mentioned in pricing discussion
-msg_02,deal_002,#deal-globex,2024-05-21T11:00:00,neutral,True,False,Checking if we can match competitor features
-msg_03,deal_003,#deal-initech,2024-05-26T09:00:00,negative,False,True,Legal delayed the review by 7 days
-msg_04,deal_004,#deal-umbrella,2024-05-22T14:00:00,neutral,False,False,Follow up needed on security questionnaire
-msg_05,deal_005,#deal-stark,2024-05-25T15:00:00,neutral,True,False,They are evaluating one other vendor
-msg_06,deal_006,#deal-wayne,2024-05-23T16:00:00,negative,False,False,Budget might be tighter than expected
-msg_07,deal_007,#deal-oscorp,2024-05-28T10:00:00,positive,False,False,Verbal approval received
-msg_08,deal_008,#deal-massive,2024-05-28T11:00:00,positive,False,False,Contract signed by economic buyer
-msg_09,deal_009,#deal-cyberdyne,2024-05-27T14:00:00,positive,False,False,Security review passed
-msg_10,deal_010,#deal-hooli,2024-05-28T16:00:00,positive,False,False,Implementation kick-off scheduled
+SLK-9ac8befc,DEAL-1000,#sales-updates,2026-05-26T00:00:00,positive,False,True,Discussion regarding Globex 0 - Enterprise License
+SLK-7250dd1d,DEAL-1000,#sales-updates,2026-05-26T00:00:00,neutral,False,True,Discussion regarding Globex 0 - Enterprise License
+SLK-dba7ed52,DEAL-1000,#sales-updates,2026-05-27T00:00:00,neutral,False,False,Discussion regarding Globex 0 - Enterprise License
+SLK-c1c3ac48,DEAL-1000,#sales-updates,2026-05-28T00:00:00,neutral,False,True,Discussion regarding Globex 0 - Enterprise License
+SLK-9ad2d1f0,DEAL-1000,#sales-updates,2026-05-28T00:00:00,neutral,False,False,Discussion regarding Globex 0 - Enterprise License
+SLK-ae01a2ca,DEAL-1000,#sales-updates,2026-05-31T00:00:00,negative,False,True,Discussion regarding Globex 0 - Enterprise License
+SLK-3c69405d,DEAL-1001,#sales-updates,2026-05-30T00:00:00,negative,True,False,Discussion regarding Initech 1 - Enterprise License
+SLK-fda0db91,DEAL-1001,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Initech 1 - Enterprise License
+SLK-c9a53c27,DEAL-1001,#sales-updates,2026-05-24T00:00:00,negative,True,False,Discussion regarding Initech 1 - Enterprise License
+SLK-2080680a,DEAL-1001,#sales-updates,2026-05-26T00:00:00,positive,False,True,Discussion regarding Initech 1 - Enterprise License
+SLK-936fedf2,DEAL-1001,#sales-updates,2026-05-22T00:00:00,negative,False,False,Discussion regarding Initech 1 - Enterprise License
+SLK-7438185e,DEAL-1001,#sales-updates,2026-05-28T00:00:00,positive,False,False,Discussion regarding Initech 1 - Enterprise License
+SLK-35744ae2,DEAL-1001,#sales-updates,2026-05-26T00:00:00,negative,False,False,Discussion regarding Initech 1 - Enterprise License
+SLK-2c27b59a,DEAL-1001,#sales-updates,2026-05-23T00:00:00,negative,False,False,Discussion regarding Initech 1 - Enterprise License
+SLK-a4a8b5c8,DEAL-1001,#sales-updates,2026-05-26T00:00:00,negative,True,True,Discussion regarding Initech 1 - Enterprise License
+SLK-db8a1a82,DEAL-1001,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Initech 1 - Enterprise License
+SLK-9ef3375c,DEAL-1002,#sales-updates,2026-05-29T00:00:00,neutral,False,False,Discussion regarding Stark Industries 2 - Enterprise License
+SLK-f1d6f15f,DEAL-1002,#sales-updates,2026-05-21T00:00:00,neutral,True,False,Discussion regarding Stark Industries 2 - Enterprise License
+SLK-9e49bd04,DEAL-1002,#sales-updates,2026-05-23T00:00:00,negative,False,False,Discussion regarding Stark Industries 2 - Enterprise License
+SLK-26ce0cbf,DEAL-1002,#sales-updates,2026-05-26T00:00:00,negative,False,True,Discussion regarding Stark Industries 2 - Enterprise License
+SLK-bc37ac2c,DEAL-1002,#sales-updates,2026-05-30T00:00:00,positive,False,False,Discussion regarding Stark Industries 2 - Enterprise License
+SLK-1d60ab5d,DEAL-1002,#sales-updates,2026-05-25T00:00:00,negative,True,False,Discussion regarding Stark Industries 2 - Enterprise License
+SLK-f1b2706d,DEAL-1002,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Stark Industries 2 - Enterprise License
+SLK-fff264ae,DEAL-1002,#sales-updates,2026-05-22T00:00:00,negative,True,False,Discussion regarding Stark Industries 2 - Enterprise License
+SLK-36c699d2,DEAL-1002,#sales-updates,2026-05-31T00:00:00,neutral,True,False,Discussion regarding Stark Industries 2 - Enterprise License
+SLK-c4850d99,DEAL-1003,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Hooli 3 - Enterprise License
+SLK-19450485,DEAL-1003,#sales-updates,2026-05-24T00:00:00,positive,True,False,Discussion regarding Hooli 3 - Enterprise License
+SLK-49006bfd,DEAL-1003,#sales-updates,2026-05-21T00:00:00,negative,False,False,Discussion regarding Hooli 3 - Enterprise License
+SLK-ae3119f8,DEAL-1003,#sales-updates,2026-05-23T00:00:00,negative,True,False,Discussion regarding Hooli 3 - Enterprise License
+SLK-a34d5899,DEAL-1003,#sales-updates,2026-05-24T00:00:00,neutral,False,False,Discussion regarding Hooli 3 - Enterprise License
+SLK-a0ff34d5,DEAL-1003,#sales-updates,2026-05-21T00:00:00,positive,False,False,Discussion regarding Hooli 3 - Enterprise License
+SLK-49330a4b,DEAL-1003,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Hooli 3 - Enterprise License
+SLK-abc764fd,DEAL-1004,#sales-updates,2026-05-24T00:00:00,positive,False,True,Discussion regarding Acme Corp 4 - Enterprise License
+SLK-2e8ba0a0,DEAL-1004,#sales-updates,2026-05-21T00:00:00,positive,False,False,Discussion regarding Acme Corp 4 - Enterprise License
+SLK-32d362f7,DEAL-1004,#sales-updates,2026-05-28T00:00:00,positive,False,False,Discussion regarding Acme Corp 4 - Enterprise License
+SLK-70096896,DEAL-1004,#sales-updates,2026-05-31T00:00:00,positive,False,False,Discussion regarding Acme Corp 4 - Enterprise License
+SLK-28f6d88e,DEAL-1004,#sales-updates,2026-05-29T00:00:00,negative,True,True,Discussion regarding Acme Corp 4 - Enterprise License
+SLK-b2a64c66,DEAL-1004,#sales-updates,2026-05-25T00:00:00,positive,False,False,Discussion regarding Acme Corp 4 - Enterprise License
+SLK-b0a25560,DEAL-1004,#sales-updates,2026-05-21T00:00:00,neutral,False,False,Discussion regarding Acme Corp 4 - Enterprise License
+SLK-4d171d12,DEAL-1004,#sales-updates,2026-05-24T00:00:00,neutral,True,False,Discussion regarding Acme Corp 4 - Enterprise License
+SLK-677750d7,DEAL-1004,#sales-updates,2026-05-22T00:00:00,neutral,False,False,Discussion regarding Acme Corp 4 - Enterprise License
+SLK-987eee40,DEAL-1005,#sales-updates,2026-05-21T00:00:00,negative,False,True,Discussion regarding Stark Industries 5 - Enterprise License
+SLK-02af4d6e,DEAL-1005,#sales-updates,2026-05-30T00:00:00,neutral,False,False,Discussion regarding Stark Industries 5 - Enterprise License
+SLK-846f90e4,DEAL-1005,#sales-updates,2026-05-27T00:00:00,negative,False,False,Discussion regarding Stark Industries 5 - Enterprise License
+SLK-a575bb1a,DEAL-1005,#sales-updates,2026-05-26T00:00:00,positive,False,False,Discussion regarding Stark Industries 5 - Enterprise License
+SLK-1bd415d9,DEAL-1005,#sales-updates,2026-05-27T00:00:00,negative,False,True,Discussion regarding Stark Industries 5 - Enterprise License
+SLK-214426ba,DEAL-1006,#sales-updates,2026-05-21T00:00:00,negative,True,False,Discussion regarding Globex 6 - Enterprise License
+SLK-e10e8ca6,DEAL-1006,#sales-updates,2026-05-26T00:00:00,negative,False,True,Discussion regarding Globex 6 - Enterprise License
+SLK-82793c5b,DEAL-1006,#sales-updates,2026-05-29T00:00:00,negative,True,True,Discussion regarding Globex 6 - Enterprise License
+SLK-d403aaff,DEAL-1006,#sales-updates,2026-05-28T00:00:00,positive,True,False,Discussion regarding Globex 6 - Enterprise License
+SLK-485dcd84,DEAL-1006,#sales-updates,2026-05-24T00:00:00,negative,False,False,Discussion regarding Globex 6 - Enterprise License
+SLK-d22dac5f,DEAL-1006,#sales-updates,2026-05-22T00:00:00,negative,False,False,Discussion regarding Globex 6 - Enterprise License
+SLK-ed8ebc6f,DEAL-1006,#sales-updates,2026-05-24T00:00:00,positive,False,True,Discussion regarding Globex 6 - Enterprise License
+SLK-835bdbbe,DEAL-1006,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Globex 6 - Enterprise License
+SLK-b3c1c045,DEAL-1006,#sales-updates,2026-05-21T00:00:00,negative,False,False,Discussion regarding Globex 6 - Enterprise License
+SLK-cd604da1,DEAL-1006,#sales-updates,2026-05-31T00:00:00,neutral,False,False,Discussion regarding Globex 6 - Enterprise License
+SLK-600e3e91,DEAL-1007,#sales-updates,2026-05-28T00:00:00,negative,False,False,Discussion regarding Stark Industries 7 - Enterprise License
+SLK-4bc3dfd9,DEAL-1007,#sales-updates,2026-05-21T00:00:00,neutral,False,False,Discussion regarding Stark Industries 7 - Enterprise License
+SLK-85b29fe7,DEAL-1007,#sales-updates,2026-05-31T00:00:00,positive,False,False,Discussion regarding Stark Industries 7 - Enterprise License
+SLK-3469295b,DEAL-1007,#sales-updates,2026-05-22T00:00:00,neutral,False,False,Discussion regarding Stark Industries 7 - Enterprise License
+SLK-eea6f7eb,DEAL-1007,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Stark Industries 7 - Enterprise License
+SLK-06257f7f,DEAL-1007,#sales-updates,2026-05-31T00:00:00,positive,True,True,Discussion regarding Stark Industries 7 - Enterprise License
+SLK-c5849434,DEAL-1007,#sales-updates,2026-05-26T00:00:00,negative,False,False,Discussion regarding Stark Industries 7 - Enterprise License
+SLK-fa5acd0d,DEAL-1007,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Stark Industries 7 - Enterprise License
+SLK-cd76b7d0,DEAL-1008,#sales-updates,2026-05-25T00:00:00,positive,False,True,Discussion regarding Acme Corp 8 - Enterprise License
+SLK-7cf060ff,DEAL-1008,#sales-updates,2026-05-28T00:00:00,neutral,False,False,Discussion regarding Acme Corp 8 - Enterprise License
+SLK-6f3fa2ab,DEAL-1008,#sales-updates,2026-05-28T00:00:00,neutral,False,False,Discussion regarding Acme Corp 8 - Enterprise License
+SLK-15ce4dac,DEAL-1008,#sales-updates,2026-05-28T00:00:00,negative,False,True,Discussion regarding Acme Corp 8 - Enterprise License
+SLK-6d178663,DEAL-1008,#sales-updates,2026-05-22T00:00:00,neutral,False,False,Discussion regarding Acme Corp 8 - Enterprise License
+SLK-0f71802e,DEAL-1008,#sales-updates,2026-05-28T00:00:00,negative,False,False,Discussion regarding Acme Corp 8 - Enterprise License
+SLK-8669e179,DEAL-1008,#sales-updates,2026-05-28T00:00:00,negative,False,False,Discussion regarding Acme Corp 8 - Enterprise License
+SLK-671c4428,DEAL-1008,#sales-updates,2026-05-28T00:00:00,positive,False,False,Discussion regarding Acme Corp 8 - Enterprise License
+SLK-e1070e69,DEAL-1008,#sales-updates,2026-05-26T00:00:00,negative,False,False,Discussion regarding Acme Corp 8 - Enterprise License
+SLK-3890130b,DEAL-1009,#sales-updates,2026-05-31T00:00:00,positive,False,False,Discussion regarding Acme Corp 9 - Enterprise License
+SLK-d68a6d78,DEAL-1009,#sales-updates,2026-05-28T00:00:00,positive,False,False,Discussion regarding Acme Corp 9 - Enterprise License
+SLK-0db7baf8,DEAL-1009,#sales-updates,2026-05-27T00:00:00,neutral,False,False,Discussion regarding Acme Corp 9 - Enterprise License
+SLK-f1d4a618,DEAL-1010,#sales-updates,2026-05-30T00:00:00,negative,False,False,Discussion regarding Hooli 10 - Enterprise License
+SLK-0f54a2a0,DEAL-1010,#sales-updates,2026-05-25T00:00:00,positive,False,False,Discussion regarding Hooli 10 - Enterprise License
+SLK-1b0ceb22,DEAL-1010,#sales-updates,2026-05-30T00:00:00,positive,False,False,Discussion regarding Hooli 10 - Enterprise License
+SLK-9957fc2e,DEAL-1010,#sales-updates,2026-05-24T00:00:00,positive,False,False,Discussion regarding Hooli 10 - Enterprise License
+SLK-998dfc78,DEAL-1010,#sales-updates,2026-05-31T00:00:00,neutral,False,True,Discussion regarding Hooli 10 - Enterprise License
+SLK-fb7ba571,DEAL-1010,#sales-updates,2026-05-21T00:00:00,neutral,False,False,Discussion regarding Hooli 10 - Enterprise License
+SLK-ec0833b7,DEAL-1010,#sales-updates,2026-05-24T00:00:00,negative,True,False,Discussion regarding Hooli 10 - Enterprise License
+SLK-c3156406,DEAL-1010,#sales-updates,2026-05-22T00:00:00,neutral,False,False,Discussion regarding Hooli 10 - Enterprise License
+SLK-4f27076a,DEAL-1010,#sales-updates,2026-05-28T00:00:00,negative,True,False,Discussion regarding Hooli 10 - Enterprise License
+SLK-f8cc766b,DEAL-1010,#sales-updates,2026-05-23T00:00:00,positive,False,True,Discussion regarding Hooli 10 - Enterprise License
+SLK-092371d6,DEAL-1011,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Initech 11 - Enterprise License
+SLK-57a54039,DEAL-1011,#sales-updates,2026-05-23T00:00:00,negative,False,False,Discussion regarding Initech 11 - Enterprise License
+SLK-f01196aa,DEAL-1011,#sales-updates,2026-05-26T00:00:00,neutral,False,False,Discussion regarding Initech 11 - Enterprise License
+SLK-a948d875,DEAL-1011,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Initech 11 - Enterprise License
+SLK-3418f13c,DEAL-1011,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Initech 11 - Enterprise License
+SLK-b5413fa4,DEAL-1011,#sales-updates,2026-05-26T00:00:00,neutral,True,True,Discussion regarding Initech 11 - Enterprise License
+SLK-440722d5,DEAL-1011,#sales-updates,2026-05-22T00:00:00,neutral,True,False,Discussion regarding Initech 11 - Enterprise License
+SLK-a8e15667,DEAL-1011,#sales-updates,2026-05-25T00:00:00,negative,False,True,Discussion regarding Initech 11 - Enterprise License
+SLK-0e4ce2ab,DEAL-1012,#sales-updates,2026-05-28T00:00:00,negative,False,False,Discussion regarding Initech 12 - Enterprise License
+SLK-e4fa4cf6,DEAL-1012,#sales-updates,2026-05-24T00:00:00,neutral,True,False,Discussion regarding Initech 12 - Enterprise License
+SLK-cfa0a55b,DEAL-1012,#sales-updates,2026-05-24T00:00:00,neutral,False,False,Discussion regarding Initech 12 - Enterprise License
+SLK-469cf2e0,DEAL-1013,#sales-updates,2026-05-23T00:00:00,positive,False,False,Discussion regarding Wayne Enterprises 13 - Enterprise License
+SLK-ea3ead6d,DEAL-1013,#sales-updates,2026-05-27T00:00:00,negative,True,True,Discussion regarding Wayne Enterprises 13 - Enterprise License
+SLK-ad2675ee,DEAL-1014,#sales-updates,2026-05-23T00:00:00,neutral,False,False,Discussion regarding Acme Corp 14 - Enterprise License
+SLK-646ee284,DEAL-1014,#sales-updates,2026-05-21T00:00:00,negative,False,False,Discussion regarding Acme Corp 14 - Enterprise License
+SLK-d1d5bad4,DEAL-1014,#sales-updates,2026-05-30T00:00:00,positive,True,False,Discussion regarding Acme Corp 14 - Enterprise License
+SLK-9f08b6be,DEAL-1014,#sales-updates,2026-05-29T00:00:00,negative,True,False,Discussion regarding Acme Corp 14 - Enterprise License
+SLK-64d5fb06,DEAL-1014,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Acme Corp 14 - Enterprise License
+SLK-9adf459b,DEAL-1014,#sales-updates,2026-05-26T00:00:00,positive,False,False,Discussion regarding Acme Corp 14 - Enterprise License
+SLK-fb2a24ca,DEAL-1014,#sales-updates,2026-05-31T00:00:00,negative,True,False,Discussion regarding Acme Corp 14 - Enterprise License
+SLK-a7faa454,DEAL-1015,#sales-updates,2026-05-28T00:00:00,neutral,False,False,Discussion regarding Initech 15 - Enterprise License
+SLK-76984ce0,DEAL-1015,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Initech 15 - Enterprise License
+SLK-4c4ea3fe,DEAL-1015,#sales-updates,2026-05-31T00:00:00,negative,False,True,Discussion regarding Initech 15 - Enterprise License
+SLK-b62a6aab,DEAL-1015,#sales-updates,2026-05-29T00:00:00,positive,True,False,Discussion regarding Initech 15 - Enterprise License
+SLK-cfcd51fd,DEAL-1015,#sales-updates,2026-05-21T00:00:00,neutral,True,False,Discussion regarding Initech 15 - Enterprise License
+SLK-d6817806,DEAL-1015,#sales-updates,2026-05-24T00:00:00,positive,True,True,Discussion regarding Initech 15 - Enterprise License
+SLK-49648da8,DEAL-1015,#sales-updates,2026-05-21T00:00:00,neutral,False,True,Discussion regarding Initech 15 - Enterprise License
+SLK-b04c6fda,DEAL-1015,#sales-updates,2026-05-24T00:00:00,negative,True,True,Discussion regarding Initech 15 - Enterprise License
+SLK-ada6a6e7,DEAL-1016,#sales-updates,2026-05-30T00:00:00,positive,False,False,Discussion regarding Cyberdyne 16 - Enterprise License
+SLK-2b391ff9,DEAL-1016,#sales-updates,2026-05-25T00:00:00,positive,True,False,Discussion regarding Cyberdyne 16 - Enterprise License
+SLK-12bf8741,DEAL-1016,#sales-updates,2026-05-26T00:00:00,neutral,False,False,Discussion regarding Cyberdyne 16 - Enterprise License
+SLK-94e50c3a,DEAL-1016,#sales-updates,2026-05-22T00:00:00,positive,True,False,Discussion regarding Cyberdyne 16 - Enterprise License
+SLK-9bcb1772,DEAL-1016,#sales-updates,2026-05-25T00:00:00,negative,True,True,Discussion regarding Cyberdyne 16 - Enterprise License
+SLK-4c8db649,DEAL-1017,#sales-updates,2026-05-29T00:00:00,neutral,True,False,Discussion regarding Stark Industries 17 - Enterprise License
+SLK-befd2fb4,DEAL-1017,#sales-updates,2026-05-24T00:00:00,positive,False,False,Discussion regarding Stark Industries 17 - Enterprise License
+SLK-a8862790,DEAL-1017,#sales-updates,2026-05-24T00:00:00,neutral,False,False,Discussion regarding Stark Industries 17 - Enterprise License
+SLK-0f08eec1,DEAL-1017,#sales-updates,2026-05-24T00:00:00,neutral,True,False,Discussion regarding Stark Industries 17 - Enterprise License
+SLK-ff0dd5ac,DEAL-1017,#sales-updates,2026-05-29T00:00:00,neutral,False,True,Discussion regarding Stark Industries 17 - Enterprise License
+SLK-516d5e4e,DEAL-1018,#sales-updates,2026-05-29T00:00:00,negative,False,False,Discussion regarding Acme Corp 18 - Enterprise License
+SLK-b4ba6452,DEAL-1018,#sales-updates,2026-05-27T00:00:00,negative,False,False,Discussion regarding Acme Corp 18 - Enterprise License
+SLK-1befc491,DEAL-1018,#sales-updates,2026-05-27T00:00:00,negative,False,False,Discussion regarding Acme Corp 18 - Enterprise License
+SLK-97e03ce0,DEAL-1019,#sales-updates,2026-05-29T00:00:00,neutral,True,False,Discussion regarding Initech 19 - Enterprise License
+SLK-f0f8832c,DEAL-1019,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Initech 19 - Enterprise License
+SLK-29b1e240,DEAL-1019,#sales-updates,2026-05-21T00:00:00,negative,True,False,Discussion regarding Initech 19 - Enterprise License
+SLK-9a53a68e,DEAL-1019,#sales-updates,2026-05-21T00:00:00,negative,False,True,Discussion regarding Initech 19 - Enterprise License
+SLK-d40e2c1f,DEAL-1019,#sales-updates,2026-05-24T00:00:00,positive,True,False,Discussion regarding Initech 19 - Enterprise License
+SLK-bb81830f,DEAL-1019,#sales-updates,2026-05-28T00:00:00,positive,False,False,Discussion regarding Initech 19 - Enterprise License
+SLK-c7abdfa7,DEAL-1019,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Initech 19 - Enterprise License
+SLK-1207c97a,DEAL-1019,#sales-updates,2026-05-23T00:00:00,positive,True,True,Discussion regarding Initech 19 - Enterprise License
+SLK-ec69e162,DEAL-1020,#sales-updates,2026-05-26T00:00:00,neutral,True,False,Discussion regarding Soylent 20 - Enterprise License
+SLK-f3495531,DEAL-1020,#sales-updates,2026-05-30T00:00:00,neutral,False,False,Discussion regarding Soylent 20 - Enterprise License
+SLK-5b3ed61c,DEAL-1020,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Soylent 20 - Enterprise License
+SLK-6c303fc5,DEAL-1020,#sales-updates,2026-05-31T00:00:00,positive,False,False,Discussion regarding Soylent 20 - Enterprise License
+SLK-59ed6d8d,DEAL-1020,#sales-updates,2026-05-21T00:00:00,positive,False,False,Discussion regarding Soylent 20 - Enterprise License
+SLK-ce3c9bfe,DEAL-1021,#sales-updates,2026-05-25T00:00:00,positive,False,False,Discussion regarding Globex 21 - Enterprise License
+SLK-5544cf44,DEAL-1021,#sales-updates,2026-05-24T00:00:00,negative,False,False,Discussion regarding Globex 21 - Enterprise License
+SLK-b48ce1a5,DEAL-1021,#sales-updates,2026-05-30T00:00:00,positive,False,True,Discussion regarding Globex 21 - Enterprise License
+SLK-30d36af0,DEAL-1021,#sales-updates,2026-05-26T00:00:00,positive,False,False,Discussion regarding Globex 21 - Enterprise License
+SLK-83a26c6b,DEAL-1021,#sales-updates,2026-05-24T00:00:00,neutral,True,True,Discussion regarding Globex 21 - Enterprise License
+SLK-9f205c90,DEAL-1021,#sales-updates,2026-05-21T00:00:00,positive,False,True,Discussion regarding Globex 21 - Enterprise License
+SLK-fc0cd6ec,DEAL-1021,#sales-updates,2026-05-27T00:00:00,positive,False,False,Discussion regarding Globex 21 - Enterprise License
+SLK-fc78f89f,DEAL-1021,#sales-updates,2026-05-23T00:00:00,negative,False,True,Discussion regarding Globex 21 - Enterprise License
+SLK-c01aee27,DEAL-1022,#sales-updates,2026-05-30T00:00:00,negative,True,True,Discussion regarding Oscorp 22 - Enterprise License
+SLK-580d0c5d,DEAL-1022,#sales-updates,2026-05-31T00:00:00,positive,False,False,Discussion regarding Oscorp 22 - Enterprise License
+SLK-23f9e52e,DEAL-1023,#sales-updates,2026-05-29T00:00:00,neutral,True,True,Discussion regarding Initech 23 - Enterprise License
+SLK-30b1cf88,DEAL-1023,#sales-updates,2026-05-22T00:00:00,negative,False,False,Discussion regarding Initech 23 - Enterprise License
+SLK-42846b8d,DEAL-1023,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Initech 23 - Enterprise License
+SLK-63289785,DEAL-1023,#sales-updates,2026-05-30T00:00:00,positive,False,False,Discussion regarding Initech 23 - Enterprise License
+SLK-f8b44ca1,DEAL-1023,#sales-updates,2026-05-30T00:00:00,neutral,False,False,Discussion regarding Initech 23 - Enterprise License
+SLK-479d7d68,DEAL-1023,#sales-updates,2026-05-29T00:00:00,neutral,False,False,Discussion regarding Initech 23 - Enterprise License
+SLK-181a3571,DEAL-1023,#sales-updates,2026-05-27T00:00:00,negative,False,False,Discussion regarding Initech 23 - Enterprise License
+SLK-dc68f9de,DEAL-1023,#sales-updates,2026-05-21T00:00:00,neutral,True,False,Discussion regarding Initech 23 - Enterprise License
+SLK-d1250505,DEAL-1023,#sales-updates,2026-05-24T00:00:00,positive,False,True,Discussion regarding Initech 23 - Enterprise License
+SLK-c1a67ac7,DEAL-1024,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-92ca8b67,DEAL-1024,#sales-updates,2026-05-30T00:00:00,negative,True,False,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-248baa60,DEAL-1024,#sales-updates,2026-05-28T00:00:00,neutral,False,True,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-e927307f,DEAL-1024,#sales-updates,2026-05-28T00:00:00,negative,False,True,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-f35e5e4c,DEAL-1024,#sales-updates,2026-05-26T00:00:00,positive,False,False,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-a75482b9,DEAL-1024,#sales-updates,2026-05-28T00:00:00,negative,False,False,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-c39011da,DEAL-1024,#sales-updates,2026-05-26T00:00:00,negative,False,False,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-481c0b84,DEAL-1024,#sales-updates,2026-05-30T00:00:00,negative,False,True,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-2de357da,DEAL-1024,#sales-updates,2026-05-27T00:00:00,neutral,False,False,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-293314d2,DEAL-1024,#sales-updates,2026-05-28T00:00:00,neutral,True,True,Discussion regarding Wayne Enterprises 24 - Enterprise License
+SLK-3c1f031f,DEAL-1025,#sales-updates,2026-05-24T00:00:00,positive,False,False,Discussion regarding Stark Industries 25 - Enterprise License
+SLK-3a9a0ab9,DEAL-1025,#sales-updates,2026-05-22T00:00:00,negative,False,False,Discussion regarding Stark Industries 25 - Enterprise License
+SLK-e8b3a432,DEAL-1025,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Stark Industries 25 - Enterprise License
+SLK-0e1e1817,DEAL-1025,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Stark Industries 25 - Enterprise License
+SLK-a58d9667,DEAL-1025,#sales-updates,2026-05-29T00:00:00,negative,False,False,Discussion regarding Stark Industries 25 - Enterprise License
+SLK-0507b8c0,DEAL-1025,#sales-updates,2026-05-21T00:00:00,positive,True,True,Discussion regarding Stark Industries 25 - Enterprise License
+SLK-b661b04a,DEAL-1025,#sales-updates,2026-05-31T00:00:00,positive,False,False,Discussion regarding Stark Industries 25 - Enterprise License
+SLK-bc07c742,DEAL-1025,#sales-updates,2026-05-21T00:00:00,neutral,True,False,Discussion regarding Stark Industries 25 - Enterprise License
+SLK-e4e8eb81,DEAL-1026,#sales-updates,2026-05-23T00:00:00,negative,False,False,Discussion regarding Hooli 26 - Enterprise License
+SLK-0658bc31,DEAL-1026,#sales-updates,2026-05-27T00:00:00,neutral,False,True,Discussion regarding Hooli 26 - Enterprise License
+SLK-fa547a86,DEAL-1026,#sales-updates,2026-05-29T00:00:00,negative,False,False,Discussion regarding Hooli 26 - Enterprise License
+SLK-b8c5a733,DEAL-1026,#sales-updates,2026-05-29T00:00:00,neutral,False,False,Discussion regarding Hooli 26 - Enterprise License
+SLK-5b966bbf,DEAL-1026,#sales-updates,2026-05-22T00:00:00,positive,False,False,Discussion regarding Hooli 26 - Enterprise License
+SLK-a44d7988,DEAL-1027,#sales-updates,2026-05-22T00:00:00,negative,False,True,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-3f5b0dd7,DEAL-1027,#sales-updates,2026-05-21T00:00:00,neutral,True,False,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-6b5165f7,DEAL-1027,#sales-updates,2026-05-26T00:00:00,negative,False,True,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-cd18d5d3,DEAL-1027,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-b44619b0,DEAL-1027,#sales-updates,2026-05-26T00:00:00,neutral,True,False,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-6684366c,DEAL-1027,#sales-updates,2026-05-29T00:00:00,positive,True,False,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-850dec00,DEAL-1027,#sales-updates,2026-05-24T00:00:00,negative,False,False,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-fd7c9237,DEAL-1027,#sales-updates,2026-05-23T00:00:00,negative,False,True,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-24909308,DEAL-1027,#sales-updates,2026-05-30T00:00:00,negative,False,False,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-c92a9c80,DEAL-1027,#sales-updates,2026-05-22T00:00:00,positive,False,False,Discussion regarding Cyberdyne 27 - Enterprise License
+SLK-f8778af5,DEAL-1028,#sales-updates,2026-05-22T00:00:00,neutral,False,True,Discussion regarding Oscorp 28 - Enterprise License
+SLK-d4989c2e,DEAL-1028,#sales-updates,2026-05-26T00:00:00,negative,False,False,Discussion regarding Oscorp 28 - Enterprise License
+SLK-32c4a56c,DEAL-1028,#sales-updates,2026-05-30T00:00:00,negative,True,True,Discussion regarding Oscorp 28 - Enterprise License
+SLK-0199af3f,DEAL-1028,#sales-updates,2026-05-27T00:00:00,neutral,False,False,Discussion regarding Oscorp 28 - Enterprise License
+SLK-a1884e78,DEAL-1028,#sales-updates,2026-05-28T00:00:00,neutral,False,True,Discussion regarding Oscorp 28 - Enterprise License
+SLK-c3775ee3,DEAL-1028,#sales-updates,2026-05-26T00:00:00,neutral,True,False,Discussion regarding Oscorp 28 - Enterprise License
+SLK-d2882ea5,DEAL-1028,#sales-updates,2026-05-22T00:00:00,neutral,True,False,Discussion regarding Oscorp 28 - Enterprise License
+SLK-eed33be0,DEAL-1028,#sales-updates,2026-05-22T00:00:00,negative,False,True,Discussion regarding Oscorp 28 - Enterprise License
+SLK-c797033b,DEAL-1028,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Oscorp 28 - Enterprise License
+SLK-0f00048d,DEAL-1028,#sales-updates,2026-05-27T00:00:00,negative,False,False,Discussion regarding Oscorp 28 - Enterprise License
+SLK-90abff7f,DEAL-1029,#sales-updates,2026-05-31T00:00:00,negative,False,False,Discussion regarding Oscorp 29 - Enterprise License
+SLK-c7eb5996,DEAL-1029,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Oscorp 29 - Enterprise License
+SLK-15eb6f73,DEAL-1030,#sales-updates,2026-05-28T00:00:00,negative,False,False,Discussion regarding Soylent 30 - Enterprise License
+SLK-78c1ac6a,DEAL-1030,#sales-updates,2026-05-31T00:00:00,neutral,False,False,Discussion regarding Soylent 30 - Enterprise License
+SLK-2007dc04,DEAL-1030,#sales-updates,2026-05-30T00:00:00,positive,True,False,Discussion regarding Soylent 30 - Enterprise License
+SLK-21626797,DEAL-1031,#sales-updates,2026-05-23T00:00:00,neutral,False,False,Discussion regarding Globex 31 - Enterprise License
+SLK-9b5151aa,DEAL-1031,#sales-updates,2026-05-21T00:00:00,neutral,False,False,Discussion regarding Globex 31 - Enterprise License
+SLK-bca3d377,DEAL-1031,#sales-updates,2026-05-27T00:00:00,neutral,False,False,Discussion regarding Globex 31 - Enterprise License
+SLK-25e5499c,DEAL-1031,#sales-updates,2026-05-21T00:00:00,negative,False,False,Discussion regarding Globex 31 - Enterprise License
+SLK-b16109fd,DEAL-1031,#sales-updates,2026-05-21T00:00:00,neutral,False,False,Discussion regarding Globex 31 - Enterprise License
+SLK-8b1eb575,DEAL-1031,#sales-updates,2026-05-28T00:00:00,positive,False,False,Discussion regarding Globex 31 - Enterprise License
+SLK-ce1e6f95,DEAL-1031,#sales-updates,2026-05-24T00:00:00,neutral,False,False,Discussion regarding Globex 31 - Enterprise License
+SLK-250834f8,DEAL-1031,#sales-updates,2026-05-21T00:00:00,positive,False,False,Discussion regarding Globex 31 - Enterprise License
+SLK-76a9f92d,DEAL-1031,#sales-updates,2026-05-23T00:00:00,neutral,False,False,Discussion regarding Globex 31 - Enterprise License
+SLK-66b84f51,DEAL-1032,#sales-updates,2026-05-30T00:00:00,positive,False,False,Discussion regarding Soylent 32 - Enterprise License
+SLK-1ca40d3e,DEAL-1032,#sales-updates,2026-05-31T00:00:00,neutral,True,False,Discussion regarding Soylent 32 - Enterprise License
+SLK-81d88154,DEAL-1032,#sales-updates,2026-05-30T00:00:00,neutral,True,False,Discussion regarding Soylent 32 - Enterprise License
+SLK-ce32cc8e,DEAL-1032,#sales-updates,2026-05-26T00:00:00,positive,True,False,Discussion regarding Soylent 32 - Enterprise License
+SLK-ab6a0bb9,DEAL-1032,#sales-updates,2026-05-31T00:00:00,negative,False,False,Discussion regarding Soylent 32 - Enterprise License
+SLK-43d9e6b4,DEAL-1033,#sales-updates,2026-05-27T00:00:00,neutral,False,False,Discussion regarding Acme Corp 33 - Enterprise License
+SLK-6be758fa,DEAL-1033,#sales-updates,2026-05-23T00:00:00,neutral,False,False,Discussion regarding Acme Corp 33 - Enterprise License
+SLK-415f45dc,DEAL-1033,#sales-updates,2026-05-28T00:00:00,positive,False,True,Discussion regarding Acme Corp 33 - Enterprise License
+SLK-c299c643,DEAL-1033,#sales-updates,2026-05-27T00:00:00,negative,False,True,Discussion regarding Acme Corp 33 - Enterprise License
+SLK-4d0c5957,DEAL-1033,#sales-updates,2026-05-26T00:00:00,neutral,True,False,Discussion regarding Acme Corp 33 - Enterprise License
+SLK-f25b1d16,DEAL-1033,#sales-updates,2026-05-31T00:00:00,negative,True,False,Discussion regarding Acme Corp 33 - Enterprise License
+SLK-57fc9b5c,DEAL-1033,#sales-updates,2026-05-21T00:00:00,negative,False,False,Discussion regarding Acme Corp 33 - Enterprise License
+SLK-0209cb60,DEAL-1033,#sales-updates,2026-05-22T00:00:00,positive,False,False,Discussion regarding Acme Corp 33 - Enterprise License
+SLK-e16704be,DEAL-1034,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Cyberdyne 34 - Enterprise License
+SLK-faf99adf,DEAL-1034,#sales-updates,2026-05-28T00:00:00,positive,True,False,Discussion regarding Cyberdyne 34 - Enterprise License
+SLK-b2110bcb,DEAL-1034,#sales-updates,2026-05-24T00:00:00,neutral,False,False,Discussion regarding Cyberdyne 34 - Enterprise License
+SLK-8bcd6081,DEAL-1034,#sales-updates,2026-05-21T00:00:00,negative,False,False,Discussion regarding Cyberdyne 34 - Enterprise License
+SLK-c06b1513,DEAL-1035,#sales-updates,2026-05-24T00:00:00,positive,False,False,Discussion regarding Stark Industries 35 - Enterprise License
+SLK-6b9f8e34,DEAL-1035,#sales-updates,2026-05-23T00:00:00,positive,False,False,Discussion regarding Stark Industries 35 - Enterprise License
+SLK-98bb0fe8,DEAL-1035,#sales-updates,2026-05-24T00:00:00,neutral,False,False,Discussion regarding Stark Industries 35 - Enterprise License
+SLK-63c67e94,DEAL-1035,#sales-updates,2026-05-23T00:00:00,negative,False,False,Discussion regarding Stark Industries 35 - Enterprise License
+SLK-9e540124,DEAL-1035,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Stark Industries 35 - Enterprise License
+SLK-cbfe01f0,DEAL-1036,#sales-updates,2026-05-22T00:00:00,negative,False,False,Discussion regarding Initech 36 - Enterprise License
+SLK-4b433562,DEAL-1036,#sales-updates,2026-05-30T00:00:00,positive,True,False,Discussion regarding Initech 36 - Enterprise License
+SLK-5b61bf21,DEAL-1036,#sales-updates,2026-05-28T00:00:00,positive,False,False,Discussion regarding Initech 36 - Enterprise License
+SLK-ec727bae,DEAL-1036,#sales-updates,2026-05-21T00:00:00,neutral,False,True,Discussion regarding Initech 36 - Enterprise License
+SLK-a57965fb,DEAL-1036,#sales-updates,2026-05-27T00:00:00,negative,True,False,Discussion regarding Initech 36 - Enterprise License
+SLK-51313152,DEAL-1036,#sales-updates,2026-05-23T00:00:00,negative,False,False,Discussion regarding Initech 36 - Enterprise License
+SLK-f929e69f,DEAL-1036,#sales-updates,2026-05-21T00:00:00,positive,False,False,Discussion regarding Initech 36 - Enterprise License
+SLK-9f2b5291,DEAL-1036,#sales-updates,2026-05-27T00:00:00,negative,False,False,Discussion regarding Initech 36 - Enterprise License
+SLK-8c3e0da9,DEAL-1036,#sales-updates,2026-05-26T00:00:00,positive,False,False,Discussion regarding Initech 36 - Enterprise License
+SLK-60938d42,DEAL-1036,#sales-updates,2026-05-29T00:00:00,neutral,False,False,Discussion regarding Initech 36 - Enterprise License
+SLK-dbc51175,DEAL-1037,#sales-updates,2026-05-27T00:00:00,positive,False,True,Discussion regarding Wayne Enterprises 37 - Enterprise License
+SLK-56fd5fa2,DEAL-1037,#sales-updates,2026-05-26T00:00:00,neutral,False,False,Discussion regarding Wayne Enterprises 37 - Enterprise License
+SLK-80739ec4,DEAL-1037,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Wayne Enterprises 37 - Enterprise License
+SLK-7938b2f5,DEAL-1037,#sales-updates,2026-05-30T00:00:00,positive,False,False,Discussion regarding Wayne Enterprises 37 - Enterprise License
+SLK-e4c6280a,DEAL-1037,#sales-updates,2026-05-29T00:00:00,negative,False,False,Discussion regarding Wayne Enterprises 37 - Enterprise License
+SLK-5fbfb457,DEAL-1037,#sales-updates,2026-05-21T00:00:00,positive,False,False,Discussion regarding Wayne Enterprises 37 - Enterprise License
+SLK-35c3800b,DEAL-1037,#sales-updates,2026-05-27T00:00:00,positive,False,False,Discussion regarding Wayne Enterprises 37 - Enterprise License
+SLK-5168d6b6,DEAL-1037,#sales-updates,2026-05-24T00:00:00,neutral,False,False,Discussion regarding Wayne Enterprises 37 - Enterprise License
+SLK-39278b6b,DEAL-1037,#sales-updates,2026-05-24T00:00:00,negative,True,False,Discussion regarding Wayne Enterprises 37 - Enterprise License
+SLK-a0fe1ecc,DEAL-1038,#sales-updates,2026-05-24T00:00:00,positive,False,False,Discussion regarding Initech 38 - Enterprise License
+SLK-5d3da9b8,DEAL-1038,#sales-updates,2026-05-23T00:00:00,neutral,False,False,Discussion regarding Initech 38 - Enterprise License
+SLK-3fc5a427,DEAL-1038,#sales-updates,2026-05-28T00:00:00,negative,True,False,Discussion regarding Initech 38 - Enterprise License
+SLK-e4d4bbd4,DEAL-1038,#sales-updates,2026-05-22T00:00:00,positive,False,False,Discussion regarding Initech 38 - Enterprise License
+SLK-94e8fd27,DEAL-1038,#sales-updates,2026-05-31T00:00:00,positive,False,False,Discussion regarding Initech 38 - Enterprise License
+SLK-b96a8b8d,DEAL-1038,#sales-updates,2026-05-24T00:00:00,negative,False,False,Discussion regarding Initech 38 - Enterprise License
+SLK-319cd53f,DEAL-1038,#sales-updates,2026-05-21T00:00:00,negative,True,False,Discussion regarding Initech 38 - Enterprise License
+SLK-a6ac005e,DEAL-1039,#sales-updates,2026-05-27T00:00:00,neutral,False,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-983a1332,DEAL-1039,#sales-updates,2026-05-27T00:00:00,neutral,False,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-918d9dc2,DEAL-1039,#sales-updates,2026-05-27T00:00:00,negative,False,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-5e656ae2,DEAL-1039,#sales-updates,2026-05-24T00:00:00,neutral,False,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-ea30fa68,DEAL-1039,#sales-updates,2026-05-26T00:00:00,neutral,False,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-4cecf47a,DEAL-1039,#sales-updates,2026-05-21T00:00:00,negative,False,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-b04c73f1,DEAL-1039,#sales-updates,2026-05-23T00:00:00,negative,True,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-ba061b22,DEAL-1039,#sales-updates,2026-05-24T00:00:00,positive,False,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-5756a080,DEAL-1039,#sales-updates,2026-05-28T00:00:00,negative,False,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-9b462b88,DEAL-1039,#sales-updates,2026-05-31T00:00:00,neutral,False,False,Discussion regarding Oscorp 39 - Enterprise License
+SLK-956245ad,DEAL-1040,#sales-updates,2026-05-30T00:00:00,neutral,False,False,Discussion regarding Hooli 40 - Enterprise License
+SLK-6d3edd90,DEAL-1040,#sales-updates,2026-05-22T00:00:00,positive,True,False,Discussion regarding Hooli 40 - Enterprise License
+SLK-87d84061,DEAL-1040,#sales-updates,2026-05-30T00:00:00,negative,False,False,Discussion regarding Hooli 40 - Enterprise License
+SLK-79d960ad,DEAL-1041,#sales-updates,2026-05-26T00:00:00,neutral,True,False,Discussion regarding Hooli 41 - Enterprise License
+SLK-7ba74852,DEAL-1041,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Hooli 41 - Enterprise License
+SLK-88560891,DEAL-1041,#sales-updates,2026-05-30T00:00:00,neutral,False,False,Discussion regarding Hooli 41 - Enterprise License
+SLK-802e610d,DEAL-1042,#sales-updates,2026-05-26T00:00:00,negative,False,False,Discussion regarding Soylent 42 - Enterprise License
+SLK-482a21f6,DEAL-1042,#sales-updates,2026-05-25T00:00:00,positive,True,False,Discussion regarding Soylent 42 - Enterprise License
+SLK-422847a8,DEAL-1042,#sales-updates,2026-05-29T00:00:00,negative,False,False,Discussion regarding Soylent 42 - Enterprise License
+SLK-36f5dbe4,DEAL-1042,#sales-updates,2026-05-24T00:00:00,positive,True,False,Discussion regarding Soylent 42 - Enterprise License
+SLK-0e6cd969,DEAL-1043,#sales-updates,2026-05-27T00:00:00,positive,False,False,Discussion regarding Hooli 43 - Enterprise License
+SLK-5b6872e4,DEAL-1043,#sales-updates,2026-05-30T00:00:00,positive,False,True,Discussion regarding Hooli 43 - Enterprise License
+SLK-5ba8b8db,DEAL-1044,#sales-updates,2026-05-23T00:00:00,positive,False,False,Discussion regarding Acme Corp 44 - Enterprise License
+SLK-f2393c4c,DEAL-1044,#sales-updates,2026-05-23T00:00:00,positive,False,False,Discussion regarding Acme Corp 44 - Enterprise License
+SLK-2f47f530,DEAL-1044,#sales-updates,2026-05-21T00:00:00,positive,False,False,Discussion regarding Acme Corp 44 - Enterprise License
+SLK-4d745375,DEAL-1044,#sales-updates,2026-05-29T00:00:00,negative,True,False,Discussion regarding Acme Corp 44 - Enterprise License
+SLK-6c33ecd9,DEAL-1044,#sales-updates,2026-05-31T00:00:00,negative,False,False,Discussion regarding Acme Corp 44 - Enterprise License
+SLK-45c65c09,DEAL-1045,#sales-updates,2026-05-24T00:00:00,negative,False,False,Discussion regarding Stark Industries 45 - Enterprise License
+SLK-82485537,DEAL-1045,#sales-updates,2026-05-28T00:00:00,positive,False,False,Discussion regarding Stark Industries 45 - Enterprise License
+SLK-b534e0e9,DEAL-1045,#sales-updates,2026-05-30T00:00:00,negative,False,True,Discussion regarding Stark Industries 45 - Enterprise License
+SLK-78e522fc,DEAL-1045,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Stark Industries 45 - Enterprise License
+SLK-1082b1f1,DEAL-1045,#sales-updates,2026-05-31T00:00:00,negative,False,False,Discussion regarding Stark Industries 45 - Enterprise License
+SLK-d1116758,DEAL-1045,#sales-updates,2026-05-30T00:00:00,negative,False,True,Discussion regarding Stark Industries 45 - Enterprise License
+SLK-c3da50dc,DEAL-1046,#sales-updates,2026-05-24T00:00:00,negative,False,False,Discussion regarding Cyberdyne 46 - Enterprise License
+SLK-fac3d5b2,DEAL-1046,#sales-updates,2026-05-24T00:00:00,neutral,False,False,Discussion regarding Cyberdyne 46 - Enterprise License
+SLK-100a936c,DEAL-1046,#sales-updates,2026-05-22T00:00:00,positive,False,False,Discussion regarding Cyberdyne 46 - Enterprise License
+SLK-ef637d1e,DEAL-1046,#sales-updates,2026-05-27T00:00:00,negative,False,False,Discussion regarding Cyberdyne 46 - Enterprise License
+SLK-bd433403,DEAL-1046,#sales-updates,2026-05-25T00:00:00,positive,False,False,Discussion regarding Cyberdyne 46 - Enterprise License
+SLK-abbd9275,DEAL-1047,#sales-updates,2026-05-29T00:00:00,positive,False,False,Discussion regarding Massive Dynamic 47 - Enterprise License
+SLK-0d10d150,DEAL-1047,#sales-updates,2026-05-28T00:00:00,negative,True,True,Discussion regarding Massive Dynamic 47 - Enterprise License
+SLK-dd323788,DEAL-1047,#sales-updates,2026-05-28T00:00:00,negative,False,False,Discussion regarding Massive Dynamic 47 - Enterprise License
+SLK-d113c862,DEAL-1047,#sales-updates,2026-05-29T00:00:00,positive,True,False,Discussion regarding Massive Dynamic 47 - Enterprise License
+SLK-e1394da8,DEAL-1047,#sales-updates,2026-05-25T00:00:00,negative,True,True,Discussion regarding Massive Dynamic 47 - Enterprise License
+SLK-9fa9dc56,DEAL-1047,#sales-updates,2026-05-27T00:00:00,neutral,False,True,Discussion regarding Massive Dynamic 47 - Enterprise License
+SLK-70d5fb30,DEAL-1047,#sales-updates,2026-05-30T00:00:00,neutral,False,False,Discussion regarding Massive Dynamic 47 - Enterprise License
+SLK-47bc8301,DEAL-1048,#sales-updates,2026-05-30T00:00:00,neutral,True,False,Discussion regarding Wayne Enterprises 48 - Enterprise License
+SLK-23632653,DEAL-1048,#sales-updates,2026-05-25T00:00:00,neutral,False,False,Discussion regarding Wayne Enterprises 48 - Enterprise License
+SLK-6fd8b451,DEAL-1048,#sales-updates,2026-05-31T00:00:00,neutral,False,False,Discussion regarding Wayne Enterprises 48 - Enterprise License
+SLK-4def404e,DEAL-1048,#sales-updates,2026-05-28T00:00:00,negative,True,False,Discussion regarding Wayne Enterprises 48 - Enterprise License
+SLK-096452b7,DEAL-1048,#sales-updates,2026-05-25T00:00:00,negative,False,False,Discussion regarding Wayne Enterprises 48 - Enterprise License
+SLK-559300e3,DEAL-1048,#sales-updates,2026-05-30T00:00:00,negative,False,False,Discussion regarding Wayne Enterprises 48 - Enterprise License
+SLK-f6957941,DEAL-1049,#sales-updates,2026-05-21T00:00:00,negative,False,False,Discussion regarding Cyberdyne 49 - Enterprise License
+SLK-1ba8e9b3,DEAL-1049,#sales-updates,2026-05-23T00:00:00,neutral,True,False,Discussion regarding Cyberdyne 49 - Enterprise License
+SLK-9143703e,DEAL-1049,#sales-updates,2026-05-31T00:00:00,neutral,False,False,Discussion regarding Cyberdyne 49 - Enterprise License
+SLK-e1cbb433,DEAL-1049,#sales-updates,2026-05-28T00:00:00,neutral,False,False,Discussion regarding Cyberdyne 49 - Enterprise License
+SLK-528c2c0e,DEAL-1049,#sales-updates,2026-05-24T00:00:00,neutral,True,False,Discussion regarding Cyberdyne 49 - Enterprise License
+SLK-861b7fb4,DEAL-1049,#sales-updates,2026-05-24T00:00:00,neutral,False,True,Discussion regarding Cyberdyne 49 - Enterprise License
+SLK-72016db9,DEAL-1049,#sales-updates,2026-05-22T00:00:00,positive,False,True,Discussion regarding Cyberdyne 49 - Enterprise License

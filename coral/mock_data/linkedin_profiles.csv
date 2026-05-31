@@ -1,11 +1,51 @@
 profile_id,deal_id,person_name,current_company,current_role,changed_jobs_date,previous_company,hired_recently
-prof_01,deal_001,Sarah Chen,Microsoft,VP Sales,2024-05-10,Acme Corp,True
-prof_02,deal_002,Mike Ross,Globex Inc,Director IT,,Pearson Specter,False
-prof_03,deal_003,Peter Gibbons,Initech,Software Engineer,,,False
-prof_04,deal_004,Alice Abernathy,Umbrella Corp,Head of Security,,,False
-prof_05,deal_005,Pepper Potts,Stark Ind,CEO,,,False
-prof_06,deal_006,Lucius Fox,Wayne Ent,CTO,,,False
-prof_07,deal_007,Norman Osborn,Oscorp,CEO,,,False
-prof_08,deal_008,Nina Sharp,Massive Dynamic,COO,,,False
-prof_09,deal_009,Miles Dyson,Cyberdyne,Director AI,,,False
-prof_10,deal_010,Richard Hendricks,Hooli,Engineer,,,False
+LNK-e4b17e11,DEAL-1000,Diana Anderson,Globex 0,VP of Engineering,,Some Other Corp,False
+LNK-532d61b6,DEAL-1001,Alice Johnson,Initech 1,VP of Engineering,,Some Other Corp,False
+LNK-cf91eb51,DEAL-1002,Eve Johnson,Stark Industries 2,VP of Engineering,2026-04-01,Some Other Corp,True
+LNK-87738d83,DEAL-1003,Alice Taylor,Hooli 3,VP of Engineering,2026-03-13,Some Other Corp,True
+LNK-deff46e3,DEAL-1004,Frank Davis,Acme Corp 4,VP of Engineering,,Some Other Corp,False
+LNK-0fada77d,DEAL-1005,Eve Johnson,Stark Industries 5,VP of Engineering,,Some Other Corp,False
+LNK-4ac2cbe2,DEAL-1006,Jane Miller,Globex 6,VP of Engineering,2026-04-18,Some Other Corp,True
+LNK-189eeef9,DEAL-1007,Jane Wilson,Stark Industries 7,VP of Engineering,2026-03-09,Some Other Corp,True
+LNK-776064d4,DEAL-1008,Diana Johnson,Acme Corp 8,VP of Engineering,,Some Other Corp,False
+LNK-da4ac0fa,DEAL-1009,Jane Taylor,Acme Corp 9,VP of Engineering,,Some Other Corp,False
+LNK-61499730,DEAL-1010,Bob Smith,Hooli 10,VP of Engineering,,Some Other Corp,False
+LNK-743b425f,DEAL-1011,Bob Johnson,Initech 11,VP of Engineering,2026-03-04,Some Other Corp,True
+LNK-bc824ebb,DEAL-1012,Bob Taylor,Initech 12,VP of Engineering,2026-03-06,Some Other Corp,True
+LNK-d7e835d5,DEAL-1013,Jane Taylor,Wayne Enterprises 13,VP of Engineering,2026-04-19,Some Other Corp,True
+LNK-c40469ee,DEAL-1014,Frank Moore,Acme Corp 14,VP of Engineering,,Some Other Corp,False
+LNK-917dfa1e,DEAL-1015,Grace Johnson,Initech 15,VP of Engineering,,Some Other Corp,False
+LNK-303963c4,DEAL-1016,Frank Taylor,Cyberdyne 16,VP of Engineering,,Some Other Corp,False
+LNK-9c6dcb9a,DEAL-1017,John Moore,Stark Industries 17,VP of Engineering,,Some Other Corp,False
+LNK-b5ecdb5d,DEAL-1018,Diana Anderson,Acme Corp 18,VP of Engineering,,Some Other Corp,False
+LNK-25f1c1d9,DEAL-1019,Eve Moore,Initech 19,VP of Engineering,,Some Other Corp,False
+LNK-1c35c47f,DEAL-1020,Heidi Brown,Soylent 20,VP of Engineering,2026-04-10,Some Other Corp,True
+LNK-ca2063ae,DEAL-1021,John Taylor,Globex 21,VP of Engineering,,Some Other Corp,False
+LNK-0e4a1992,DEAL-1022,Diana Smith,Oscorp 22,VP of Engineering,,Some Other Corp,False
+LNK-7191eb1b,DEAL-1023,Heidi Johnson,Initech 23,VP of Engineering,,Some Other Corp,False
+LNK-e176bafc,DEAL-1024,John Davis,Wayne Enterprises 24,VP of Engineering,,Some Other Corp,False
+LNK-22b39f96,DEAL-1025,Diana Doe,Stark Industries 25,VP of Engineering,2026-03-26,Some Other Corp,True
+LNK-a95a20bc,DEAL-1026,Heidi Wilson,Hooli 26,VP of Engineering,2026-03-04,Some Other Corp,True
+LNK-b1c04e18,DEAL-1027,Jane Johnson,Cyberdyne 27,VP of Engineering,,Some Other Corp,False
+LNK-1b9ec0ce,DEAL-1028,Eve Taylor,Oscorp 28,VP of Engineering,,Some Other Corp,False
+LNK-ecd30efd,DEAL-1029,Charlie Davis,Oscorp 29,VP of Engineering,,Some Other Corp,False
+LNK-1a5f2ec8,DEAL-1030,Charlie Miller,Soylent 30,VP of Engineering,,Some Other Corp,False
+LNK-9306683f,DEAL-1031,John Johnson,Globex 31,VP of Engineering,2026-04-16,Some Other Corp,True
+LNK-287d231a,DEAL-1032,Eve Wilson,Soylent 32,VP of Engineering,2026-03-10,Some Other Corp,True
+LNK-64c2764f,DEAL-1033,John Miller,Acme Corp 33,VP of Engineering,,Some Other Corp,False
+LNK-404e2580,DEAL-1034,Diana Davis,Cyberdyne 34,VP of Engineering,2026-03-16,Some Other Corp,True
+LNK-d549771a,DEAL-1035,Frank Taylor,Stark Industries 35,VP of Engineering,,Some Other Corp,False
+LNK-264c0d93,DEAL-1036,Diana Brown,Initech 36,VP of Engineering,,Some Other Corp,False
+LNK-da5ab82b,DEAL-1037,Frank Doe,Wayne Enterprises 37,VP of Engineering,,Some Other Corp,False
+LNK-8653a9a9,DEAL-1038,Diana Smith,Initech 38,VP of Engineering,,Some Other Corp,False
+LNK-053db29e,DEAL-1039,Diana Davis,Oscorp 39,VP of Engineering,,Some Other Corp,False
+LNK-56cab947,DEAL-1040,Jane Brown,Hooli 40,VP of Engineering,,Some Other Corp,False
+LNK-bbb40cd0,DEAL-1041,Diana Johnson,Hooli 41,VP of Engineering,,Some Other Corp,False
+LNK-8d5135ce,DEAL-1042,Heidi Taylor,Soylent 42,VP of Engineering,2026-03-26,Some Other Corp,True
+LNK-b8ad03e0,DEAL-1043,Bob Brown,Hooli 43,VP of Engineering,,Some Other Corp,False
+LNK-6dc13941,DEAL-1044,Alice Taylor,Acme Corp 44,VP of Engineering,,Some Other Corp,False
+LNK-bdfa5150,DEAL-1045,Alice Moore,Stark Industries 45,VP of Engineering,2026-03-25,Some Other Corp,True
+LNK-0706e071,DEAL-1046,Charlie Anderson,Cyberdyne 46,VP of Engineering,2026-03-06,Some Other Corp,True
+LNK-de677119,DEAL-1047,Eve Taylor,Massive Dynamic 47,VP of Engineering,,Some Other Corp,False
+LNK-1a735b92,DEAL-1048,Heidi Doe,Wayne Enterprises 48,VP of Engineering,,Some Other Corp,False
+LNK-25473505,DEAL-1049,Charlie Taylor,Cyberdyne 49,VP of Engineering,2026-04-29,Some Other Corp,True

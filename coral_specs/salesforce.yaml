@@ -26,3 +26,5 @@ tables:
         type: Utf8
       - name: economic_buyer
         type: Utf8
+      - name: contact_email
+        type: Utf8

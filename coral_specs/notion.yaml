@@ -1,0 +1,20 @@
+name: notion
+version: 1.0.0
+dsl_version: 3
+backend: file
+tables:
+  - name: search
+    description: Mock Notion Search
+    format: csv
+    source:
+      location: file:///C:/Users/VINITA/Piratesofcoralbean/Piratesofcoralbean/backend/coral/mock_data/
+      glob: "notion_search.csv"
+    columns:
+      - name: id
+        type: Utf8
+      - name: url
+        type: Utf8
+      - name: raw
+        type: Utf8
+      - name: properties
+        type: Utf8

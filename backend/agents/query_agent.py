@@ -5,6 +5,21 @@ class QueryBuilderAgent:
         """
         Translates intent and context into valid Coral SQL using CrewAI.
         """
-        return crew_manager.get_query_result(context_data, intent_data)
+        sql = crew_manager.get_query_result(context_data, intent_data)
+        if sql:
+            # Fix common LLM SQL hallucinations where it treats table aliases as functions
+            sql = sql.replace("sf(", "sf.")
+            sql = sql.replace("g(", "g.")
+            sql = sql.replace("sl(", "sl.")
+            sql = sql.replace("gc(", "gc.")
+            sql = sql.replace("n(", "n.")
+            sql = sql.replace("l(", "l.")
+            # Strip markdown formatting if the LLM adds it
+            sql = sql.strip("` \n")
+            if sql.lower().startswith("sql\n"):
+                sql = sql[4:].strip("` \n")
+            elif sql.lower().startswith("sql"):
+                sql = sql[3:].strip("` \n")
+        return sql
 
 query_builder = QueryBuilderAgent()

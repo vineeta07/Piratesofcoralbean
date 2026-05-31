@@ -1,11 +1,16 @@
-deal_id,deal_name,value,stage,owner,close_date,champion_name,economic_buyer
-deal_001,Acme Corp,340000,Negotiation,Alice Smith,2024-06-15,Sarah Chen,David Park
-deal_002,Globex Inc,180000,Proposal,Bob Jones,2024-06-20,Mike Ross,Jessica Pearson
-deal_003,Initech,450000,Contract Review,Charlie Day,2024-05-30,Peter Gibbons,Bill Lumbergh
-deal_004,Umbrella Corp,650000,Discovery,Alice Smith,2024-07-10,Alice Abernathy,Albert Wesker
-deal_005,Stark Ind,850000,Negotiation,Bob Jones,2024-06-05,Pepper Potts,Tony Stark
-deal_006,Wayne Ent,500000,Proposal,Charlie Day,2024-06-25,Lucius Fox,Bruce Wayne
-deal_007,Oscorp,250000,Late Stage,Alice Smith,2024-05-25,Norman Osborn,Harry Osborn
-deal_008,Massive Dynamic,720000,Contract Review,Bob Jones,2024-05-28,Nina Sharp,William Bell
-deal_009,Cyberdyne,900000,Negotiation,Charlie Day,2024-06-10,Miles Dyson,John Connor
-deal_010,Hooli,120000,Late Stage,Alice Smith,2024-05-22,Richard Hendricks,Gavin Belson
+deal_id,deal_name,value,stage,owner,close_date,champion_name,economic_buyer,contact_email
+DEAL-1000,Globex 0 - Enterprise License,527232,Closed Won,vinita.sales@coralbean.com,2026-05-31,John Doe,Diana Doe,contact0@example.com
+DEAL-1001,Acme Corp 1 - Enterprise License,72152,Closed Lost,vinita.sales@coralbean.com,2026-06-25,Bob Doe,Diana Taylor,contact1@example.com
+DEAL-1002,Oscorp 2 - Enterprise License,695379,Closed Lost,vinita.sales@coralbean.com,2026-07-28,Diana Doe,Charlie Davis,contact2@example.com
+DEAL-1003,Oscorp 3 - Enterprise License,52374,Closed Won,vinita.sales@coralbean.com,2026-07-16,John Taylor,Grace Brown,contact3@example.com
+DEAL-1004,Stark Industries 4 - Enterprise License,484997,Discovery,vinita.sales@coralbean.com,2026-07-13,Grace Davis,Alice Davis,contact4@example.com
+DEAL-1005,Massive Dynamic 5 - Enterprise License,676735,Closed Lost,vinita.sales@coralbean.com,2026-06-30,Eve Smith,Charlie Miller,contact5@example.com
+DEAL-1006,Initech 6 - Enterprise License,801772,Discovery,vinita.sales@coralbean.com,2026-05-26,Eve Brown,John Johnson,contact6@example.com
+DEAL-1007,Acme Corp 7 - Enterprise License,374838,Closed Won,vinita.sales@coralbean.com,2026-06-24,Frank Anderson,John Taylor,contact7@example.com
+DEAL-1008,Oscorp 8 - Enterprise License,420472,Proposal,vinita.sales@coralbean.com,2026-06-14,Bob Johnson,Bob Smith,contact8@example.com
+DEAL-1009,Acme Corp 9 - Enterprise License,278391,Closed Lost,vinita.sales@coralbean.com,2026-07-26,Grace Taylor,Eve Smith,contact9@example.com
+DEAL-10010,Initech 10 - Enterprise License,629959,Proposal,vinita.sales@coralbean.com,2026-07-02,Alice Wilson,Jane Johnson,contact10@example.com
+DEAL-10011,Hooli 11 - Enterprise License,425187,Closed Won,vinita.sales@coralbean.com,2026-06-28,Bob Wilson,Frank Anderson,contact11@example.com
+DEAL-10012,Initech 12 - Enterprise License,546632,Negotiation,vinita.sales@coralbean.com,2026-05-10,Frank Moore,Diana Smith,contact12@example.com
+DEAL-10013,Globex 13 - Enterprise License,356236,Proposal,vinita.sales@coralbean.com,2026-06-07,Alice Wilson,Diana Wilson,contact13@example.com
+DEAL-10014,Wayne Enterprises 14 - Enterprise License,784555,Proposal,vinita.sales@coralbean.com,2026-05-08,Heidi Moore,Grace Davis,contact14@example.com

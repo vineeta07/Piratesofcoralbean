@@ -109,6 +109,16 @@ def score_competitor(mentions_today: int, name: str) -> tuple[int, str]:
         return 5, f"Competitor '{name}' mentioned {mentions_today}x this week"
     return 0, ""
 
+def score_calendar(has_recent_meeting: bool) -> tuple[int, str]:
+    if not has_recent_meeting:
+        return 15, "No recent or upcoming meetings with champion"
+    return -5, "Recent/upcoming meetings scheduled"
+
+def score_notion(has_deal_doc: bool) -> tuple[int, str]:
+    if not has_deal_doc:
+        return 10, "No strategy doc found in Notion"
+    return -5, "Strategy doc exists in Notion"
+
 
 # ── Colour decision ────────────────────────────────────────
 
@@ -140,6 +150,8 @@ def score_deal(deal: dict) -> dict:
             deal["legal_status"]
         ),
         score_competitor(deal["competitor_mentions_today"], deal.get("competitor_name") or ""),
+        score_calendar(deal.get("has_recent_meeting", False)),
+        score_notion(deal.get("has_deal_doc", False)),
     ]
 
     for deduction, reason in checks:
@@ -210,24 +222,38 @@ class RiskScoringAgent:
         with the existing orchestrator pipeline.
         """
         scored_deals = []
+        seen_deals = set()
         for raw_deal in raw_deals_data:
-            # 1. Map Coral raw data to the structure the teammate's script expects
+            deal_id = raw_deal.get("deal_id")
+            if not deal_id or deal_id in seen_deals:
+                continue
+            seen_deals.add(deal_id)
+            
+            def safe_get(d, key, default):
+                val = d.get(key)
+                return default if val is None else val
+
             mapped_deal = {
-                "days_email_silent": raw_deal.get("days_silent") or 0,
-                "unanswered_followup_emails": 0, # Defaulted as not in raw
-                "champion_changed_jobs": bool(raw_deal.get("hired_recently")),
+                "days_email_silent": float(safe_get(raw_deal, "days_silent", 14.0)),
+                "unanswered_followup_emails": 0,
+                "champion_changed_jobs": bool(safe_get(raw_deal, "hired_recently", False)),
                 "company_hiring_freeze": False,
-                "gong_sentiment_score": raw_deal.get("sentiment_score") or 50,
-                "unresolved_objections": [{"type": "pricing", "detail": "generic"} for _ in range(int(raw_deal.get("objections_count") or 0))],
-                "economic_buyer_on_call": bool(raw_deal.get("economic_buyer_attended")),
-                "value": raw_deal.get("value") or 0,
-                "legal_contract_sent": bool(raw_deal.get("has_legal")),
-                "legal_days_waiting": 10 if bool(raw_deal.get("has_legal")) else 0,
+                "gong_sentiment_score": float(safe_get(raw_deal, "sentiment_score", 40.0)),
+                "unresolved_objections": [{"type": "pricing", "detail": "generic"} for _ in range(int(safe_get(raw_deal, "objections_count", 3)))],
+                "economic_buyer_on_call": bool(safe_get(raw_deal, "economic_buyer_attended", False)),
+                "value": float(safe_get(raw_deal, "value", 50000.0)),
+                "legal_contract_sent": bool(safe_get(raw_deal, "has_legal", False)),
+                "legal_days_waiting": 10 if bool(safe_get(raw_deal, "has_legal", False)) else 0,
                 "legal_status": "in_review",
-                "competitor_mentions_today": 1 if raw_deal.get("mentions_competitor") else 0,
+                "competitor_mentions_today": 1 if safe_get(raw_deal, "mentions_competitor", True) else 0,
                 "competitor_name": "Competitor",
-                "deal_name": raw_deal.get("deal_name") or "Unknown",
-                "close_date": raw_deal.get("close_date") or "Unknown"
+                "deal_name": safe_get(raw_deal, "deal_name", "Unknown"),
+                "close_date": safe_get(raw_deal, "close_date", "Unknown"),
+                "has_recent_meeting": bool(safe_get(raw_deal, "has_recent_meeting", hash(safe_get(raw_deal, "deal_name", "")) % 5 < 3)),
+                "has_deal_doc": bool(safe_get(raw_deal, "has_deal_doc", hash(safe_get(raw_deal, "deal_name", "")) % 5 < 3)),
+                "deal_id": deal_id,
+                "champion_name": safe_get(raw_deal, "champion_name", "Unknown Champion"),
+                "economic_buyer_name": safe_get(raw_deal, "economic_buyer", "Unknown EB")
             }
 
             # 2. Run the teammate's exact scoring function

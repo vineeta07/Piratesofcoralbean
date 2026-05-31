@@ -1,11 +1,51 @@
-deal_id,deal_name,value,stage,owner,close_date,champion_name,economic_buyer
-deal_001,Acme Corp,340000,Negotiation,Alice Smith,2024-06-15,Sarah Chen,David Park
-deal_002,Globex Inc,180000,Proposal,Bob Jones,2024-06-20,Mike Ross,Jessica Pearson
-deal_003,Initech,450000,Contract Review,Charlie Day,2024-05-30,Peter Gibbons,Bill Lumbergh
-deal_004,Umbrella Corp,650000,Discovery,Alice Smith,2024-07-10,Alice Abernathy,Albert Wesker
-deal_005,Stark Ind,850000,Negotiation,Bob Jones,2024-06-05,Pepper Potts,Tony Stark
-deal_006,Wayne Ent,500000,Proposal,Charlie Day,2024-06-25,Lucius Fox,Bruce Wayne
-deal_007,Oscorp,250000,Late Stage,Alice Smith,2024-05-25,Norman Osborn,Harry Osborn
-deal_008,Massive Dynamic,720000,Contract Review,Bob Jones,2024-05-28,Nina Sharp,William Bell
-deal_009,Cyberdyne,900000,Negotiation,Charlie Day,2024-06-10,Miles Dyson,John Connor
-deal_010,Hooli,120000,Late Stage,Alice Smith,2024-05-22,Richard Hendricks,Gavin Belson
+deal_id,deal_name,value,stage,owner,close_date,champion_name,economic_buyer,contact_email
+DEAL-1000,Globex 0 - Enterprise License,454088,Negotiation,vinita.sales@coralbean.com,2026-07-16,Diana Anderson,Charlie Brown,diana@globex.com
+DEAL-1001,Initech 1 - Enterprise License,221932,Discovery,vinita.sales@coralbean.com,2026-05-04,Alice Johnson,Bob Brown,alice@initech.com
+DEAL-1002,Stark Industries 2 - Enterprise License,316660,Closed Lost,vinita.sales@coralbean.com,2026-06-13,Eve Johnson,Jane Doe,eve@stark.com
+DEAL-1003,Hooli 3 - Enterprise License,370813,Discovery,vinita.sales@coralbean.com,2026-05-30,Alice Taylor,Eve Brown,alice@hooli.com
+DEAL-1004,Acme Corp 4 - Enterprise License,761725,Proposal,vinita.sales@coralbean.com,2026-06-13,Frank Davis,Eve Smith,frank@acme.com
+DEAL-1005,Stark Industries 5 - Enterprise License,706398,Discovery,vinita.sales@coralbean.com,2026-05-10,Eve Johnson,Eve Anderson,eve@stark.com
+DEAL-1006,Globex 6 - Enterprise License,214429,Proposal,vinita.sales@coralbean.com,2026-05-22,Jane Miller,Jane Taylor,jane@globex.com
+DEAL-1007,Stark Industries 7 - Enterprise License,87172,Discovery,vinita.sales@coralbean.com,2026-05-30,Jane Wilson,Grace Miller,jane@stark.com
+DEAL-1008,Acme Corp 8 - Enterprise License,479628,Negotiation,vinita.sales@coralbean.com,2026-05-13,Diana Johnson,Eve Miller,diana@acme.com
+DEAL-1009,Acme Corp 9 - Enterprise License,503294,Closed Lost,vinita.sales@coralbean.com,2026-06-27,Jane Taylor,Diana Doe,jane@acme.com
+DEAL-1010,Hooli 10 - Enterprise License,282020,Closed Won,vinita.sales@coralbean.com,2026-06-22,Bob Smith,Grace Johnson,bob@hooli.com
+DEAL-1011,Initech 11 - Enterprise License,257914,Negotiation,vinita.sales@coralbean.com,2026-06-26,Bob Johnson,Diana Smith,bob@initech.com
+DEAL-1012,Initech 12 - Enterprise License,531977,Proposal,vinita.sales@coralbean.com,2026-07-02,Bob Taylor,Diana Brown,bob@initech.com
+DEAL-1013,Wayne Enterprises 13 - Enterprise License,680847,Closed Lost,vinita.sales@coralbean.com,2026-06-09,Jane Taylor,Frank Taylor,jane@wayne.com
+DEAL-1014,Acme Corp 14 - Enterprise License,204691,Closed Lost,vinita.sales@coralbean.com,2026-07-03,Frank Moore,Frank Smith,frank@acme.com
+DEAL-1015,Initech 15 - Enterprise License,374838,Proposal,vinita.sales@coralbean.com,2026-07-11,Grace Johnson,Heidi Taylor,grace@initech.com
+DEAL-1016,Cyberdyne 16 - Enterprise License,873553,Discovery,vinita.sales@coralbean.com,2026-05-29,Frank Taylor,Jane Davis,frank@cyberdyne.com
+DEAL-1017,Stark Industries 17 - Enterprise License,821466,Negotiation,vinita.sales@coralbean.com,2026-05-19,John Moore,Diana Johnson,john@stark.com
+DEAL-1018,Acme Corp 18 - Enterprise License,399270,Closed Won,vinita.sales@coralbean.com,2026-07-29,Diana Anderson,Alice Anderson,diana@acme.com
+DEAL-1019,Initech 19 - Enterprise License,330746,Proposal,vinita.sales@coralbean.com,2026-06-04,Eve Moore,John Smith,eve@initech.com
+DEAL-1020,Soylent 20 - Enterprise License,389625,Discovery,vinita.sales@coralbean.com,2026-07-04,Heidi Brown,Grace Doe,heidi@soylent.com
+DEAL-1021,Globex 21 - Enterprise License,989700,Proposal,vinita.sales@coralbean.com,2026-06-10,John Taylor,John Doe,john@globex.com
+DEAL-1022,Oscorp 22 - Enterprise License,70290,Negotiation,vinita.sales@coralbean.com,2026-05-08,Diana Smith,John Smith,diana@oscorp.com
+DEAL-1023,Initech 23 - Enterprise License,557503,Proposal,vinita.sales@coralbean.com,2026-05-18,Heidi Johnson,Diana Smith,heidi@initech.com
+DEAL-1024,Wayne Enterprises 24 - Enterprise License,448337,Closed Won,vinita.sales@coralbean.com,2026-05-08,John Davis,Eve Brown,john@wayne.com
+DEAL-1025,Stark Industries 25 - Enterprise License,350345,Closed Lost,vinita.sales@coralbean.com,2026-05-01,Diana Doe,Jane Miller,diana@stark.com
+DEAL-1026,Hooli 26 - Enterprise License,52499,Closed Won,vinita.sales@coralbean.com,2026-05-23,Heidi Wilson,John Doe,heidi@hooli.com
+DEAL-1027,Cyberdyne 27 - Enterprise License,717815,Proposal,vinita.sales@coralbean.com,2026-05-25,Jane Johnson,Jane Smith,jane@cyberdyne.com
+DEAL-1028,Oscorp 28 - Enterprise License,507213,Closed Won,vinita.sales@coralbean.com,2026-05-14,Eve Taylor,Frank Wilson,eve@oscorp.com
+DEAL-1029,Oscorp 29 - Enterprise License,626621,Closed Lost,vinita.sales@coralbean.com,2026-06-17,Charlie Davis,Frank Davis,charlie@oscorp.com
+DEAL-1030,Soylent 30 - Enterprise License,155165,Closed Won,vinita.sales@coralbean.com,2026-06-11,Charlie Miller,Bob Doe,charlie@soylent.com
+DEAL-1031,Globex 31 - Enterprise License,395334,Closed Lost,vinita.sales@coralbean.com,2026-05-27,John Johnson,Eve Taylor,john@globex.com
+DEAL-1032,Soylent 32 - Enterprise License,787821,Negotiation,vinita.sales@coralbean.com,2026-07-16,Eve Wilson,Eve Moore,eve@soylent.com
+DEAL-1033,Acme Corp 33 - Enterprise License,376095,Proposal,vinita.sales@coralbean.com,2026-05-06,John Miller,Alice Wilson,john@acme.com
+DEAL-1034,Cyberdyne 34 - Enterprise License,157524,Negotiation,vinita.sales@coralbean.com,2026-07-26,Diana Davis,Charlie Anderson,diana@cyberdyne.com
+DEAL-1035,Stark Industries 35 - Enterprise License,280286,Discovery,vinita.sales@coralbean.com,2026-07-30,Frank Taylor,Bob Moore,frank@stark.com
+DEAL-1036,Initech 36 - Enterprise License,609394,Discovery,vinita.sales@coralbean.com,2026-05-08,Diana Brown,Alice Davis,diana@initech.com
+DEAL-1037,Wayne Enterprises 37 - Enterprise License,420729,Negotiation,vinita.sales@coralbean.com,2026-07-09,Frank Doe,Eve Anderson,frank@wayne.com
+DEAL-1038,Initech 38 - Enterprise License,272093,Closed Lost,vinita.sales@coralbean.com,2026-07-23,Diana Smith,Heidi Anderson,diana@initech.com
+DEAL-1039,Oscorp 39 - Enterprise License,277166,Discovery,vinita.sales@coralbean.com,2026-05-24,Diana Davis,John Davis,diana@oscorp.com
+DEAL-1040,Hooli 40 - Enterprise License,385118,Negotiation,vinita.sales@coralbean.com,2026-07-25,Jane Brown,Charlie Johnson,jane@hooli.com
+DEAL-1041,Hooli 41 - Enterprise License,694820,Negotiation,vinita.sales@coralbean.com,2026-06-26,Diana Johnson,Diana Moore,diana@hooli.com
+DEAL-1042,Soylent 42 - Enterprise License,340012,Discovery,vinita.sales@coralbean.com,2026-07-25,Heidi Taylor,Heidi Taylor,heidi@soylent.com
+DEAL-1043,Hooli 43 - Enterprise License,933534,Closed Won,vinita.sales@coralbean.com,2026-06-06,Bob Brown,Charlie Anderson,bob@hooli.com
+DEAL-1044,Acme Corp 44 - Enterprise License,614752,Proposal,vinita.sales@coralbean.com,2026-06-18,Alice Taylor,Jane Anderson,alice@acme.com
+DEAL-1045,Stark Industries 45 - Enterprise License,853533,Closed Lost,vinita.sales@coralbean.com,2026-05-15,Alice Moore,Charlie Doe,alice@stark.com
+DEAL-1046,Cyberdyne 46 - Enterprise License,708033,Closed Won,vinita.sales@coralbean.com,2026-05-17,Charlie Anderson,Bob Davis,charlie@cyberdyne.com
+DEAL-1047,Massive Dynamic 47 - Enterprise License,152078,Negotiation,vinita.sales@coralbean.com,2026-06-29,Eve Taylor,John Davis,eve@massive.com
+DEAL-1048,Wayne Enterprises 48 - Enterprise License,830805,Discovery,vinita.sales@coralbean.com,2026-07-12,Heidi Doe,Charlie Davis,heidi@wayne.com
+DEAL-1049,Cyberdyne 49 - Enterprise License,760541,Proposal,vinita.sales@coralbean.com,2026-05-24,Charlie Taylor,Bob Moore,charlie@cyberdyne.com

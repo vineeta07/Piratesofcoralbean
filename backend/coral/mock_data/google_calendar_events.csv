@@ -1,0 +1,13 @@
+id,summary,description,start_date_time,end_date_time,attendees
+CAL-98858207,Sync with John Doe - Stark Industries,Discussing next steps,2026-05-23T00:00:00,2026-05-26T00:00:00,"contact0@example.com,vinita.sales@coralbean.com"
+CAL-8c3e4b98,Sync with Bob Doe - Stark Industries,Discussing next steps,2026-05-24T00:00:00,2026-05-26T00:00:00,"contact1@example.com,vinita.sales@coralbean.com"
+CAL-ebdaa4fe,Sync with Diana Doe - Oscorp,Discussing next steps,2026-05-24T00:00:00,2026-06-04T00:00:00,"contact2@example.com,vinita.sales@coralbean.com"
+CAL-913dbc8b,Sync with John Taylor - Acme Corp,Discussing next steps,2026-05-23T00:00:00,2026-05-28T00:00:00,"contact3@example.com,vinita.sales@coralbean.com"
+CAL-cf765983,Sync with Eve Smith - Wayne Enterprises,Discussing next steps,2026-05-28T00:00:00,2026-06-01T00:00:00,"contact5@example.com,vinita.sales@coralbean.com"
+CAL-124c11a7,Sync with Eve Brown - Soylent,Discussing next steps,2026-05-26T00:00:00,2026-05-23T00:00:00,"contact6@example.com,vinita.sales@coralbean.com"
+CAL-2dffcc89,Sync with Frank Anderson - Stark Industries,Discussing next steps,2026-05-29T00:00:00,2026-05-29T00:00:00,"contact7@example.com,vinita.sales@coralbean.com"
+CAL-ded36510,Sync with Alice Wilson - Acme Corp,Discussing next steps,2026-06-03T00:00:00,2026-05-23T00:00:00,"contact10@example.com,vinita.sales@coralbean.com"
+CAL-d86598d3,Sync with Bob Wilson - Globex,Discussing next steps,2026-05-21T00:00:00,2026-05-21T00:00:00,"contact11@example.com,vinita.sales@coralbean.com"
+CAL-a56217f0,Sync with Frank Moore - Initech,Discussing next steps,2026-06-05T00:00:00,2026-05-30T00:00:00,"contact12@example.com,vinita.sales@coralbean.com"
+CAL-54417264,Sync with Alice Wilson - Acme Corp,Discussing next steps,2026-05-25T00:00:00,2026-05-27T00:00:00,"contact13@example.com,vinita.sales@coralbean.com"
+CAL-7a545a5c,Sync with Heidi Moore - Massive Dynamic,Discussing next steps,2026-05-22T00:00:00,2026-05-23T00:00:00,"contact14@example.com,vinita.sales@coralbean.com"

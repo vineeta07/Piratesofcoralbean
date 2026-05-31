@@ -1,0 +1,24 @@
+name: google_calendar
+version: 1.0.0
+dsl_version: 3
+backend: file
+tables:
+  - name: events
+    description: Mock Google Calendar Events
+    format: csv
+    source:
+      location: file:///C:/Users/VINITA/Piratesofcoralbean/Piratesofcoralbean/backend/coral/mock_data/
+      glob: "google_calendar_events.csv"
+    columns:
+      - name: id
+        type: Utf8
+      - name: summary
+        type: Utf8
+      - name: description
+        type: Utf8
+      - name: start_date_time
+        type: Utf8
+      - name: end_date_time
+        type: Utf8
+      - name: attendees
+        type: Utf8
