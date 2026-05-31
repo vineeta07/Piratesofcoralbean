@@ -97,12 +97,41 @@ export const analyzeQuery = async (query: string): Promise<ApiResponse> => {
       throw new Error(`API error: ${response.status}`);
     }
 
-    const data: ApiResponse = await response.json();
+    const data = await response.json();
+
+    // Normalise the backend response to match our ApiResponse interface
+    const apiResponse: ApiResponse = {
+      success: data.success ?? true,
+      error: data.error,
+      dashboard: {
+        deals: (data.dashboard?.deals || []).map((deal: any) => ({
+          deal_id: deal.deal_id || '',
+          deal_name: deal.deal_name || 'Unknown',
+          value: deal.value || 0,
+          score: deal.score || 50,
+          risk_level: deal.risk_level || 'green',
+          narrative: deal.narrative || deal.summary || '',
+          action: deal.action || deal.primary_reason || 'Monitor deal health',
+          champion: deal.champion || deal.champion_name || 'Unknown',
+          close_date: deal.close_date || '',
+          all_reasons: deal.all_reasons || [],
+          primary_reason: deal.primary_reason || '',
+          economic_buyer: deal.economic_buyer || '',
+        })),
+        summary: data.dashboard?.summary || {
+          total_deals: 0,
+          red_count: 0,
+          amber_count: 0,
+          green_count: 0,
+        },
+      },
+      slack: data.slack || { blocks: [] },
+    };
 
     // Enrich with client-side generated inspection data
-    data.query_inspection = generateQueryInspection(query);
+    apiResponse.query_inspection = generateQueryInspection(query);
 
-    return data;
+    return apiResponse;
   } catch (error) {
     console.error("Error calling backend API:", error);
     throw error;

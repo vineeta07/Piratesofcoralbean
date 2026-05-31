@@ -7,6 +7,11 @@ export interface Deal {
   narrative: string;
   action: string;
   champion: string;
+  // Rich intelligence fields from backend pipeline
+  close_date?: string;
+  all_reasons?: string[];       // All 11 scoring signal reasons
+  primary_reason?: string;      // Top risk signal
+  economic_buyer?: string;      // Economic buyer name
 }
 
 export interface Summary {

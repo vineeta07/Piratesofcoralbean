@@ -55,13 +55,30 @@ def run_summarising_agent(scored_deals: list) -> list[dict]:
         print(f"  Summarising {deal['deal_name']}...")
         summary = summarise_deal(deal)
 
+        # Derive risk_level from colour if not already present
+        colour_str = deal.get("colour", "")
+        if deal.get("risk_level"):
+            risk_level = deal["risk_level"]
+        elif "RED" in colour_str:
+            risk_level = "red"
+        elif "AMBER" in colour_str:
+            risk_level = "amber"
+        else:
+            risk_level = "green"
+
         summarised.append({
+            "deal_id": deal.get("deal_id", ""),
             "deal_name": deal["deal_name"],
             "value": deal["value"],
             "close_date": deal["close_date"],
             "score": deal["score"],
             "colour": deal["colour"],
-            "summary": summary
+            "risk_level": risk_level,
+            "summary": summary,
+            "all_reasons": deal.get("all_reasons", deal.get("reasons", [])),
+            "primary_reason": deal.get("primary_reason", ""),
+            "champion_name": deal.get("champion_name", ""),
+            "economic_buyer": deal.get("economic_buyer", ""),
         })
 
     return summarised
