@@ -1,0 +1,11 @@
+deal_id,event_type,event_date,attendees,meeting_outcome,next_meeting_date
+D001,demo,2026-04-10,champion,positive,2026-04-24
+D002,qbr,2026-03-28,economic_buyer,neutral,
+D003,followup,2026-05-01,champion,positive,2026-05-15
+D004,demo,2026-04-18,economic_buyer,negative,
+D005,discovery,2026-04-22,champion,neutral,2026-05-06
+D006,followup,2026-05-03,technical_buyer,positive,2026-05-17
+D007,qbr,2026-04-05,economic_buyer,positive,2026-04-19
+D008,demo,2026-05-08,technical_buyer,neutral,2026-05-22
+D009,discovery,2026-04-30,champion,negative,
+D010,followup,2026-05-12,economic_buyer,positive,2026-05-26
