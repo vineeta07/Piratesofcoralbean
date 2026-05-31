@@ -28,6 +28,47 @@ export interface SlackData {
   blocks: SlackBlock[];
 }
 
+// Agent pipeline trace types
+export interface AgentStep {
+  name: string;
+  role: string;
+  status: 'pending' | 'running' | 'done' | 'error';
+  duration_ms?: number;
+  output_summary?: string;
+  icon: string;
+}
+
+export interface PipelineTrace {
+  steps: AgentStep[];
+  total_duration_ms?: number;
+}
+
+// Query inspection types
+export interface QueryInspection {
+  intent: {
+    intent: string;
+    timeframe: string;
+    signal: string;
+    scope: string;
+    urgency: string;
+  };
+  sources: {
+    name: string;
+    included: boolean;
+    reason?: string;
+  }[];
+  generated_sql: string;
+}
+
+// Chat message type
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+  data?: ApiResponse;
+}
+
 export interface ApiResponse {
   success: boolean;
   error?: string;
@@ -36,4 +77,7 @@ export interface ApiResponse {
     summary: Summary;
   };
   slack: SlackData;
+  // These are generated client-side from the response
+  pipeline_trace?: PipelineTrace;
+  query_inspection?: QueryInspection;
 }
