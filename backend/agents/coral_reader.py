@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from risk_scoring_agent import score_deal
 from datetime import date
 
@@ -34,13 +35,28 @@ def load_and_score_deals(data_dir: str) -> list[dict]:
     # Champion changed jobs from linkedin
     li_job = li[["deal_id", "changed_jobs_date", "hired_recently"]].copy()
 
+    # Aggregate unique contacts across all sources
+    gmail_contacts = gmail.groupby("deal_id")["contact_email"].unique().reset_index()
+    gong_contacts = gong.groupby("deal_id")["contact_name"].unique().reset_index()
+
+    # Get latest gmail thread info per deal to preserve status columns
+    gmail_latest = (
+        gmail.sort_values("last_email_sent", ascending=False)
+             .groupby("deal_id").first().reset_index()
+    )
+
     # Join everything on deal_id
-    df = sf.merge(gmail,           on="deal_id", how="left")
-    df = df.merge(gong_latest,     on="deal_id", how="left")
-    df = df.merge(slack_comp_count, on="deal_id", how="left")
-    df = df.merge(slack_comp_name,  on="deal_id", how="left")
-    df = df.merge(li_job,           on="deal_id", how="left")
+    df = sf.merge(gmail_latest,      on="deal_id", how="left")
+    df = df.merge(gmail_contacts,    on="deal_id", how="left", suffixes=("", "_list"))
+    df = df.merge(gong_contacts,     on="deal_id", how="left")
+    df = df.merge(gong_latest,       on="deal_id", how="left", suffixes=("", "_latest"))
+    df = df.merge(slack_comp_count,  on="deal_id", how="left")
+    df = df.merge(slack_comp_name,   on="deal_id", how="left")
+    df = df.merge(li_job,            on="deal_id", how="left")
     today = date.today()
+
+    df["contact_email_list"] = df["contact_email_list"].apply(lambda x: x if isinstance(x, (list, pd.Series, set, np.ndarray)) else [])
+    df["contact_name"] = df["contact_name"].apply(lambda x: x if isinstance(x, (list, pd.Series, set, np.ndarray)) else [])
 
     df["competitor_mentions_today"] = df["competitor_mentions_today"].fillna(0).astype(int)
     df["competitor_name"]           = df["competitor_name"].fillna("")
@@ -50,10 +66,24 @@ def load_and_score_deals(data_dir: str) -> list[dict]:
     df["economic_buyer_attended"]   = df["economic_buyer_attended"].fillna(False)
     df["contract_sent_date"] = pd.to_datetime(df["contract_sent_date"], errors="coerce")
     df["legal_days_waiting"] = df["contract_sent_date"].apply(lambda x: (today - x.date()).days if pd.notna(x) else 0)
+    df["days_silent"] = df["days_silent"].fillna(0).astype(int)
+    df["has_legal"] = df["has_legal"].fillna(False)
 
     # Build deals list in risk_scoring_agent format
     deals = []
     for _, row in df.iterrows():
+        # Combine all unique contact identifiers (names and emails)
+        all_contacts = set()
+        if pd.notna(row["champion_name"]): all_contacts.add(str(row["champion_name"]).strip())
+        if pd.notna(row["economic_buyer"]): all_contacts.add(str(row["economic_buyer"]).strip())
+        
+        for email in row["contact_email_list"]:
+            if pd.notna(email): all_contacts.add(str(email).strip())
+        for name in row["contact_name"]:
+            if pd.notna(name): all_contacts.add(str(name).strip())
+        
+        contacts_count = len(all_contacts)
+
         # Build unresolved_objections from objections_count
         objections = []
         for i in range(int(row["objections_count"])):
@@ -76,6 +106,7 @@ def load_and_score_deals(data_dir: str) -> list[dict]:
             "legal_status":               "pending",
             "competitor_mentions_today":  int(row["competitor_mentions_today"]),
             "competitor_name":            str(row["competitor_name"]),
+            "contacts_count":             contacts_count,
         })
 
     # Score and sort: most urgent first

@@ -105,6 +105,16 @@ def score_competitor(mentions_today: int, name: str) -> tuple[int, str]:
     return 0, ""
 
 
+def score_multithreading(contacts_count: int) -> tuple[int, str]:
+    if contacts_count <= 2:
+        return 30, f"Single-threaded deal ({contacts_count} ID signals) — extremely high risk"
+    elif contacts_count <= 4:
+        return 15, f"Limited multi-threading ({contacts_count} ID signals) — aim for 5+ signals across 3+ people"
+    elif contacts_count >= 6:
+        return -10, f"Strongly multi-threaded ({contacts_count} ID signals) — great engagement depth"
+    return 0, ""
+
+
 
 def get_colour(score: int) -> str:
     if score >= 75:
@@ -133,6 +143,7 @@ def score_deal(deal: dict) -> dict:
             deal["legal_status"]
         ),
         score_competitor(deal["competitor_mentions_today"], deal.get("competitor_name") or ""),
+        score_multithreading(deal.get("contacts_count", 1)),
     ]
 
     for deduction, reason in checks:
