@@ -40,10 +40,13 @@ Rules:
         ("human", "Generate the executive brief for account record: {deal_name}")
     ])
     
-    chain = prompt_template | llm
-    result = chain.invoke(deal)
-    
-    return result.content.strip()
+    try:
+        chain = prompt_template | llm
+        result = chain.invoke(deal)
+        return result.content.strip()
+    except Exception as e:
+        print(f"Warning: Failed to summarise deal {deal.get('deal_name')} due to API limit: {e}")
+        return "Executive summary unavailable due to API rate limits. Focus on the risk signals provided."
 
 
 def run_summarising_agent(scored_deals: list) -> list[dict]:

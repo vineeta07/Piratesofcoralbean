@@ -31,6 +31,8 @@ export default function SlackDigest({ slack }: SlackDigestProps) {
             
             <div className="flex flex-col gap-4 mt-3">
               {slack.blocks.map((block, idx) => {
+                if (!block) return null;
+                
                 if (block.type === 'header') {
                   return <h3 key={idx} className="font-bold text-lg text-white">{block.text?.text}</h3>;
                 }
