@@ -10,13 +10,11 @@ from risk_scoring_agent import run_risk_scorer
 from summarising_agent import run_summarising_agent
 from formatter_agent import run_formatter_agent
 from coral_reader import load_and_score_deals
+from backend.pipeline.pipeline_logger import log_audit
+from momentum_agent import run_momentum_agent
 
 def run_pipeline(query: str):
-    """
-    Full pipeline triggered by a single manager query.
-    Everything is generated on the fly — no hardcoded files.
-    """
-
+    
     print("=== STEP 1: Parser Agent ===")
     intent = parser_agent.execute(query)
     print(f"  {intent}")
@@ -29,10 +27,13 @@ def run_pipeline(query: str):
     sql = query_builder.execute(context, intent)
     print(f"  SQL: {sql}")
 
-    print("\n=== STEP 4: Risk Scoring Agent ===")
-    
-
-    scored = load_and_score_deals("coral/mock_data")
+    print("\n=== STEP 4a: Risk Scoring Agent ===")
+    scored = load_and_score_deals("backend/coral/mock_data")
+    log_audit(scored, query)
+    print("\n=== STEP 4b: Momentum Agent ===")
+    scored = run_momentum_agent(scored)
+    for d in scored:
+        print(f"  {d['deal_name']}: {d['momentum_scores']} → {d['momentum_label']}")
 
     print("\n=== STEP 5: Summarising Agent ===")
     summarised = run_summarising_agent(scored)

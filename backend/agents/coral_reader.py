@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from risk_scoring_agent import score_deal
 from datetime import date
+import os
 
 
 def load_and_score_deals(data_dir: str) -> list[dict]:
@@ -11,6 +12,17 @@ def load_and_score_deals(data_dir: str) -> list[dict]:
     gong  = pd.read_csv(f"{data_dir}/gong_calls.csv")
     slack = pd.read_csv(f"{data_dir}/slack_messages.csv")
     li    = pd.read_csv(f"{data_dir}/linkedin_profiles.csv")
+    print(f"Looking for calendar file at: {data_dir}/calendar_events.csv")
+    print(f"Files found: {os.listdir(data_dir)}")
+    cal = pd.read_csv(f"{data_dir}/calendar_events.csv")
+
+# Latest next_meeting_date per deal
+    cal_latest = (
+        cal.sort_values("event_date", ascending=False)
+        .groupby("deal_id")
+        .first()
+        .reset_index()[["deal_id", "next_meeting_date"]]
+    )
 
     # Latest gong call per deal only
     gong_latest = (
@@ -53,6 +65,8 @@ def load_and_score_deals(data_dir: str) -> list[dict]:
     df = df.merge(slack_comp_count,  on="deal_id", how="left")
     df = df.merge(slack_comp_name,   on="deal_id", how="left")
     df = df.merge(li_job,            on="deal_id", how="left")
+    df = df.merge(cal_latest,        on="deal_id", how="left")
+    df["next_meeting_date"] = df["next_meeting_date"].fillna("")
     today = date.today()
 
     df["contact_email_list"] = df["contact_email_list"].apply(lambda x: x if isinstance(x, (list, pd.Series, set, np.ndarray)) else [])
@@ -107,6 +121,7 @@ def load_and_score_deals(data_dir: str) -> list[dict]:
             "competitor_mentions_today":  int(row["competitor_mentions_today"]),
             "competitor_name":            str(row["competitor_name"]),
             "contacts_count":             contacts_count,
+            "next_meeting_date": str(row["next_meeting_date"]),
         })
 
     # Score and sort: most urgent first

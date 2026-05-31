@@ -124,6 +124,34 @@ def get_colour(score: int) -> str:
     return "RED"
 
 
+def score_calendar(next_meeting_date: str, close_date: str) -> tuple[int, str]:
+    from datetime import date, datetime
+
+    today = date.today()
+
+    # Parse close date
+    close = datetime.strptime(close_date, "%Y-%m-%d").date()
+    closes_this_quarter = (close - today).days <= 90
+
+    # No next meeting scheduled at all
+    if not next_meeting_date:
+        if closes_this_quarter:
+            return 25, "No upcoming touchpoint scheduled + closes this quarter — critical gap"
+        return 10, "No upcoming touchpoint scheduled"
+
+    # Next meeting is too far away
+    next_mtg = datetime.strptime(str(next_meeting_date), "%Y-%m-%d").date()
+    days_until = (next_mtg - today).days
+
+    if days_until > 14 and closes_this_quarter:
+        return 20, f"Next touchpoint in {days_until}d + closes this quarter — standalone risk"
+    elif days_until > 14:
+        return 8, f"No touchpoint for {days_until} days"
+    elif days_until < 0:
+        return 15, f"Last scheduled meeting was {abs(days_until)}d ago with no follow-up booked"
+
+    return 0, ""
+
 
 def score_deal(deal: dict) -> dict:
     starting_score = 100
@@ -144,6 +172,9 @@ def score_deal(deal: dict) -> dict:
         ),
         score_competitor(deal["competitor_mentions_today"], deal.get("competitor_name") or ""),
         score_multithreading(deal.get("contacts_count", 1)),
+        score_calendar(
+            deal.get("next_meeting_date", ""),
+            deal["close_date"]),
     ]
 
     for deduction, reason in checks:
@@ -178,5 +209,3 @@ def run_risk_scorer(filepath: str) -> list[dict]:
     scored_deals.sort(key=lambda d: (d["score"], -d["value"]))
 
     return scored_deals
-
-
