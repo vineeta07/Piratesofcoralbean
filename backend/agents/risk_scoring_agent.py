@@ -109,10 +109,43 @@ def score_competitor(mentions_today: int, name: str) -> tuple[int, str]:
         return 5, f"Competitor '{name}' mentioned {mentions_today}x this week"
     return 0, ""
 
-def score_calendar(has_recent_meeting: bool) -> tuple[int, str]:
-    if not has_recent_meeting:
-        return 15, "No recent or upcoming meetings with champion"
-    return -5, "Recent/upcoming meetings scheduled"
+def score_multithreading(contacts_count: int) -> tuple[int, str]:
+    if contacts_count <= 2:
+        return 30, f"Single-threaded deal ({contacts_count} ID signals) — extremely high risk"
+    elif contacts_count <= 4:
+        return 15, f"Limited multi-threading ({contacts_count} ID signals) — aim for 5+ signals across 3+ people"
+    elif contacts_count >= 6:
+        return -10, f"Strongly multi-threaded ({contacts_count} ID signals) — great engagement depth"
+    return 0, ""
+
+
+def score_calendar(next_meeting_date: str, close_date: str) -> tuple[int, str]:
+    from datetime import date, datetime
+
+    today = date.today()
+
+    # Parse close date
+    close = datetime.strptime(close_date, "%Y-%m-%d").date()
+    closes_this_quarter = (close - today).days <= 90
+
+    # No next meeting scheduled at all
+    if not next_meeting_date:
+        if closes_this_quarter:
+            return 25, "No upcoming touchpoint scheduled + closes this quarter — critical gap"
+        return 10, "No upcoming touchpoint scheduled"
+
+    # Next meeting is too far away
+    next_mtg = datetime.strptime(str(next_meeting_date), "%Y-%m-%d").date()
+    days_until = (next_mtg - today).days
+
+    if days_until > 14 and closes_this_quarter:
+        return 20, f"Next touchpoint in {days_until}d + closes this quarter — standalone risk"
+    elif days_until > 14:
+        return 8, f"No touchpoint for {days_until} days"
+    elif days_until < 0:
+        return 15, f"Last scheduled meeting was {abs(days_until)}d ago with no follow-up booked"
+
+    return 0, ""
 
 def score_notion(has_deal_doc: bool) -> tuple[int, str]:
     if not has_deal_doc:
@@ -150,7 +183,8 @@ def score_deal(deal: dict) -> dict:
             deal["legal_status"]
         ),
         score_competitor(deal["competitor_mentions_today"], deal.get("competitor_name") or ""),
-        score_calendar(deal.get("has_recent_meeting", False)),
+        score_multithreading(deal.get("contacts_count", 1)),
+        score_calendar(deal.get("next_meeting_date", ""), deal.get("close_date", "")),
         score_notion(deal.get("has_deal_doc", False)),
     ]
 
@@ -249,7 +283,8 @@ class RiskScoringAgent:
                 "competitor_name": "Competitor",
                 "deal_name": safe_get(raw_deal, "deal_name", "Unknown"),
                 "close_date": safe_get(raw_deal, "close_date", "Unknown"),
-                "has_recent_meeting": bool(safe_get(raw_deal, "has_recent_meeting", hash(safe_get(raw_deal, "deal_name", "")) % 5 < 3)),
+                "contacts_count": 6 if hash(deal_id) % 5 < 3 else 2,
+                "next_meeting_date": "2026-06-15" if hash(deal_id) % 5 < 3 else "",
                 "has_deal_doc": bool(safe_get(raw_deal, "has_deal_doc", hash(safe_get(raw_deal, "deal_name", "")) % 5 < 3)),
                 "deal_id": deal_id,
                 "champion_name": safe_get(raw_deal, "champion_name", "Unknown Champion"),
