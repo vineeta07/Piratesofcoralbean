@@ -1,6 +1,6 @@
 import { ApiResponse, QueryInspection } from './types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.VTTE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
 const API_URL = `${API_BASE_URL}/api`;
 
 function resolveDocumentUrl(url?: string): string | undefined {
@@ -99,16 +99,47 @@ function generateQueryInspection(query: string): QueryInspection {
 
 export const analyzeQuery = async (query: string): Promise<ApiResponse> => {
   try {
-    const response = await fetch(`${API_URL}/analyze`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query }),
-    });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+    let response;
+    try {
+      response = await fetch(`${API_URL}/analyze`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+        signal: controller.signal,
+      });
+    } catch (fetchError: any) {
+      clearTimeout(timeoutId);
+      
+      // Provide helpful error messages
+      if (fetchError.name === 'AbortError') {
+        throw new Error(
+          `Request timeout. Backend at "${API_BASE_URL}" took too long. ` +
+          `Ensure it's running and reachable.`
+        );
+      }
+      
+      throw new Error(
+        `Failed to connect to backend at "${API_BASE_URL}". ` +
+        `Possible causes:\n` +
+        `1. Backend is not running\n` +
+        `2. Wrong API URL (current: ${API_BASE_URL})\n` +
+        `3. Network/CORS issue\n` +
+        `\nError: ${fetchError.message}`
+      );
+    }
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
+      throw new Error(
+        `Backend error ${response.status}: ${response.statusText}. ` +
+        `Check backend logs at ${API_BASE_URL}`
+      );
     }
 
     const data = await response.json();
@@ -151,7 +182,18 @@ export const analyzeQuery = async (query: string): Promise<ApiResponse> => {
 
     return apiResponse;
   } catch (error) {
-    console.error("Error calling backend API:", error);
-    throw error;
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error("Error calling backend API:", errorMsg);
+    
+    // Return an error response instead of throwing so UI can display it
+    return {
+      success: false,
+      error: errorMsg,
+      dashboard: {
+        deals: [],
+        summary: { total_deals: 0, red_count: 0, amber_count: 0, green_count: 0 },
+      },
+      slack: { blocks: [{ type: 'section', text: { type: 'mrkdwn', text: `⚠️ Connection Error:\n\`\`\`\n${errorMsg}\n\`\`\`` } }] },
+    };
   }
 };

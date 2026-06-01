@@ -186,7 +186,7 @@ export default function PipelineDashboard() {
           <div className="flex justify-center mb-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-gray-400">Powered by <span className="text-white font-semibold">Coral AI</span> + <span className="text-white font-semibold">6 Agents</span></span>
+              <span className="text-gray-400">Powered by <span className="text-white font-semibold">Coral AI</span> + AI Agents</span>
             </div>
           </div>
 
@@ -208,7 +208,7 @@ export default function PipelineDashboard() {
           {/* Stats row */}
           <div className="flex flex-wrap justify-center gap-8 mb-12">
             {[
-              { value: '5', label: 'Data Sources' },
+              data?.query_inspection?.sources?.length ? { value: `${data.query_inspection.sources.filter(s => s.included).length}`, label: 'Data Sources' } : { value: '—', label: 'Data Sources' },
               { value: '6', label: 'AI Agents' },
               { value: '< 3s', label: 'Analysis Time' },
               { value: '8', label: 'Risk Signals' },

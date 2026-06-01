@@ -19,13 +19,24 @@ app = FastAPI(title="Sales Deal Intelligence API")
 # Serve the generated output files
 app.mount("/outputs", StaticFiles(directory="."), name="outputs")
 
-# Configure CORS for Next.js frontend
+# Configure CORS for Next.js frontend (allow Vercel and localhost)
+# Allow specific origins for security; wildcard doesn't work with credentials
+allowed_origins = [
+    "https://piratesofcoralbean.vercel.app",
+    "https://piratesofcoralbean.onrender.com",
+    "http://localhost:3000",
+    "http://localhost:8080",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:8080",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
+    max_age=3600,
 )
 
 class QueryRequest(BaseModel):

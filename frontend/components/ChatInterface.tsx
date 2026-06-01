@@ -62,6 +62,16 @@ function TypingIndicator() {
 function AssistantContent({ message }: { message: ChatMessage }) {
   const data = message.data;
 
+  // If there's an error, display it prominently
+  if (data?.error) {
+    return (
+      <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-3 text-sm">
+        <p className="text-red-200 font-semibold mb-2">⚠️ Connection Error</p>
+        <p className="text-red-100 text-xs whitespace-pre-wrap font-mono">{data.error}</p>
+      </div>
+    );
+  }
+
   // If there's no structured data, just show the text
   if (!data || !data.dashboard?.deals?.length) {
     return <p className="text-sm text-gray-200 leading-relaxed whitespace-pre-wrap">{message.content}</p>;
