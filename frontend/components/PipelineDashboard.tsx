@@ -208,7 +208,7 @@ export default function PipelineDashboard() {
           {/* Stats row */}
           <div className="flex flex-wrap justify-center gap-8 mb-12">
             {[
-              data?.query_inspection?.sources?.length ? { value: `${data.query_inspection.sources.filter(s => s.included).length}`, label: 'Data Sources' } : { value: '—', label: 'Data Sources' },
+              { value: '5', label: 'DATA SOURCES' },
               { value: '6', label: 'AI Agents' },
               { value: '< 3s', label: 'Analysis Time' },
               { value: '8', label: 'Risk Signals' },

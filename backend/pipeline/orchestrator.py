@@ -38,7 +38,9 @@ class Orchestrator:
             
             # 4. Format Output
             start = time.time()
-            final_output = formatter_agent.execute(summaries)
+            outputs_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "outputs")
+            os.makedirs(outputs_dir, exist_ok=True)
+            final_output = formatter_agent.execute(summaries, outputs_dir)
             t_fmt = (time.time() - start) * 1000
             print(f"[OK] Formatter Agent finished in {t_fmt:.1f}ms.")
             
@@ -104,6 +106,17 @@ class Orchestrator:
                 "documents": {
                     "docx_url": f"/outputs/{docx_filename}" if docx_filename else None,
                     "pptx_url": f"/outputs/{pptx_filename}" if pptx_filename else None
+                },
+                "query_inspection": {
+                    "intent": intent,
+                    "sources": [
+                        {"name": "salesforce", "included": True, "reason": "CRM deal data"},
+                        {"name": "gmail", "included": True, "reason": "Email activity tracking"},
+                        {"name": "gong", "included": True, "reason": "Call sentiment & objections"},
+                        {"name": "slack", "included": True, "reason": "Competitor & escalation signals"},
+                        {"name": "linkedin", "included": True, "reason": "Champion job changes"},
+                    ],
+                    "generated_sql": sql_query or "",
                 }
             }
             

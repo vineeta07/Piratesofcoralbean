@@ -1,7 +1,19 @@
 import { ApiResponse, QueryInspection } from './types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
-const API_URL = `${API_BASE_URL}/api`;
+const API_BASE_URL_ENV = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+const getBaseUrl = () => {
+  if (API_BASE_URL_ENV) return API_BASE_URL_ENV;
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+    // In production, FastAPI serves the frontend, so the API is on the same origin
+    return window.location.origin;
+  }
+  return 'http://localhost:8080';
+};
+
+const API_BASE_URL = getBaseUrl();
+const isSameOrigin = typeof window !== 'undefined' && API_BASE_URL === window.location.origin;
+const API_URL = isSameOrigin ? '/api' : `${API_BASE_URL}/api`;
 
 function resolveDocumentUrl(url?: string): string | undefined {
   if (!url) {
@@ -177,8 +189,12 @@ export const analyzeQuery = async (query: string): Promise<ApiResponse> => {
       },
     };
 
-    // Enrich with client-side generated inspection data
-    apiResponse.query_inspection = generateQueryInspection(query);
+    // Use backend query_inspection if available, otherwise generate client-side
+    if (data.query_inspection) {
+      apiResponse.query_inspection = data.query_inspection;
+    } else {
+      apiResponse.query_inspection = generateQueryInspection(query);
+    }
 
     return apiResponse;
   } catch (error) {
