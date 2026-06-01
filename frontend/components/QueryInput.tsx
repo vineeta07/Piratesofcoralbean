@@ -13,6 +13,14 @@ const SAMPLE_QUERIES = [
   { query: 'List high value deals in negotiation stage', label: '💰 High Value' },
   { query: 'Deals missing economic buyer engagement', label: '👔 EB Signals' },
   { query: 'Deals stuck in legal review', label: '⚖️ Legal Blockers' },
+  { query: 'Which enterprise deals have negative sentiment?', label: '😠 Negative Sentiment' },
+  { query: 'Show deals with no activity in the last 14 days', label: '👻 Ghosted Deals' },
+  { query: 'What are the top 5 deals by value closing next week?', label: '🏆 Top Deals' },
+  { query: 'Deals where the prospect mentioned pricing concerns', label: '💸 Pricing Pushback' },
+  { query: 'Opportunities with recent escalation flags', label: '🚨 Escalations' },
+  { query: 'Show me early stage deals with high engagement', label: '🔥 Hot Pipelines' },
+  { query: 'Which closed lost deals mentioned our main competitor?', label: '🔍 Loss Analysis' },
+  { query: 'Deals where the economic buyer was absent from the last call', label: '📉 Missing EB' },
 ];
 
 interface QueryInputProps {

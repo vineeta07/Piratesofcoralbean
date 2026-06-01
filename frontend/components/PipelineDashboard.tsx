@@ -139,7 +139,7 @@ const SAMPLE_QUERIES = [
 /* ──────────────────────────── Main Component ─────────────────────────────── */
 
 export default function PipelineDashboard() {
-  const [query, setQuery] = useState("Show me all deals at risk");
+  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<ApiResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
