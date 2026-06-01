@@ -33,11 +33,11 @@ class MockClaudeService:
         intent = intent_data.get("intent")
         signal = intent_data.get("signal")
         
-        if signal == "email_silence":
+        if signal == "email_silence" or intent == "risk_scan":
             return {
-                "sources": ["salesforce", "gmail"],
-                "skip": ["gong", "linkedin", "slack"],
-                "reason": "silence check only needs CRM + email"
+                "sources": ["salesforce", "gmail", "gong", "slack", "linkedin"],
+                "skip": [],
+                "reason": "risk scans need full context from all canonical sources"
             }
         elif intent == "forecast":
             return {
@@ -60,9 +60,12 @@ class MockClaudeService:
         
         if signal == "email_silence":
             return (
-                "SELECT sf.deal_id, sf.deal_name, sf.value, gm.days_silent\n"
+                "SELECT sf.deal_id, sf.deal_name, sf.value, gm.days_silent, g.sentiment_score, g.objections_count, sl.mentions_competitor, sl.escalation_flag, l.hired_recently\n"
                 "FROM salesforce.deals sf\n"
                 "LEFT JOIN gmail.threads gm ON sf.deal_id = gm.deal_id\n"
+                "LEFT JOIN gong.calls g ON sf.deal_id = g.deal_id\n"
+                "LEFT JOIN slack.messages sl ON sf.deal_id = sl.deal_id\n"
+                "LEFT JOIN linkedin.profiles l ON sf.deal_id = l.deal_id\n"
                 "WHERE gm.days_silent > 7\n"
                 "LIMIT 50"
             )

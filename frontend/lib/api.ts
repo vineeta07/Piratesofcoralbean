@@ -54,8 +54,8 @@ function generateQueryInspection(query: string): QueryInspection {
   const allSources = ['salesforce', 'gmail', 'gong', 'slack', 'linkedin'];
   let includedSources: string[] = allSources;
 
-  if (signal === 'email_silence') {
-    includedSources = ['salesforce', 'gmail'];
+  if (signal === 'email_silence' || intent === 'risk_scan') {
+    includedSources = allSources;
   } else if (intent === 'forecast') {
     includedSources = ['salesforce'];
   } else if (signal === 'objections') {
