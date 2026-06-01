@@ -208,7 +208,26 @@ function GeneratedSQLSection({ sql }: { sql: string }) {
     }
   }, [sql]);
 
-  const lines = sql.split('\n');
+  const formatSql = (sql: string) => {
+    if (!sql) return '';
+    return sql
+      .replace(/\s+/g, ' ')
+      .replace(/ SELECT /gi, 'SELECT\n  ')
+      .replace(/^SELECT /gi, 'SELECT\n  ')
+      .replace(/ FROM /gi, '\nFROM\n  ')
+      .replace(/ LEFT JOIN /gi, '\nLEFT JOIN\n  ')
+      .replace(/ RIGHT JOIN /gi, '\nRIGHT JOIN\n  ')
+      .replace(/ INNER JOIN /gi, '\nINNER JOIN\n  ')
+      .replace(/ JOIN /gi, '\nJOIN\n  ')
+      .replace(/ WHERE /gi, '\nWHERE\n  ')
+      .replace(/ GROUP BY /gi, '\nGROUP BY\n  ')
+      .replace(/ ORDER BY /gi, '\nORDER BY\n  ')
+      .replace(/ LIMIT /gi, '\nLIMIT\n  ')
+      .replace(/, /g, ',\n  ');
+  };
+
+  const formattedSql = formatSql(sql);
+  const lines = formattedSql.split('\n');
 
   return (
     <Section title="Generated SQL" accent={SECTION_ACCENTS.sql}>

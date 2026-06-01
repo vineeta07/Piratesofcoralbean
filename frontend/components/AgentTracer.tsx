@@ -59,10 +59,22 @@ export default function AgentTracer({ isRunning, trace }: AgentTracerProps) {
   }, [isRunning, activeIndex]);
 
   // When trace is provided and not running, display it
+  // Otherwise, if not running and no trace, forcefully mark all simulated steps as done
   useEffect(() => {
-    if (!isRunning && trace?.steps) {
-      setSteps(trace.steps);
-      setActiveIndex(-1);
+    if (!isRunning) {
+      if (trace?.steps) {
+        setSteps(trace.steps);
+        setActiveIndex(-1);
+      } else {
+        setSteps((prev) =>
+          prev.map((s) => ({
+            ...s,
+            status: 'done' as const,
+            duration_ms: s.duration_ms ?? generateDuration(),
+          }))
+        );
+        setActiveIndex(-1);
+      }
     }
   }, [isRunning, trace]);
 
