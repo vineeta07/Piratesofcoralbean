@@ -16,12 +16,13 @@ const SAMPLE_QUERIES = [
 ];
 
 interface QueryInputProps {
+  query: string;
+  setQuery: (q: string) => void;
   onAnalyze: (query: string) => void;
   isLoading: boolean;
 }
 
-export default function QueryInput({ onAnalyze, isLoading }: QueryInputProps) {
-  const [query, setQuery] = useState("Show me all deals at risk");
+export default function QueryInput({ query, setQuery, onAnalyze, isLoading }: QueryInputProps) {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

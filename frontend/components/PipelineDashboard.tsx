@@ -139,12 +139,14 @@ const SAMPLE_QUERIES = [
 /* ──────────────────────────── Main Component ─────────────────────────────── */
 
 export default function PipelineDashboard() {
+  const [query, setQuery] = useState("Show me all deals at risk");
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<ApiResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showTracer, setShowTracer] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const queryInputRef = useRef<HTMLDivElement>(null);
 
   const handleAnalyze = async (query: string) => {
     setIsLoading(true);
@@ -221,8 +223,8 @@ export default function PipelineDashboard() {
           </div>
 
           {/* Query Input */}
-          <div className="max-w-3xl mx-auto">
-            <QueryInput onAnalyze={handleAnalyze} isLoading={isLoading} />
+          <div className="max-w-3xl mx-auto" ref={queryInputRef}>
+            <QueryInput query={query} setQuery={setQuery} onAnalyze={handleAnalyze} isLoading={isLoading} />
           </div>
 
           {/* Scroll hint */}
@@ -300,7 +302,11 @@ export default function PipelineDashboard() {
               {SAMPLE_QUERIES.map((sq) => (
                 <button
                   key={sq.query}
-                  onClick={() => handleAnalyze(sq.query)}
+                  onClick={() => {
+                    setQuery(sq.query);
+                    // Smooth scroll to the search bar so the user knows it was populated
+                    queryInputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }}
                   disabled={isLoading}
                   className="group text-left px-5 py-4 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-300 disabled:opacity-40"
                 >

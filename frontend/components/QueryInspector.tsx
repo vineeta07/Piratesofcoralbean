@@ -222,8 +222,7 @@ function GeneratedSQLSection({ sql }: { sql: string }) {
       .replace(/ WHERE /gi, '\nWHERE\n  ')
       .replace(/ GROUP BY /gi, '\nGROUP BY\n  ')
       .replace(/ ORDER BY /gi, '\nORDER BY\n  ')
-      .replace(/ LIMIT /gi, '\nLIMIT\n  ')
-      .replace(/, /g, ',\n  ');
+      .replace(/ LIMIT /gi, '\nLIMIT\n  ');
   };
 
   const formattedSql = formatSql(sql);
