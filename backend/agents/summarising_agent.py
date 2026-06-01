@@ -1,16 +1,22 @@
 import json
 import os
 from dotenv import load_dotenv
-from langchain_groq import ChatGroq
-from langchain_core.prompts import ChatPromptTemplate
 from backend.agents.risk_scoring_agent import run_risk_scorer
-
 load_dotenv()
-llm=ChatGroq(
-    model="llama-3.1-8b-instant",
-    temperature=0.1,
-    groq_api_key=os.getenv("GROQ_API_KEY")
-)
+
+try:
+    from langchain_groq import ChatGroq
+    from langchain_core.prompts import ChatPromptTemplate
+    LLM_AVAILABLE = True
+    llm = ChatGroq(
+        model="llama-3.1-8b-instant",
+        temperature=0.1,
+        groq_api_key=os.getenv("GROQ_API_KEY")
+    )
+except Exception:
+    # Fall back to local mock summariser if Groq SDK is unavailable
+    from backend.agents.mock_claude import MockClaudeService
+    LLM_AVAILABLE = False
 
 def summarise_deal(deal: dict) -> str:
     """Call Groq to generate a highly synthesized executive sales summary."""
@@ -35,18 +41,25 @@ Rules:
     color_map = {"GREEN": "≡ƒƒó", "AMBER": "≡ƒƒí", "RED": "≡ƒö┤"}
     deal["colour_emoji"] = color_map.get(deal["colour"].upper(), "ΓÜ¬")
 
-    prompt_template = ChatPromptTemplate.from_messages([
-        ("system", system_instructions),
-        ("human", "Generate the executive brief for account record: {deal_name}")
-    ])
-    
-    try:
-        chain = prompt_template | llm
-        result = chain.invoke(deal)
-        return result.content.strip()
-    except Exception as e:
-        print(f"Warning: Failed to summarise deal {deal.get('deal_name')} due to API limit: {e}")
-        return "Executive summary unavailable due to API rate limits. Focus on the risk signals provided."
+    if LLM_AVAILABLE:
+        prompt_template = ChatPromptTemplate.from_messages([
+            ("system", system_instructions),
+            ("human", "Generate the executive brief for account record: {deal_name}")
+        ])
+        try:
+            chain = prompt_template | llm
+            result = chain.invoke(deal)
+            return result.content.strip()
+        except Exception as e:
+            print(f"Warning: Failed to summarise deal {deal.get('deal_name')} due to API limit: {e}")
+            return "Executive summary unavailable due to API rate limits. Focus on the risk signals provided."
+    else:
+        try:
+            mock = MockClaudeService.summarize_deal(deal)
+            return mock.get('narrative') if isinstance(mock, dict) else str(mock)
+        except Exception as e:
+            print(f"Warning: Mock summariser failed for {deal.get('deal_name')}: {e}")
+            return "Executive summary unavailable (mock summariser failed)."
 
 
 def run_summarising_agent(scored_deals: list) -> list[dict]:

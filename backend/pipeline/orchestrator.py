@@ -1,4 +1,5 @@
 import time
+import os
 from backend.agents.parser_agent import parser_agent
 from backend.agents.context_agent import context_agent
 from backend.agents.query_agent import query_builder
@@ -83,6 +84,10 @@ class Orchestrator:
             amber_count = sum(1 for d in deals_for_frontend if d["risk_level"] == "amber")
             green_count = sum(1 for d in deals_for_frontend if d["risk_level"] == "green")
             
+            # Document URLs: use relative paths and let frontend resolve them
+            docx_filename = os.path.basename(final_output.get('docx_path', ''))
+            pptx_filename = os.path.basename(final_output.get('pptx_path', ''))
+            
             return {
                 "success": True,
                 "dashboard": {
@@ -96,6 +101,10 @@ class Orchestrator:
                 },
                 "slack": final_output.get("slack", {"blocks": []}),
                 "salesforce": final_output.get("salesforce", []),
+                "documents": {
+                    "docx_url": f"/outputs/{docx_filename}" if docx_filename else None,
+                    "pptx_url": f"/outputs/{pptx_filename}" if pptx_filename else None
+                }
             }
             
         except Exception as e:

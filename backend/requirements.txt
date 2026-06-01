@@ -2,3 +2,7 @@ fastapi
 uvicorn
 pydantic
 pandas
+python-dotenv
+psycopg2-binary
+python-docx
+python-pptx

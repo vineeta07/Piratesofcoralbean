@@ -106,6 +106,18 @@ const FEATURES = [
     bg: 'bg-purple-500/10',
     border: 'border-purple-500/20',
   },
+  {
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v2.25A2.25 2.25 0 0 1 17.25 18.75H6.75A2.25 2.25 0 0 1 4.5 16.5v-2.25m15 0V12a2.25 2.25 0 0 0-2.25-2.25h-3.75m6 4.5h-6m0 0-2.25 2.25m2.25-2.25-2.25-2.25M9.75 6.75h4.5A2.25 2.25 0 0 1 16.5 9v3.75M9.75 6.75V4.5A2.25 2.25 0 0 1 12 2.25h0A2.25 2.25 0 0 1 14.25 4.5v2.25M9.75 6.75h4.5" />
+      </svg>
+    ),
+    title: 'Auto-Generated Docs & PPT',
+    desc: 'The backend also creates an executive DOCX brief and a PowerPoint deck, both surfaced directly in the output panel.',
+    accent: 'text-cyan-400',
+    bg: 'bg-cyan-500/10',
+    border: 'border-cyan-500/20',
+  },
 ];
 
 const PIPELINE_STEPS = [
@@ -140,6 +152,9 @@ export default function PipelineDashboard() {
     setError(null);
     try {
       const result = await analyzeQuery(query);
+      if (!result.success) {
+        throw new Error(result.error || "Backend pipeline failed to analyze deals.");
+      }
       setData(result);
       // Scroll to results after a short delay
       setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
@@ -187,7 +202,7 @@ export default function PipelineDashboard() {
           <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto text-center mb-10 leading-relaxed">
             Ask a question in plain English. Our AI agent pipeline cross-references 
             <span className="text-white font-medium"> 5 data sources </span> 
-            to uncover the real health of every deal in your pipeline.
+            and generates shareable <span className="text-white font-medium">DOCX + PPTX outputs</span> to uncover the real health of every deal in your pipeline.
           </p>
 
           {/* Stats row */}

@@ -210,27 +210,38 @@ def format_pptx(deals: list[dict], output_path: str) -> str:
 
 def run_formatter_agent(summarised_deals: list[dict], output_dir: str =os.getcwd()) -> dict:
     
-    print("\n── Formatter Agent ────────────────────────────────────")
+    print("\n-- Formatter Agent ------------------------------------")
 
     print("  [1/4] Building Slack Block Kit payload...")
     slack_payload = format_slack(summarised_deals)
-    print(f"        → {len(slack_payload['blocks'])} blocks generated")
+    print(f"        -> {len(slack_payload['blocks'])} blocks generated")
 
     print("  [2/4] Building Salesforce JSON payloads...")
     sf_payloads = format_salesforce_json(summarised_deals)
-    print(f"        → {len(sf_payloads)} opportunity records ready")
+    print(f"        -> {len(sf_payloads)} opportunity records ready")
 
-    docx_path = os.path.join(output_dir, "pipeline_brief.docx")
-    print(f"  [3/4] Generating Word brief → {docx_path}")
-    format_docx(summarised_deals, docx_path)
-    print(f"        → {os.path.getsize(docx_path):,} bytes")
+    docx_path = ""
+    pptx_path = ""
+    
+    try:
+        docx_path = os.path.join(output_dir, "pipeline_brief.docx")
+        print(f"  [3/4] Generating Word brief -> {docx_path}")
+        format_docx(summarised_deals, docx_path)
+        print(f"        -> {os.path.getsize(docx_path):,} bytes")
+    except Exception as e:
+        print(f"  [3/4] ⚠️ Word brief generation failed: {str(e)}")
+        docx_path = ""
 
-    pptx_path = os.path.join(output_dir, "pipeline_deck.pptx")
-    print(f"  [4/4] Generating PowerPoint deck → {pptx_path}")
-    format_pptx(summarised_deals, pptx_path)
-    print(f"        → {os.path.getsize(pptx_path):,} bytes")
+    try:
+        pptx_path = os.path.join(output_dir, "pipeline_deck.pptx")
+        print(f"  [4/4] Generating PowerPoint deck -> {pptx_path}")
+        format_pptx(summarised_deals, pptx_path)
+        print(f"        -> {os.path.getsize(pptx_path):,} bytes")
+    except Exception as e:
+        print(f"  [4/4] ⚠️ PowerPoint deck generation failed: {str(e)}")
+        pptx_path = ""
 
-    print("── Done ────────────────────────────────────────────────\n")
+    print("-- Done ------------------------------------------------\n")
 
     return {
         "slack":      slack_payload,

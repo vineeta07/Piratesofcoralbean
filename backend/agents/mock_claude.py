@@ -60,20 +60,29 @@ class MockClaudeService:
         
         if signal == "email_silence":
             return (
-                "SELECT s.deal_name, s.value, DATEDIFF(NOW(), e.last_reply) as days_silent\n"
-                "FROM salesforce.opportunities s\n"
-                "JOIN gmail.threads e ON s.contact_email = e.recipient\n"
-                "WHERE close_date <= END_OF_MONTH\n"
-                "HAVING days_silent > 7"
+                "SELECT sf.deal_id, sf.deal_name, sf.value, gm.days_silent\n"
+                "FROM salesforce.deals sf\n"
+                "LEFT JOIN gmail.threads gm ON sf.deal_id = gm.deal_id\n"
+                "WHERE gm.days_silent > 7\n"
+                "LIMIT 50"
             )
         elif intent_data.get("intent") == "forecast":
             return (
-                "SELECT SUM(value * probability) as expected_revenue\n"
-                "FROM salesforce.opportunities\n"
+                "SELECT SUM(value) as expected_revenue\n"
+                "FROM salesforce.deals\n"
                 "WHERE stage != 'Closed Lost' AND close_date <= END_OF_QUARTER"
             )
             
-        return "SELECT * FROM joined_deals LIMIT 10"
+        # Default: return the canonical joined query used by the pipeline
+        return (
+            "SELECT sf.*, gm.days_silent, gm.has_legal, g.sentiment_score, g.objections_count, "
+            "g.economic_buyer_attended, sl.mentions_competitor, sl.escalation_flag, l.hired_recently "
+            "FROM salesforce.deals sf "
+            "LEFT JOIN gmail.threads gm ON sf.deal_id = gm.deal_id "
+            "LEFT JOIN gong.calls g ON sf.deal_id = g.deal_id "
+            "LEFT JOIN slack.messages sl ON sf.deal_id = sl.deal_id "
+            "LEFT JOIN linkedin.profiles l ON sf.deal_id = l.deal_id LIMIT 50"
+        )
 
     @staticmethod
     def summarize_deal(scored_deal: dict) -> dict:

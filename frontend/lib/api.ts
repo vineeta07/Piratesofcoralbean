@@ -1,6 +1,20 @@
 import { ApiResponse, QueryInspection } from './types';
 
-const API_URL = 'http://localhost:8000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.VTTE_API_BASE_URL || 'http://localhost:8080';
+const API_URL = `${API_BASE_URL}/api`;
+
+function resolveDocumentUrl(url?: string): string | undefined {
+  if (!url) {
+    return undefined;
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+    return `${API_BASE_URL}${parsedUrl.pathname}${parsedUrl.search}${parsedUrl.hash}`;
+  } catch {
+    return url.startsWith('/') ? `${API_BASE_URL}${url}` : `${API_BASE_URL}/${url}`;
+  }
+}
 
 /**
  * Generates a simulated QueryInspection from the user query.
@@ -126,6 +140,10 @@ export const analyzeQuery = async (query: string): Promise<ApiResponse> => {
         },
       },
       slack: data.slack || { blocks: [] },
+      documents: {
+        docx_url: resolveDocumentUrl(data.documents?.docx_url),
+        pptx_url: resolveDocumentUrl(data.documents?.pptx_url),
+      },
     };
 
     // Enrich with client-side generated inspection data

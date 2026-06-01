@@ -33,6 +33,11 @@ export interface SlackData {
   blocks: SlackBlock[];
 }
 
+export interface DocumentLinks {
+  docx_url?: string;
+  pptx_url?: string;
+}
+
 // Agent pipeline trace types
 export interface AgentStep {
   name: string;
@@ -82,6 +87,7 @@ export interface ApiResponse {
     summary: Summary;
   };
   slack: SlackData;
+  documents?: DocumentLinks;
   // These are generated client-side from the response
   pipeline_trace?: PipelineTrace;
   query_inspection?: QueryInspection;

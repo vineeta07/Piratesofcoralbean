@@ -1,8 +1,17 @@
 import os
-# pyrefly: ignore [missing-import]
-from crewai import Agent, Task, Crew, Process
-# pyrefly: ignore [missing-import]
-from langchain_groq import ChatGroq
+try:
+    # pyrefly: ignore [missing-import]
+    from crewai import Agent, Task, Crew, Process
+    CREWAI_AVAILABLE = True
+except ImportError:
+    Agent = Task = Crew = Process = None
+    CREWAI_AVAILABLE = False
+try:
+    # pyrefly: ignore [missing-import]
+    from langchain_groq import ChatGroq
+except ImportError:
+    ChatGroq = None
+from backend.agents.mock_claude import MockClaudeService
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
@@ -26,6 +35,7 @@ class QueryOutput(BaseModel):
 def get_llm():
     api_key = os.getenv("GROQ_API_KEY")
     if api_key:
+        os.environ["OPENAI_MODEL_NAME"] = "groq/llama-3.1-8b-instant"
         return "groq/llama-3.1-8b-instant"
     return None
 
@@ -48,37 +58,49 @@ Relationships:
 - notion and google_calendar queries should be isolated or loosely joined via LIKE/ILIKE on deal names or champion names.
 """
 
-# Parser Agent
-parser_agent_node = Agent(
-    role="Sales Query Analyst",
-    goal="Understand precisely what a sales manager is asking about their pipeline.",
-    backstory="You are an expert at analyzing natural language queries. You can identify intent, entities, and urgency with high precision.",
-    allow_delegation=False,
-    llm=llm,
-    verbose=True
-)
+parser_agent_node = None
+context_agent_node = None
+query_agent_node = None
 
-# Context Agent
-context_agent_node = Agent(
-    role="Data Source Strategist",
-    goal="Determine the minimum required data sources for a given query. IMPORTANT: For ANY query about pipeline health, deals, or risk, you MUST include 'salesforce', 'gmail', 'gong', 'slack', and 'linkedin' to ensure the Risk Scoring engine has full context.",
-    backstory="You understand exactly which tables (Salesforce, Gmail, Gong, Slack, LinkedIn, Notion, Google Calendar) hold which types of sales signals.",
-    allow_delegation=False,
-    llm=llm,
-    verbose=True
-)
+if CREWAI_AVAILABLE:
+    try:
+        # Parser Agent
+        parser_agent_node = Agent(
+            role="Sales Query Analyst",
+            goal="Understand precisely what a sales manager is asking about their pipeline.",
+            backstory="You are an expert at analyzing natural language queries. You can identify intent, entities, and urgency with high precision.",
+            allow_delegation=False,
+            llm=llm,
+            verbose=True
+        )
 
-# Query Agent
-query_agent_node = Agent(
-    role="Coral SQL Specialist",
-    goal="Design bespoke Coral SQL queries that precisely answer the user's scenario by joining and filtering across heterogeneous sources.",
-    backstory="You are a master of SQL and the Coral unified interface. You do not use templates; instead, you analyze the intent and context to build the most efficient and accurate query from scratch.",
-    allow_delegation=False,
-    llm=llm,
-    verbose=True
-)
+        # Context Agent
+        context_agent_node = Agent(
+            role="Data Source Strategist",
+            goal="Determine the minimum required data sources for a given query. IMPORTANT: For ANY query about pipeline health, deals, or risk, you MUST include 'salesforce', 'gmail', 'gong', 'slack', and 'linkedin' to ensure the Risk Scoring engine has full context.",
+            backstory="You understand exactly which tables (Salesforce, Gmail, Gong, Slack, LinkedIn, Notion, Google Calendar) hold which types of sales signals.",
+            allow_delegation=False,
+            llm=llm,
+            verbose=True
+        )
+
+        # Query Agent
+        query_agent_node = Agent(
+            role="Coral SQL Specialist",
+            goal="Design bespoke Coral SQL queries that precisely answer the user's scenario by joining and filtering across heterogeneous sources.",
+            backstory="You are a master of SQL and the Coral unified interface. You do not use templates; instead, you analyze the intent and context to build the most efficient and accurate query from scratch.",
+            allow_delegation=False,
+            llm=llm,
+            verbose=True
+        )
+    except Exception as exc:
+        print(f"CrewAI unavailable, using mock fallback: {exc}")
+        CREWAI_AVAILABLE = False
 
 def create_crew(query: str):
+    if not CREWAI_AVAILABLE:
+        raise RuntimeError("CrewAI is not installed; use the mock fallback path.")
+
     # Tasks
     parse_task = Task(
         description=f"Analyze this query: '{query}' and extract intent, timeframe, signal, scope, and urgency.",
@@ -129,17 +151,21 @@ class CrewPipelineManager:
     def _run_if_needed(self, query: str):
         if query != self._current_query:
             print(f"Running CrewAI pipeline for query: {query}")
-            crew = create_crew(query)
-            result = crew.kickoff()
-            
-            # The result object contains the output of the final task by default, 
-            # but we can access individual task outputs from the crew object after kickoff.
-            # However, crewai results can be accessed via task.output if we keep track of them.
-            
-            # Accessing task outputs directly
-            self._results['parser'] = crew.tasks[0].output.json_dict
-            self._results['context'] = crew.tasks[1].output.json_dict
-            self._results['query'] = crew.tasks[2].output.json_dict
+            if CREWAI_AVAILABLE:
+                crew = create_crew(query)
+                result = crew.kickoff()
+
+                # Accessing task outputs directly
+                self._results['parser'] = crew.tasks[0].output.json_dict
+                self._results['context'] = crew.tasks[1].output.json_dict
+                self._results['query'] = crew.tasks[2].output.json_dict
+            else:
+                intent = MockClaudeService.parse_intent(query)
+                context = MockClaudeService.map_context(intent)
+                sql = MockClaudeService.generate_coral_sql(context, intent)
+                self._results['parser'] = intent
+                self._results['context'] = context
+                self._results['query'] = {"sql": sql}
             self._current_query = query
 
     def get_parser_result(self, query: str):
