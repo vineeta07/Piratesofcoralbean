@@ -8,7 +8,7 @@ export const metadata = {
 }
 
 // Runs before paint so the page never flashes the wrong theme.
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','light')}})();`
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t);if(localStorage.getItem('palette')==='mono')document.documentElement.setAttribute('data-palette','mono')}catch(e){document.documentElement.setAttribute('data-theme','light')}})();`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

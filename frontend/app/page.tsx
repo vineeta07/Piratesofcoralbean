@@ -1,9 +1,5 @@
-import PipelineDashboard from '../components/PipelineDashboard';
+import Landing from '../components/landing/Landing';
 
 export default function Home() {
-  return (
-    <main>
-      <PipelineDashboard />
-    </main>
-  );
+  return <Landing />;
 }

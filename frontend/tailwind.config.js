@@ -35,11 +35,31 @@ module.exports = {
       animation: {
         'fade-in': 'fadeIn 0.35s ease-out both',
         'fade-in-up': 'fadeInUp 0.4s ease-out both',
+        'slide-in': 'slideIn 0.25s ease-out both',
+        rise: 'rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both',
+        draw: 'draw 1.4s ease-out both',
+        grow: 'grow 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both',
       },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        slideIn: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        rise: {
+          '0%': { opacity: '0', transform: 'translateY(0.45em)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        draw: {
+          '0%': { strokeDashoffset: '1' },
+          '100%': { strokeDashoffset: '0' },
+        },
+        grow: {
+          '0%': { transform: 'scaleX(0)' },
+          '100%': { transform: 'scaleX(1)' },
         },
         fadeInUp: {
           '0%': { opacity: '0', transform: 'translateY(8px)' },

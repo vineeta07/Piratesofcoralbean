@@ -29,9 +29,18 @@ interface QueryInputProps {
   setQuery: (q: string) => void;
   onAnalyze: (query: string) => void;
   isLoading: boolean;
+  placeholder?: string;
+  autoFocus?: boolean;
 }
 
-export default function QueryInput({ query, setQuery, onAnalyze, isLoading }: QueryInputProps) {
+export default function QueryInput({
+  query,
+  setQuery,
+  onAnalyze,
+  isLoading,
+  placeholder = 'Which late-stage deals are stalling?',
+  autoFocus = false,
+}: QueryInputProps) {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLFormElement>(null);
 
@@ -74,11 +83,12 @@ export default function QueryInput({ query, setQuery, onAnalyze, isLoading }: Qu
             setQuery(e.target.value);
             setShowDropdown(true);
           }}
-          onFocus={() => setShowDropdown(true)}
+          onClick={() => setShowDropdown(true)}
+          autoFocus={autoFocus}
           onKeyDown={(e) => e.key === 'Escape' && setShowDropdown(false)}
           disabled={isLoading}
           className="min-w-0 flex-1 bg-transparent py-2.5 text-[16px] text-ink placeholder:text-ink-3 focus:outline-none focus-visible:outline-none disabled:opacity-60"
-          placeholder="Which late-stage deals are stalling?"
+          placeholder={placeholder}
           autoComplete="off"
         />
         <button

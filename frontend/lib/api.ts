@@ -11,9 +11,9 @@ const getBaseUrl = () => {
   return 'http://localhost:8080';
 };
 
-const API_BASE_URL = getBaseUrl();
+export const API_BASE_URL = getBaseUrl();
 const isSameOrigin = typeof window !== 'undefined' && API_BASE_URL === window.location.origin;
-const API_URL = isSameOrigin ? '/api' : `${API_BASE_URL}/api`;
+export const API_URL = isSameOrigin ? '/api' : `${API_BASE_URL}/api`;
 
 function resolveDocumentUrl(url?: string): string | undefined {
   if (!url) {
