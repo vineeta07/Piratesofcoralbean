@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo } from 'react';
 import { ApiResponse } from '../lib/types';
+import Icon from './Icon';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -17,39 +18,35 @@ interface Tab {
 }
 
 const TABS: Tab[] = [
-  { id: 'dashboard', label: 'Dashboard JSON' },
-  { id: 'slack', label: 'Slack Preview' },
-  { id: 'documents', label: 'Documents JSON' },
-  { id: 'raw', label: 'Raw Response' },
+  { id: 'dashboard', label: 'Dashboard' },
+  { id: 'slack', label: 'Slack' },
+  { id: 'documents', label: 'Documents' },
+  { id: 'raw', label: 'Raw' },
 ];
 
 function DocumentCard({ title, description, href, badge }: { title: string; description: string; href?: string; badge: string }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <div className="text-sm font-semibold text-white">{title}</div>
-          <p className="mt-1 text-xs leading-relaxed text-gray-400">{description}</p>
-        </div>
-        <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-gray-300">
+    <div className="flex flex-col rounded-md border border-line bg-surface p-4">
+      <div className="flex items-start gap-3">
+        <span className="flex h-10 w-9 flex-shrink-0 items-end justify-center rounded-sm border border-line-strong bg-bg pb-1 font-mono text-[9px] font-medium text-coral-ink">
           {badge}
         </span>
+        <div className="min-w-0">
+          <div className="text-sm font-semibold text-ink">{title}</div>
+          <p className="mt-1 text-[12.5px] leading-relaxed text-ink-2">{description}</p>
+        </div>
       </div>
-
       {href ? (
         <a
           href={href}
           target="_blank"
           rel="noreferrer"
-          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-blue-500/15 px-3 py-2 text-sm font-medium text-blue-200 transition-colors hover:bg-blue-500/25"
+          className="mt-4 inline-flex items-center gap-1.5 self-start text-sm font-medium text-coral-ink hover:underline"
         >
-          Open file
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H18m0 0v4.5m0-4.5L10 14.5" />
-          </svg>
+          Download <Icon name="arrowUpRight" className="h-3.5 w-3.5" strokeWidth={2} />
         </a>
       ) : (
-        <div className="mt-4 text-xs text-gray-500">Not available from the backend response yet.</div>
+        <div className="mt-4 text-[12px] text-ink-3">Not returned by the backend yet.</div>
       )}
     </div>
   );
@@ -68,27 +65,27 @@ function JsonSyntax({ value, indent = 0 }: JsonSyntaxProps) {
 
   // ── null ──
   if (value === null) {
-    return <span className="text-gray-500">null</span>;
+    return <span className="text-ink-3">null</span>;
   }
 
   // ── undefined (treat as null for display) ──
   if (value === undefined) {
-    return <span className="text-gray-500">undefined</span>;
+    return <span className="text-ink-3">undefined</span>;
   }
 
   // ── boolean ──
   if (typeof value === 'boolean') {
-    return <span className="text-purple-300">{value.toString()}</span>;
+    return <span className="text-coral-ink">{value.toString()}</span>;
   }
 
   // ── number ──
   if (typeof value === 'number') {
-    return <span className="text-amber-300">{value}</span>;
+    return <span className="text-risk-amber">{value}</span>;
   }
 
   // ── string ──
   if (typeof value === 'string') {
-    return <span className="text-green-300">&quot;{value}&quot;</span>;
+    return <span className="text-risk-green">&quot;{value}&quot;</span>;
   }
 
   // ── array ──
@@ -127,8 +124,8 @@ function JsonSyntax({ value, indent = 0 }: JsonSyntaxProps) {
         {entries.map(([key, val], i) => (
           <span key={key}>
             {innerPad}
-            <span className="text-blue-300">&quot;{key}&quot;</span>
-            <span className="text-gray-400">{': '}</span>
+            <span className="text-sea">&quot;{key}&quot;</span>
+            <span className="text-ink-3">{': '}</span>
             <JsonSyntax value={val} indent={indent + 1} />
             {i < entries.length - 1 ? ',' : ''}
             {'\n'}
@@ -177,13 +174,13 @@ function CopyButton({ text }: CopyButtonProps) {
       onClick={handleCopy}
       className={`
         absolute top-3 right-3 z-10
-        flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg
+        flex items-center gap-1.5 px-2 py-1 rounded
         text-xs font-medium
         transition-all duration-200 ease-out
         ${
           copied
-            ? 'bg-green-500/20 text-green-300 border border-green-500/30'
-            : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-gray-200'
+            ? 'border border-risk-green/40 bg-surface text-risk-green'
+            : 'border border-line bg-surface text-ink-2 hover:text-ink'
         }
       `}
       aria-label={copied ? 'Copied' : 'Copy to clipboard'}
@@ -216,7 +213,7 @@ function CopyButton({ text }: CopyButtonProps) {
 function ChevronIcon({ collapsed }: { collapsed: boolean }) {
   return (
     <svg
-      className={`w-5 h-5 text-gray-400 transition-transform duration-300 ease-out ${
+      className={`h-4 w-4 text-ink-3 transition-transform duration-300 ease-out ${
         collapsed ? '-rotate-90' : 'rotate-0'
       }`}
       fill="none"
@@ -261,92 +258,67 @@ export default function OutputPanel({ data }: OutputPanelProps) {
   }, [activeTab, data]);
 
   return (
-    <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 ease-out">
-      {/* ── Header ─────────────────────────────────────────────────────── */}
+    <div className="overflow-hidden rounded-lg border border-line bg-surface">
       <button
         onClick={() => setCollapsed((c) => !c)}
-        className="w-full flex items-center justify-between px-6 py-4 hover:bg-white/[0.02] transition-colors duration-200"
+        className="flex w-full items-center justify-between border-b border-line px-5 py-3.5 transition-colors hover:bg-sunken/60"
+        aria-expanded={!collapsed}
       >
-        <div className="flex items-center gap-3">
-          {/* Terminal-style icon */}
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20">
-            <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h2 className="text-white font-semibold text-base tracking-tight">Pipeline Output</h2>
+        <div className="flex items-center gap-2">
+          <Icon name="terminal" className="h-4 w-4 text-ink-3" />
+          <h2 className="font-display text-[17px] font-medium text-ink">Deliverables</h2>
         </div>
         <ChevronIcon collapsed={collapsed} />
       </button>
 
-      {/* ── Collapsible body ───────────────────────────────────────────── */}
       <div
-        className={`transition-all duration-300 ease-out overflow-hidden ${
+        className={`overflow-hidden transition-all duration-300 ease-out ${
           collapsed ? 'max-h-0 opacity-0' : 'max-h-[2000px] opacity-100'
         }`}
       >
-        <div className="border-b border-white/5 px-6 py-5">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <div>
-              <h3 className="text-sm font-semibold text-white">Generated Deliverables</h3>
-              <p className="text-xs text-gray-500">DOCX and PPTX assets created by the AI agents from the latest analysis.</p>
-            </div>
-            <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-300 border border-emerald-500/20">
-              PPT + Docs
-            </span>
-          </div>
-
-          <div className="grid gap-3 md:grid-cols-2">
-            <DocumentCard
-              title="Executive Brief"
-              description="A shareable Word brief summarizing deal risk, priority actions, and reasoning for leadership review."
-              href={data.documents?.docx_url}
-              badge="DOCX"
-            />
-            <DocumentCard
-              title="Board Deck"
-              description="A PowerPoint deck with deal health visuals and talking points for the live demo or follow-up."
-              href={data.documents?.pptx_url}
-              badge="PPTX"
-            />
-          </div>
+        <div className="grid gap-3 border-b border-line bg-sunken/50 p-4 sm:grid-cols-2 lg:grid-cols-1">
+          <DocumentCard
+            title="Executive brief"
+            description="A Word brief on deal risk, priority actions and reasoning for leadership."
+            href={data.documents?.docx_url}
+            badge="DOCX"
+          />
+          <DocumentCard
+            title="Board deck"
+            description="A PowerPoint deck with deal health visuals and talking points."
+            href={data.documents?.pptx_url}
+            badge="PPTX"
+          />
         </div>
 
-        {/* ── Tab bar ────────────────────────────────────────────────── */}
-        <div className="flex items-center gap-1 px-6 border-b border-white/5">
+        <div className="flex items-center gap-1 overflow-x-auto border-b border-line px-3 scrollbar-none" role="tablist">
+          <span className="eyebrow mr-2 pl-2">JSON</span>
           {TABS.map((tab) => {
             const isActive = tab.id === activeTab;
             return (
               <button
                 key={tab.id}
+                role="tab"
+                aria-selected={isActive}
                 onClick={() => setActiveTab(tab.id)}
-                className={`
-                  relative px-4 py-2.5 text-sm font-medium
-                  transition-colors duration-200 ease-out
-                  ${isActive ? 'text-white' : 'text-gray-400 hover:text-gray-200'}
-                `}
+                className={`relative px-3 py-2.5 text-[13px] font-medium transition-colors ${
+                  isActive ? 'text-ink' : 'text-ink-3 hover:text-ink-2'
+                }`}
               >
                 {tab.label}
-                {/* Active indicator */}
                 <span
-                  className={`
-                    absolute bottom-0 left-0 right-0 h-0.5 rounded-t-full
-                    transition-all duration-200 ease-out
-                    ${isActive ? 'bg-blue-500 opacity-100' : 'bg-transparent opacity-0'}
-                  `}
+                  className={`absolute bottom-0 left-2 right-2 h-0.5 rounded-t-full ${isActive ? 'bg-coral' : 'bg-transparent'}`}
                 />
               </button>
             );
           })}
         </div>
 
-        {/* ── Code content ───────────────────────────────────────────── */}
         <div className="p-4">
-          <div className="relative bg-black/40 rounded-lg border border-white/5">
+          <div className="relative rounded-md border border-line bg-sunken">
             <CopyButton text={jsonStrings[activeTab]} />
-
-            <div className="p-4 overflow-x-auto max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-              <pre className="font-mono text-sm leading-relaxed text-gray-300 whitespace-pre">
+            <div className="max-h-[440px] overflow-auto p-4">
+              <pre className="whitespace-pre font-mono text-[12.5px] leading-relaxed text-ink-2">
                 <JsonSyntax value={activeData} />
               </pre>
             </div>

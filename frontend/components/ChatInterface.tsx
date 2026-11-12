@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { ChatMessage, ApiResponse } from '../lib/types';
+import { LogoMark } from './Logo';
+import Icon from './Icon';
 
 interface ChatInterfaceProps {
   isOpen: boolean;
@@ -25,34 +27,34 @@ function formatCurrency(value: number): string {
   return `$${value.toLocaleString()}`;
 }
 
-function riskBadge(level: string): string {
-  switch (level) {
-    case 'red':
-      return '🔴';
-    case 'amber':
-      return '🟡';
-    case 'green':
-      return '🟢';
-    default:
-      return '⚪';
-  }
+function riskDot(level: string): string {
+  if (level === 'red') return 'bg-risk-red';
+  if (level === 'amber') return 'bg-risk-amber';
+  if (level === 'green') return 'bg-risk-green';
+  return 'bg-ink-3';
+}
+
+function Avatar() {
+  return (
+    <div className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-sunken text-ink">
+      <LogoMark size={22} />
+    </div>
+  );
 }
 
 /* ── Typing indicator with bouncing dots ─────────────────────────── */
 function TypingIndicator() {
   return (
-    <div className="flex items-start gap-2.5 mb-4">
-      {/* Avatar */}
-      <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-cyan-500/30 to-blue-500/30 border border-white/10 flex items-center justify-center text-[10px] font-bold text-cyan-300 select-none">
-        CI
-      </div>
-
-      <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-3">
-        <div className="flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-[bounce_1.2s_ease-in-out_infinite]" />
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-[bounce_1.2s_ease-in-out_0.2s_infinite]" />
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-[bounce_1.2s_ease-in-out_0.4s_infinite]" />
-        </div>
+    <div className="mb-4 flex items-start gap-2.5">
+      <Avatar />
+      <div className="flex items-center gap-1 rounded-lg border border-line bg-surface px-3.5 py-3">
+        {[0, 0.2, 0.4].map((d) => (
+          <span
+            key={d}
+            className="h-1.5 w-1.5 rounded-full bg-ink-2"
+            style={{ animation: `typingDot 1.2s ease-in-out ${d}s infinite` }}
+          />
+        ))}
       </div>
     </div>
   );
@@ -62,68 +64,68 @@ function TypingIndicator() {
 function AssistantContent({ message }: { message: ChatMessage }) {
   const data = message.data;
 
-  // If there's an error, display it prominently
   if (data?.error) {
     return (
-      <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-3 text-sm">
-        <p className="text-red-200 font-semibold mb-2">⚠️ Connection Error</p>
-        <p className="text-red-100 text-xs whitespace-pre-wrap font-mono">{data.error}</p>
+      <div className="text-sm">
+        <p className="mb-1 flex items-center gap-1.5 font-semibold text-risk-red">
+          <Icon name="alert" className="h-4 w-4" /> Couldn&rsquo;t reach the pipeline
+        </p>
+        <p className="whitespace-pre-wrap font-mono text-xs text-ink-2">{data.error}</p>
       </div>
     );
   }
 
-  // If there's no structured data, just show the text
   if (!data || !data.dashboard?.deals?.length) {
-    return <p className="text-sm text-gray-200 leading-relaxed whitespace-pre-wrap">{message.content}</p>;
+    return <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink">{message.content}</p>;
   }
 
   const { deals, summary } = data.dashboard;
 
   return (
     <div className="space-y-3">
-      {/* Summary line */}
       {summary && (
-        <p className="text-xs text-gray-400 font-medium tracking-wide uppercase">
-          {summary.total_deals} deal{summary.total_deals !== 1 ? 's' : ''} found
-          {summary.red_count > 0 && <span className="ml-2">🔴 {summary.red_count}</span>}
-          {summary.amber_count > 0 && <span className="ml-2">🟡 {summary.amber_count}</span>}
-          {summary.green_count > 0 && <span className="ml-2">🟢 {summary.green_count}</span>}
+        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] uppercase tracking-wide text-ink-3">
+          <span>
+            {summary.total_deals} deal{summary.total_deals !== 1 ? 's' : ''}
+          </span>
+          {summary.red_count > 0 && (
+            <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-risk-red" />{summary.red_count}</span>
+          )}
+          {summary.amber_count > 0 && (
+            <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-risk-amber" />{summary.amber_count}</span>
+          )}
+          {summary.green_count > 0 && (
+            <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-risk-green" />{summary.green_count}</span>
+          )}
         </p>
       )}
 
-      {/* Narrative */}
-      <p className="text-sm text-gray-200 leading-relaxed whitespace-pre-wrap">{message.content}</p>
+      <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink">{message.content}</p>
 
-      {/* Deal cards */}
-      <div className="space-y-2 pt-1">
+      <ul className="divide-y divide-line overflow-hidden rounded-md border border-line">
         {deals.slice(0, 5).map((deal) => (
-          <div
-            key={deal.deal_id}
-            className="bg-white/5 border border-white/[0.07] rounded-xl p-3 space-y-1.5 hover:bg-white/[0.08] transition-colors"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white truncate max-w-[60%]">
-                {riskBadge(deal.risk_level)} {deal.deal_name}
+          <li key={deal.deal_id} className="space-y-1 bg-bg/60 p-3">
+            <div className="flex items-center justify-between gap-3">
+              <span className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink">
+                <span className={`h-2 w-2 flex-shrink-0 rounded-full ${riskDot(deal.risk_level)}`} />
+                <span className="truncate">{deal.deal_name}</span>
               </span>
-              <span className="text-xs font-semibold text-cyan-400">{formatCurrency(deal.value)}</span>
+              <span className="flex-shrink-0 font-mono text-xs text-ink-2">{formatCurrency(deal.value)}</span>
             </div>
-
-            <p className="text-xs text-gray-400 leading-snug">{deal.narrative}</p>
-
+            <p className="text-xs leading-snug text-ink-2">{deal.narrative}</p>
             {deal.action && (
-              <p className="text-xs text-amber-400/90 font-medium flex items-center gap-1">
-                <span className="opacity-70">⚡</span> {deal.action}
+              <p className="flex items-start gap-1 text-xs font-medium text-coral-ink">
+                <Icon name="arrowRight" className="mt-px h-3 w-3 flex-shrink-0" strokeWidth={2} /> {deal.action}
               </p>
             )}
-          </div>
+          </li>
         ))}
-
-        {deals.length > 5 && (
-          <p className="text-xs text-gray-500 text-center pt-1">
-            + {deals.length - 5} more deal{deals.length - 5 !== 1 ? 's' : ''}
-          </p>
-        )}
-      </div>
+      </ul>
+      {deals.length > 5 && (
+        <p className="text-center text-xs text-ink-3">
+          + {deals.length - 5} more deal{deals.length - 5 !== 1 ? 's' : ''}
+        </p>
+      )}
     </div>
   );
 }
@@ -233,121 +235,80 @@ export default function ChatInterface({ isOpen, onClose, onSendQuery }: ChatInte
 
   return (
     <>
-      {/* Backdrop – subtle darkening */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/20 z-40 transition-opacity duration-300"
-          onClick={onClose}
-          aria-hidden
-        />
-      )}
+      {isOpen && <div className="fixed inset-0 z-40 bg-black/20" onClick={onClose} aria-hidden />}
 
-      {/* Chat Panel */}
       <div
-        className={`fixed bottom-0 right-4 z-50 w-[420px] max-h-[600px] flex flex-col
-          bg-gray-950/80 backdrop-blur-2xl border border-white/10 rounded-t-2xl shadow-2xl shadow-black/50
-          transition-all duration-300 ease-out origin-bottom
-          ${isOpen ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95 pointer-events-none'}
-        `}
+        className={`fixed bottom-0 right-0 z-50 flex max-h-[min(640px,calc(100vh-2rem))] w-full flex-col border border-line bg-surface shadow-[0_24px_60px_-20px_rgb(0_0_0/0.35)] transition-all duration-200 ease-out sm:bottom-4 sm:right-4 sm:w-[420px] sm:rounded-lg ${
+          isOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+        }`}
         role="dialog"
-        aria-label="Coral Chat"
+        aria-label="Ask Coral"
+        aria-hidden={!isOpen}
       >
-        {/* ── Header ─────────────────────────────────────────────── */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07] flex-shrink-0">
+        <div className="flex flex-shrink-0 items-center justify-between border-b border-line px-4 py-3">
           <div className="flex items-center gap-2.5">
-            <span className="text-lg" role="img" aria-label="bot">🤖</span>
+            <LogoMark size={30} className="text-ink" />
             <div>
-              <h2 className="text-sm font-semibold text-white tracking-tight">Coral Chat</h2>
-              <p className="text-[10px] text-cyan-400/80 font-medium tracking-wide">AI Deal Intelligence</p>
+              <h2 className="font-display text-[16px] font-medium leading-tight text-ink">Ask Coral</h2>
+              <p className="text-[11px] text-ink-3">Questions about your pipeline</p>
             </div>
           </div>
-
           <button
             onClick={onClose}
-            className="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 border border-white/[0.07] flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200 active:scale-90"
+            className="flex h-8 w-8 items-center justify-center rounded-md text-ink-3 transition-colors hover:bg-sunken hover:text-ink"
             aria-label="Close chat"
           >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <Icon name="close" className="h-4 w-4" strokeWidth={2} />
           </button>
         </div>
 
-        {/* ── Messages Area ──────────────────────────────────────── */}
-        <div
-          ref={scrollRef}
-          className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-1 scroll-smooth"
-          style={{ maxHeight: 'calc(600px - 56px - 110px)' }}
-        >
-          {/* Welcome state */}
+        <div ref={scrollRef} className="min-h-[260px] flex-1 overflow-y-auto overscroll-contain bg-bg px-4 py-4">
           {messages.length === 0 && !isLoading && (
-            <div className="flex flex-col items-center justify-center py-10 text-center space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-white/10 flex items-center justify-center text-2xl">
-                🤖
-              </div>
-              <div>
-                <p className="text-sm font-medium text-white">How can I help?</p>
-                <p className="text-xs text-gray-500 mt-1 max-w-[240px]">
-                  Ask me about deal health, forecasts, risk analysis, and pipeline insights.
-                </p>
-              </div>
+            <div className="flex flex-col items-center px-6 py-10 text-center">
+              <LogoMark size={48} className="text-ink" />
+              <p className="mt-4 font-display text-lg text-ink">What should we look at?</p>
+              <p className="mt-1 max-w-[260px] text-[13px] text-ink-2">
+                Ask about deal health, forecasts, silent prospects or competitor activity.
+              </p>
             </div>
           )}
 
-          {/* Message bubbles */}
           {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`flex mb-4 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              {msg.role === 'assistant' && (
-                <div className="flex-shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-cyan-500/30 to-blue-500/30 border border-white/10 flex items-center justify-center text-[10px] font-bold text-cyan-300 mr-2.5 mt-0.5 select-none">
-                  CI
-                </div>
-              )}
-
+            <div key={msg.id} className={`mb-4 flex gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              {msg.role === 'assistant' && <Avatar />}
               <div
-                className={`relative max-w-[${msg.role === 'user' ? '80' : '85'}%] px-4 py-2.5 rounded-2xl ${
-                  msg.role === 'user'
-                    ? 'bg-blue-600 text-white rounded-br-md'
-                    : 'bg-white/10 backdrop-blur-md border border-white/10 text-gray-200 rounded-bl-md'
+                className={`rounded-lg px-3.5 py-2.5 ${
+                  msg.role === 'user' ? 'max-w-[80%] bg-ink text-bg' : 'max-w-[85%] border border-line bg-surface'
                 }`}
-                style={{ maxWidth: msg.role === 'user' ? '80%' : '85%' }}
               >
                 {msg.role === 'user' ? (
                   <p className="text-sm leading-relaxed">{msg.content}</p>
                 ) : (
                   <AssistantContent message={msg} />
                 )}
-
-                <p className={`text-[9px] mt-1.5 ${msg.role === 'user' ? 'text-blue-200/60' : 'text-gray-500'}`}>
+                <p className={`mt-1.5 font-mono text-[10px] ${msg.role === 'user' ? 'opacity-60' : 'text-ink-3'}`}>
                   {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
             </div>
           ))}
 
-          {/* Typing indicator */}
           {isLoading && <TypingIndicator />}
         </div>
 
-        {/* ── Quick Actions + Input ──────────────────────────────── */}
-        <div className="flex-shrink-0 border-t border-white/[0.07] bg-gray-950/50 backdrop-blur-xl px-4 py-3 rounded-b-none space-y-3">
-          {/* Quick action chips */}
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-0.5">
+        <div className="flex-shrink-0 space-y-2.5 border-t border-line px-4 py-3">
+          <div className="flex items-center gap-2 overflow-x-auto pb-0.5 scrollbar-none">
             {QUICK_ACTIONS.map((action) => (
               <button
                 key={action}
                 onClick={() => handleSend(action)}
                 disabled={isLoading}
-                className="flex-shrink-0 text-[11px] font-medium text-gray-300 px-3 py-1.5 rounded-full bg-white/10 border border-white/[0.07] hover:bg-white/20 hover:text-white transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed active:scale-95"
+                className="flex-shrink-0 rounded-full border border-line px-3 py-1 text-[12px] text-ink-2 transition-colors hover:border-line-strong hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {action}
               </button>
             ))}
           </div>
-
-          {/* Input row */}
           <div className="flex items-center gap-2">
             <input
               ref={inputRef}
@@ -355,25 +316,22 @@ export default function ChatInterface({ isOpen, onClose, onSendQuery }: ChatInte
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask about your deals..."
+              placeholder="Ask about your deals…"
               disabled={isLoading}
-              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all duration-200 disabled:opacity-50"
+              aria-label="Message"
+              className="flex-1 rounded-md border border-line-strong bg-bg px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-3 focus:border-ink focus:outline-none focus-visible:outline-none disabled:opacity-50"
             />
-
             <button
               onClick={() => handleSend(input)}
               disabled={!input.trim() || isLoading}
-              className="w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-500 flex items-center justify-center text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed active:scale-90 flex-shrink-0"
+              className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-coral text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30 dark:text-bg"
               aria-label="Send message"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-              </svg>
+              <Icon name="send" className="h-4 w-4" strokeWidth={1.8} />
             </button>
           </div>
         </div>
       </div>
-
     </>
   );
 }

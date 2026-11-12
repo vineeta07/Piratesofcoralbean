@@ -2,166 +2,149 @@
 
 import React, { useState } from 'react';
 import { Deal } from '../lib/types';
+import Icon, { IconName } from './Icon';
 
 interface DealCardProps {
   deal: Deal;
 }
 
 /* ─── Map reason text to a source icon + label ─── */
-function parseSignalSource(reason: string): { icon: string; label: string; color: string } {
+function parseSignalSource(reason: string): { icon: IconName; label: string } {
   const r = reason.toLowerCase();
-  if (r.includes('email') || r.includes('silence') || r.includes('follow-up'))
-    return { icon: '📧', label: 'Gmail', color: 'text-red-400' };
-  if (r.includes('gong') || r.includes('sentiment') || r.includes('call'))
-    return { icon: '🎙️', label: 'Gong', color: 'text-purple-400' };
+  if (r.includes('email') || r.includes('silence') || r.includes('follow-up')) return { icon: 'mail', label: 'Gmail' };
+  if (r.includes('gong') || r.includes('sentiment') || r.includes('call')) return { icon: 'mic', label: 'Gong' };
   if (r.includes('champion') || r.includes('changed jobs') || r.includes('hiring'))
-    return { icon: '💼', label: 'LinkedIn', color: 'text-sky-400' };
-  if (r.includes('competitor') || r.includes('mentioned'))
-    return { icon: '💬', label: 'Slack', color: 'text-emerald-400' };
+    return { icon: 'briefcase', label: 'LinkedIn' };
+  if (r.includes('competitor') || r.includes('mentioned')) return { icon: 'chat', label: 'Slack' };
   if (r.includes('multi-thread') || r.includes('single-threaded') || r.includes('id signal'))
-    return { icon: '👥', label: 'Threading', color: 'text-violet-400' };
+    return { icon: 'users', label: 'Threading' };
   if (r.includes('touchpoint') || r.includes('meeting') || r.includes('scheduled') || r.includes('follow-up booked'))
-    return { icon: '📅', label: 'Calendar', color: 'text-cyan-400' };
-  if (r.includes('notion') || r.includes('strategy doc'))
-    return { icon: '📝', label: 'Notion', color: 'text-orange-400' };
-  if (r.includes('legal') || r.includes('contract'))
-    return { icon: '⚖️', label: 'Legal', color: 'text-yellow-400' };
-  if (r.includes('economic buyer') || r.includes('buyer'))
-    return { icon: '👔', label: 'EB Signal', color: 'text-blue-400' };
+    return { icon: 'calendar', label: 'Calendar' };
+  if (r.includes('notion') || r.includes('strategy doc')) return { icon: 'doc', label: 'Notion' };
+  if (r.includes('legal') || r.includes('contract')) return { icon: 'scale', label: 'Legal' };
+  if (r.includes('economic buyer') || r.includes('buyer')) return { icon: 'user', label: 'Econ. buyer' };
   if (r.includes('objection') || r.includes('pricing') || r.includes('value') || r.includes('compliance'))
-    return { icon: '⚠️', label: 'Objection', color: 'text-amber-400' };
-  // Salesforce default
-  return { icon: '☁️', label: 'Salesforce', color: 'text-blue-300' };
+    return { icon: 'alert', label: 'Objection' };
+  return { icon: 'cloud', label: 'Salesforce' };
 }
 
 /* ─── Extract deduction value from reason string ─── */
 function extractDeduction(reason: string): { sign: '+' | '-'; value: number } | null {
   const match = reason.match(/^\(([+-])(\d+)\)/);
-  if (match) {
-    return { sign: match[1] as '+' | '-', value: parseInt(match[2], 10) };
-  }
-  return null;
+  return match ? { sign: match[1] as '+' | '-', value: parseInt(match[2], 10) } : null;
 }
 
-/* ─── Clean reason text (remove the deduction prefix) ─── */
 function cleanReasonText(reason: string): string {
   return reason.replace(/^\([+-]\d+\)\s*/, '');
 }
 
+const LEVEL = {
+  red: { label: 'At risk', text: 'text-risk-red', bar: 'bg-risk-red', soft: 'bg-risk-red/[0.07] border-risk-red/25' },
+  amber: { label: 'Watch', text: 'text-risk-amber', bar: 'bg-risk-amber', soft: 'bg-risk-amber/[0.08] border-risk-amber/25' },
+  green: { label: 'On course', text: 'text-risk-green', bar: 'bg-risk-green', soft: 'bg-risk-green/[0.07] border-risk-green/25' },
+};
+
+const formatCurrency = (val: number) =>
+  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val);
+
 export default function DealCard({ deal }: DealCardProps) {
   const [showAllSignals, setShowAllSignals] = useState(false);
-
-  const isRed = deal.risk_level === 'red';
-  const isAmber = deal.risk_level === 'amber';
-  const isGreen = deal.risk_level === 'green';
-
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0
-    }).format(val);
-  };
+  const lv = LEVEL[deal.risk_level] ?? LEVEL.amber;
 
   const reasons = deal.all_reasons || [];
   const visibleReasons = showAllSignals ? reasons : reasons.slice(0, 4);
   const hasMore = reasons.length > 4;
 
   return (
-    <div className={`rounded-xl p-5 border backdrop-blur-md transition-all hover:scale-[1.01] shadow-lg
-      ${isRed ? 'bg-red-950/20 border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.05)]' : ''}
-      ${isAmber ? 'bg-amber-950/20 border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.05)]' : ''}
-      ${isGreen ? 'bg-green-950/20 border-green-500/30 shadow-[0_0_15px_rgba(34,197,94,0.05)]' : ''}
-    `}>
-      {/* ── Header ── */}
-      <div className="flex justify-between items-start mb-3">
-        <div>
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            {isRed && <span className="text-red-500">🔴</span>}
-            {isAmber && <span className="text-amber-500">🟡</span>}
-            {isGreen && <span className="text-green-500">🟢</span>}
-            {deal.deal_name}
-          </h3>
-          <div className="flex items-center gap-3 mt-1">
-            <div className="text-sm text-gray-400">Champion: <span className="text-gray-300">{deal.champion}</span></div>
-            {deal.economic_buyer && (
-              <div className="text-sm text-gray-400">EB: <span className="text-gray-300">{deal.economic_buyer}</span></div>
+    <article className="relative overflow-hidden rounded-lg border border-line bg-surface transition-colors hover:border-line-strong">
+      {/* Risk stripe */}
+      <span className={`absolute inset-y-0 left-0 w-1 ${lv.bar}`} aria-hidden />
+
+      <div className="p-5 pl-6">
+        {/* ── Header ── */}
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <div className={`eyebrow mb-1.5 !text-[10.5px] ${lv.text}`}>{lv.label}</div>
+            <h3 className="font-display text-xl font-medium leading-snug text-ink">{deal.deal_name}</h3>
+            <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-ink-2">
+              <span>
+                <span className="text-ink-3">Champion</span> {deal.champion}
+              </span>
+              {deal.economic_buyer && (
+                <span>
+                  <span className="text-ink-3">EB</span> {deal.economic_buyer}
+                </span>
+              )}
+              {deal.close_date && (
+                <span>
+                  <span className="text-ink-3">Close</span> {deal.close_date}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex-shrink-0 text-right">
+            <div className="font-display text-xl font-medium tabular-nums text-ink">{formatCurrency(deal.value)}</div>
+            <div className={`mt-1 font-mono text-xs ${lv.text}`}>{deal.score}/100</div>
+          </div>
+        </div>
+
+        {/* Score bar */}
+        <div className="mt-4 h-1 overflow-hidden rounded-full bg-sunken">
+          <div className={`h-full rounded-full ${lv.bar}`} style={{ width: `${Math.min(Math.max(deal.score, 0), 100)}%` }} />
+        </div>
+
+        {/* ── Signals ── */}
+        {reasons.length > 0 && (
+          <div className="mt-5">
+            <div className="eyebrow mb-2">Signals · {reasons.length}</div>
+            <ul className="divide-y divide-line rounded-md border border-line">
+              {visibleReasons.map((reason, idx) => {
+                const source = parseSignalSource(reason);
+                const deduction = extractDeduction(reason);
+                return (
+                  <li key={idx} className="flex items-start gap-3 px-3 py-2.5 text-[13px]">
+                    <Icon name={source.icon} className="mt-0.5 h-4 w-4 flex-shrink-0 text-ink-3" />
+                    <div className="min-w-0 flex-1">
+                      <span className="mr-1.5 font-medium text-ink">{source.label}</span>
+                      <span className="break-words leading-snug text-ink-2">{cleanReasonText(reason)}</span>
+                    </div>
+                    {deduction && (
+                      <span
+                        className={`flex-shrink-0 font-mono text-[11px] font-medium ${
+                          deduction.sign === '+' ? 'text-risk-green' : 'text-risk-red'
+                        }`}
+                      >
+                        {deduction.sign}
+                        {deduction.value}
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            {hasMore && (
+              <button
+                onClick={() => setShowAllSignals(!showAllSignals)}
+                className="mt-2 text-[12px] font-medium text-coral-ink hover:underline"
+              >
+                {showAllSignals ? 'Show fewer' : `Show ${reasons.length - 4} more`}
+              </button>
             )}
           </div>
-          {deal.close_date && (
-            <div className="text-xs text-gray-500 mt-0.5">Close: {deal.close_date}</div>
-          )}
-        </div>
-        <div className="text-right flex-shrink-0">
-          <div className="text-xl font-bold text-white">{formatCurrency(deal.value)}</div>
-          <div className={`text-xs font-semibold px-2 py-1 rounded-full mt-1 inline-block
-            ${isRed ? 'bg-red-500/20 text-red-400' : ''}
-            ${isAmber ? 'bg-amber-500/20 text-amber-400' : ''}
-            ${isGreen ? 'bg-green-500/20 text-green-400' : ''}
-          `}>
-            Score: {deal.score}/100
-          </div>
-        </div>
-      </div>
+        )}
 
-      {/* ── Cross-Source Evidence Signals ── */}
-      {reasons.length > 0 && (
-        <div className="mt-3 pt-3 border-t border-white/10">
-          <div className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mb-2 flex items-center gap-1.5">
-            <span>⚡</span> Intelligence Signals ({reasons.length})
+        {/* ── Narrative + action ── */}
+        <p className="mt-5 text-sm leading-relaxed text-ink-2">{deal.narrative}</p>
+        {deal.action && (
+          <div className={`mt-3 flex items-start gap-2.5 rounded-md border px-3.5 py-2.5 text-sm ${lv.soft}`}>
+            <Icon name="arrowRight" className={`mt-0.5 h-4 w-4 flex-shrink-0 ${lv.text}`} strokeWidth={2} />
+            <span className="text-ink">
+              <span className="font-semibold">Next: </span>
+              {deal.action}
+            </span>
           </div>
-          <div className="flex flex-col gap-1.5">
-            {visibleReasons.map((reason, idx) => {
-              const source = parseSignalSource(reason);
-              const deduction = extractDeduction(reason);
-              const cleanText = cleanReasonText(reason);
-
-              return (
-                <div
-                  key={idx}
-                  className="flex items-start gap-2 px-2.5 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.05] text-xs group hover:bg-white/[0.06] transition-colors"
-                >
-                  <span className="flex-shrink-0 text-sm mt-px">{source.icon}</span>
-                  <div className="flex-1 min-w-0">
-                    <span className={`text-[9px] font-semibold uppercase tracking-wider ${source.color} opacity-70`}>
-                      {source.label}
-                    </span>
-                    <p className="text-gray-300 leading-snug mt-0.5 break-words">{cleanText}</p>
-                  </div>
-                  {deduction && (
-                    <span className={`flex-shrink-0 text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${
-                      deduction.sign === '+' ? 'text-emerald-400 bg-emerald-500/10' : 'text-red-400 bg-red-500/10'
-                    }`}>
-                      {deduction.sign}{deduction.value}
-                    </span>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          {hasMore && (
-            <button
-              onClick={() => setShowAllSignals(!showAllSignals)}
-              className="text-[11px] text-blue-400 hover:text-blue-300 mt-2 font-medium transition-colors"
-            >
-              {showAllSignals ? '← Show less' : `+ ${reasons.length - 4} more signals`}
-            </button>
-          )}
-        </div>
-      )}
-      
-      {/* ── AI Narrative ── */}
-      <div className="mt-4 pt-4 border-t border-white/10">
-        <p className="text-sm text-gray-300 mb-3 leading-relaxed">{deal.narrative}</p>
-        <div className={`text-sm font-medium p-3 rounded-lg flex items-start gap-2
-          ${isRed ? 'bg-red-500/10 text-red-200 border border-red-500/20' : ''}
-          ${isAmber ? 'bg-amber-500/10 text-amber-200 border border-amber-500/20' : ''}
-          ${isGreen ? 'bg-green-500/10 text-green-200 border border-green-500/20' : ''}
-        `}>
-          <span className="mt-0.5">→</span>
-          <span>{deal.action}</span>
-        </div>
+        )}
       </div>
-    </div>
+    </article>
   );
 }

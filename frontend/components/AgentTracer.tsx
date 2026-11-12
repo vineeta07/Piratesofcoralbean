@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { PipelineTrace, AgentStep } from '../lib/types';
+import Icon from './Icon';
 
 interface AgentTracerProps {
   isRunning: boolean;
@@ -9,12 +10,12 @@ interface AgentTracerProps {
 }
 
 const PIPELINE_STEPS: Omit<AgentStep, 'status' | 'duration_ms' | 'output_summary'>[] = [
-  { name: 'Parser Agent', role: 'Analyzing query intent', icon: '🔍' },
-  { name: 'Context Agent', role: 'Selecting data sources', icon: '🗂️' },
-  { name: 'Query Builder', role: 'Generating Coral SQL', icon: '🔧' },
-  { name: 'Risk Scorer', role: 'Scoring deal health', icon: '⚡' },
-  { name: 'Summariser', role: 'Writing narratives', icon: '📝' },
-  { name: 'Formatter', role: 'Preparing outputs', icon: '📊' },
+  { name: 'Parser Agent', role: 'Analyzing query intent', icon: 'parse' },
+  { name: 'Context Agent', role: 'Selecting data sources', icon: 'context' },
+  { name: 'Query Builder', role: 'Generating Coral SQL', icon: 'query' },
+  { name: 'Risk Scorer', role: 'Scoring deal health', icon: 'score' },
+  { name: 'Summariser', role: 'Writing narratives', icon: 'write' },
+  { name: 'Formatter', role: 'Preparing outputs', icon: 'format' },
 ];
 
 function generateDuration(): number {
@@ -79,175 +80,74 @@ export default function AgentTracer({ isRunning, trace }: AgentTracerProps) {
   }, [isRunning, trace]);
 
   const allDone = steps.every((s) => s.status === 'done');
+  const total = steps.reduce((sum, s) => sum + (s.duration_ms ?? 0), 0);
 
   return (
-    <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-5 shadow-2xl">
-      {/* Header */}
-      <div className="flex items-center gap-2.5 mb-5">
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/15 text-blue-400">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-4 h-4"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-          </svg>
+    <div className="rounded-lg border border-line bg-surface">
+      <div className="flex items-center justify-between border-b border-line px-5 py-3.5">
+        <div className="flex items-center gap-2">
+          <Icon name="pulse" className="h-4 w-4 text-ink-3" />
+          <h3 className="font-display text-[17px] font-medium text-ink">Agent pipeline</h3>
         </div>
-        <h3 className="text-sm font-semibold text-white/90 tracking-wide">Agent Pipeline</h3>
-
-        {/* Animated running dot */}
-        {isRunning && !allDone && (
-          <span className="relative ml-auto flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
-          </span>
-        )}
-
-        {allDone && (
-          <span className="ml-auto text-[11px] font-medium text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded-full">
-            Complete
+        {allDone ? (
+          <span className="font-mono text-[11px] text-risk-green">Complete · {total}ms</span>
+        ) : (
+          <span className="flex items-center gap-2 font-mono text-[11px] text-ink-3">
+            <span className="h-1.5 w-1.5 rounded-full bg-coral" style={{ animation: 'typingDot 1.2s infinite' }} />
+            Running
           </span>
         )}
       </div>
 
-      {/* Timeline */}
-      <div className="relative flex flex-col gap-0">
+      <ol className="px-5 py-4">
         {steps.map((step, i) => {
           const isLast = i === steps.length - 1;
-
           return (
-            <div key={step.name} className="relative flex gap-3.5 group">
-              {/* Vertical connector line */}
+            <li key={step.name} className="relative flex gap-3.5 pb-4 last:pb-0">
               {!isLast && (
-                <div className="absolute left-[13px] top-[28px] bottom-0 w-px">
-                  <div
-                    className={`h-full w-full transition-colors duration-500 ${
-                      step.status === 'done' ? 'bg-emerald-500/40' : 'bg-white/[0.06]'
-                    }`}
-                  />
-                </div>
+                <span
+                  className={`absolute left-[11px] top-7 bottom-0 w-px ${step.status === 'done' ? 'bg-ink/40' : 'bg-line'}`}
+                  aria-hidden
+                />
               )}
-
-              {/* Step indicator node */}
-              <div className="relative z-10 flex-shrink-0 mt-1">
-                {step.status === 'done' ? (
-                  <div className="w-[26px] h-[26px] rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center transition-all duration-300">
-                    <svg
-                      className="w-3 h-3 text-emerald-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={3}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                ) : step.status === 'running' ? (
-                  <div className="w-[26px] h-[26px] rounded-full bg-blue-500/20 border border-blue-400/60 flex items-center justify-center animate-pulse shadow-[0_0_12px_rgba(59,130,246,0.35)]">
-                    <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-                  </div>
-                ) : (
-                  <div className="w-[26px] h-[26px] rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center transition-all duration-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-                  </div>
-                )}
-              </div>
-
-              {/* Step content card */}
-              <div
-                className={`flex-1 mb-2.5 rounded-xl px-3.5 py-2.5 transition-all duration-500 ${
-                  step.status === 'running'
-                    ? 'bg-blue-500/[0.08] border border-blue-500/25 shadow-[0_0_20px_rgba(59,130,246,0.08)]'
-                    : step.status === 'done'
-                    ? 'bg-emerald-500/[0.04] border border-emerald-500/15'
-                    : 'bg-white/[0.02] border border-white/[0.04]'
+              <span
+                className={`relative z-10 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border font-mono text-[10px] transition-colors ${
+                  step.status === 'done'
+                    ? 'border-ink bg-ink text-bg'
+                    : step.status === 'running'
+                    ? 'border-coral bg-surface text-coral-ink'
+                    : step.status === 'error'
+                    ? 'border-risk-red bg-surface text-risk-red'
+                    : 'border-line-strong bg-surface text-ink-3'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`text-sm transition-opacity duration-300 ${
-                        step.status === 'pending' ? 'opacity-30 grayscale' : 'opacity-100'
-                      }`}
-                    >
-                      {step.icon}
-                    </span>
-                    <span
-                      className={`text-[13px] font-medium transition-colors duration-300 ${
-                        step.status === 'running'
-                          ? 'text-blue-300'
-                          : step.status === 'done'
-                          ? 'text-white/80'
-                          : 'text-white/30'
-                      }`}
-                    >
-                      {step.name}
-                    </span>
+                {step.status === 'done' ? (
+                  <Icon name="check" className="h-3 w-3" strokeWidth={2.5} />
+                ) : step.status === 'running' ? (
+                  <span className="h-3 w-3 animate-spin rounded-full border-[1.5px] border-current border-t-transparent" />
+                ) : (
+                  i + 1
+                )}
+              </span>
+              <div className="flex min-w-0 flex-1 items-baseline justify-between gap-3 pt-0.5">
+                <div className="min-w-0">
+                  <div
+                    className={`text-sm font-medium ${
+                      step.status === 'pending' ? 'text-ink-3' : 'text-ink'
+                    }`}
+                  >
+                    {step.name}
                   </div>
-
-                  {/* Duration badge */}
-                  {step.status === 'done' && step.duration_ms != null && (
-                    <span className="text-[10px] font-mono text-emerald-400/70 bg-emerald-500/10 px-1.5 py-0.5 rounded">
-                      {step.duration_ms}ms
-                    </span>
-                  )}
-
-                  {/* Running spinner */}
-                  {step.status === 'running' && (
-                    <svg
-                      className="w-3.5 h-3.5 text-blue-400 animate-spin"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                      />
-                    </svg>
-                  )}
+                  <div className="text-[12.5px] text-ink-3">{step.role}</div>
                 </div>
-
-                {/* Role / description */}
-                <p
-                  className={`text-[11px] mt-0.5 transition-colors duration-300 ${
-                    step.status === 'running'
-                      ? 'text-blue-300/50'
-                      : step.status === 'done'
-                      ? 'text-white/25'
-                      : 'text-white/15'
-                  }`}
-                >
-                  {step.role}
-                </p>
+                {step.status === 'done' && step.duration_ms != null && (
+                  <span className="flex-shrink-0 font-mono text-[11px] text-ink-3">{step.duration_ms}ms</span>
+                )}
               </div>
-            </div>
+            </li>
           );
         })}
-      </div>
-
-      {/* Footer: total duration */}
-      {allDone && (
-        <div className="mt-3 pt-3 border-t border-white/[0.06] flex items-center justify-between">
-          <span className="text-[11px] text-white/30">Total pipeline</span>
-          <span className="text-[11px] font-mono text-white/50">
-            {steps.reduce((sum, s) => sum + (s.duration_ms ?? 0), 0)}ms
-          </span>
-        </div>
-      )}
+      </ol>
     </div>
   );
 }

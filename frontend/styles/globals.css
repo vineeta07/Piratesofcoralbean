@@ -2,86 +2,123 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/*
+ * Theme tokens — stored as RGB triplets so Tailwind opacity modifiers work
+ * (e.g. bg-coral/10). Light is the default; dark is applied via
+ * [data-theme="dark"] on <html>, set before paint by the script in layout.tsx.
+ */
+:root {
+  --bg: 246 242 234;          /* chart paper */
+  --surface: 255 253 248;
+  --sunken: 239 233 221;
+  --ink: 27 36 51;            /* navy ink */
+  --ink-2: 74 83 99;
+  --ink-3: 122 129 144;
+  --line: 226 218 203;
+  --line-strong: 205 195 177;
+  --coral: 200 85 61;
+  --coral-ink: 168 64 42;     /* coral dark enough for text on paper */
+  --sea: 31 78 95;
+  --risk-red: 176 58 46;
+  --risk-amber: 168 107 18;
+  --risk-green: 59 122 74;
+  color-scheme: light;
+}
 
-/* Dark scrollbar */
+[data-theme='dark'] {
+  --bg: 15 21 30;
+  --surface: 22 30 42;
+  --sunken: 12 17 25;
+  --ink: 236 230 218;
+  --ink-2: 184 179 168;
+  --ink-3: 134 139 148;
+  --line: 38 49 66;
+  --line-strong: 56 69 89;
+  --coral: 226 125 98;
+  --coral-ink: 236 146 120;
+  --sea: 127 179 194;
+  --risk-red: 226 112 98;
+  --risk-amber: 217 166 72;
+  --risk-green: 112 181 130;
+  color-scheme: dark;
+}
+
+html {
+  background: rgb(var(--bg));
+}
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+  font-family: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(var(--coral) / 0.22);
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--coral));
+  outline-offset: 2px;
+}
+
+/* Display headings use Fraunces with a softer optical size */
+.font-display {
+  font-variation-settings: 'SOFT' 50, 'WONK' 0;
+  letter-spacing: -0.015em;
+}
+
+/* Small caps label used across the app */
+.eyebrow {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--ink-3));
+}
+
+/* Faint chart grid behind the hero */
+.chart-grid {
+  background-image:
+    linear-gradient(rgb(var(--line) / 0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line) / 0.55) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black 30%, transparent 95%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 95%);
+}
+
+/* Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(var(--line-strong));
+  border-radius: 4px;
 }
 
-body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Shimmer loading effect */
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-}
-
-/* Pulse glow for active elements */
-.pulse-glow {
-  animation: pulseGlow 2s ease-in-out infinite;
-}
-
-.pulse-glow-blue {
-  animation: pulseGlowBlue 2s ease-in-out infinite;
-}
-
-/* Bounce animation for typing indicator */
-@keyframes bounceTyping {
-  0%, 60%, 100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(139, 92, 246, 0.2); }
-}
-
-@keyframes pulseGlowBlue {
-  0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.2); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Scrollbar-none utility */
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@keyframes typingDot {
+  0%, 60%, 100% { opacity: 0.25; }
+  30% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
