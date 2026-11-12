@@ -152,7 +152,7 @@ function DemoWindow() {
           <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
           <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
         </div>
-        <span className="font-mono text-[11px] text-ink-3">coralbean / ask</span>
+        <span className="font-mono text-[11px] text-ink-3">dealcortex / ask</span>
       </div>
 
       <div className="flex">
@@ -261,7 +261,7 @@ export default function Landing() {
         }`}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" aria-label="Coral Bean home">
+          <Link href="/" aria-label="DealCortex home">
             <Logo animated />
           </Link>
           <nav className="flex items-center gap-1.5 sm:gap-2">
@@ -304,7 +304,7 @@ export default function Landing() {
               <RiseWords text="they sink." start={430} />
             </h1>
             <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-ink-2 animate-fade-in-up" style={{ animationDelay: '600ms' }}>
-              Coral Bean reads your CRM, inbox, call recordings, Slack and LinkedIn together, scores every deal, and tells
+              DealCortex reads your CRM, inbox, call recordings, Slack and LinkedIn together, scores every deal, and tells
               you what to do next — then hands you the report.
             </p>
             <div className="mt-8 flex flex-wrap gap-3 animate-fade-in-up" style={{ animationDelay: '750ms' }}>
@@ -505,7 +505,7 @@ export default function Landing() {
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-4 py-8 sm:px-6 md:flex-row md:items-center">
           <div className="flex items-center gap-3">
             <LogoMark size={26} className="text-ink" />
-            <span className="text-sm font-medium text-ink">Pirates of Coral Bean</span>
+            <span className="text-sm font-medium text-ink">DealCortex</span>
           </div>
           <div className="flex flex-wrap gap-5 text-sm text-ink-3">
             <Link href="/app" className="hover:text-ink">Workspace</Link>

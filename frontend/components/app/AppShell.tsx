@@ -34,7 +34,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex h-16 items-center px-5">
-        <Link href="/" onClick={onNavigate} aria-label="Coral Bean home">
+        <Link href="/" onClick={onNavigate} aria-label="DealCortex home">
           <Logo size={30} />
         </Link>
       </div>
@@ -155,7 +155,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <path d="M4 7h16M4 12h16M4 17h16" />
           </svg>
         </button>
-        <Link href="/" aria-label="Coral Bean home">
+        <Link href="/" aria-label="DealCortex home">
           <Logo size={26} showTagline={false} />
         </Link>
         <div className="flex gap-1.5" data-tour="appearance">

@@ -26,7 +26,7 @@ export default function LoginPage() {
       {/* Form side */}
       <div className="flex flex-col px-6 py-6 sm:px-12">
         <div className="flex items-center justify-between">
-          <Link href="/" aria-label="Coral Bean home">
+          <Link href="/" aria-label="DealCortex home">
             <Logo />
           </Link>
           <div className="flex gap-1.5">
@@ -92,7 +92,7 @@ export default function LoginPage() {
           <p className="mt-8 text-center text-[13px] text-ink-3">
             New here?{' '}
             <Link href="/" className="font-medium text-coral-ink hover:underline">
-              See what Coral Bean does
+              See what DealCortex does
             </Link>
           </p>
         </div>

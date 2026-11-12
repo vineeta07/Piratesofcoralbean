@@ -64,7 +64,7 @@ export default function AskView() {
           What do you want to know about your pipeline?
         </h1>
         <p className="mt-3 text-[15px] text-ink-2">
-          Ask in plain English. Coral Bean reads Salesforce, Gmail, Gong, Slack and LinkedIn and scores every deal.
+          Ask in plain English. DealCortex reads Salesforce, Gmail, Gong, Slack and LinkedIn and scores every deal.
         </p>
         <div className="mt-8" data-tour="ask">
           <QueryInput query={query} setQuery={setQuery} onAnalyze={ask} isLoading={isLoading} autoFocus />

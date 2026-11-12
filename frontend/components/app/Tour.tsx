@@ -24,7 +24,7 @@ const STEPS: Step[] = [
   {
     target: 'ask',
     title: 'Ask in plain English',
-    body: 'Type a question about your pipeline, or pick one of the starters below. Coral Bean reads all five sources and scores every deal.',
+    body: 'Type a question about your pipeline, or pick one of the starters below. DealCortex reads all five sources and scores every deal.',
   },
   {
     target: 'new',

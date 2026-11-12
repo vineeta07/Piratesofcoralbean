@@ -2,7 +2,7 @@ import AppShell from '../../components/app/AppShell';
 import { AnalysisProvider } from '../../lib/analysis';
 
 export const metadata = {
-  title: 'Workspace — Coral Bean',
+  title: 'Workspace — DealCortex',
 };
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {

@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 
 export const metadata = {
-  title: 'Coral Bean — Deal Intelligence',
+  title: 'DealCortex — Pipeline Intelligence',
   description:
     'Pipeline risk analysis that reads Salesforce, Gmail, Gong, Slack and LinkedIn together and tells you which deals are drifting.',
   viewport: 'width=device-width, initial-scale=1',

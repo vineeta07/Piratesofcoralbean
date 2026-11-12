@@ -34,7 +34,7 @@ export default function SlackDigest({ slack }: SlackDigestProps) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2">
-            <span className="text-[15px] font-bold text-ink">Coral Bean</span>
+            <span className="text-[15px] font-bold text-ink">DealCortex</span>
             <span className="rounded bg-sunken px-1 py-px text-[10px] font-semibold uppercase text-ink-3">App</span>
             <span className="text-xs text-ink-3">9:00 AM</span>
           </div>

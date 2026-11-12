@@ -1,8 +1,8 @@
 import React from 'react';
 
 /**
- * Coral Bean mark: a branching coral inside a ship's-porthole ring,
- * sitting on a line of swell. Ink parts follow the current text colour,
+ * DealCortex mark: a branching coral — which doubles as a neuron's
+ * dendrites — inside a porthole ring, sitting on a line of swell. Ink parts follow the current text colour,
  * the coral follows the theme accent, so it works in light and dark.
  */
 export function LogoMark({
@@ -34,7 +34,7 @@ export function LogoMark({
       fill="none"
       className={className}
       role="img"
-      aria-label="Coral Bean"
+      aria-label="DealCortex"
     >
       <circle cx="20" cy="20" r="18.2" stroke="currentColor" strokeWidth={detailed ? 1.6 : 2} />
       {detailed && (
@@ -84,10 +84,10 @@ export default function Logo({
     <span className="inline-flex items-center gap-2.5 text-ink">
       <LogoMark size={size} animated={animated} />
       <span className="flex flex-col leading-none">
-        <span className="font-display text-[19px] font-semibold tracking-tight">Coral Bean</span>
+        <span className="font-display text-[19px] font-semibold tracking-tight">DealCortex</span>
         {showTagline && (
           <span className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink-3">
-            Deal Intelligence
+            Pipeline intelligence
           </span>
         )}
       </span>

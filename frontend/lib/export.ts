@@ -34,7 +34,7 @@ const sorted = (deals: Deal[]) => {
 const fileStem = (a: Analysis) => {
   const date = new Date(a.at).toISOString().slice(0, 10);
   const slug = a.query.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'analysis';
-  return `coral-bean-${date}-${slug}`;
+  return `dealcortex-${date}-${slug}`;
 };
 
 const hexToRgb = (hex: string): [number, number, number] => [
@@ -59,7 +59,7 @@ export async function downloadPdf(a: Analysis) {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     setColor(C.ink3);
-    doc.text('Coral Bean · Deal Intelligence', M, H - 24);
+    doc.text('DealCortex · Pipeline Intelligence', M, H - 24);
     doc.text(`Page ${doc.getNumberOfPages()}`, W - M, H - 24, { align: 'right' });
   };
   const ensure = (needed: number) => {
@@ -200,7 +200,7 @@ export async function downloadPptx(a: Analysis) {
   const pptx = new PptxGenJS();
   pptx.layout = 'LAYOUT_WIDE'; // 13.33 x 7.5 in
   pptx.title = 'Pipeline risk report';
-  pptx.company = 'Coral Bean';
+  pptx.company = 'DealCortex';
 
   const deals = sorted(a.result.dashboard.deals);
   const s = a.result.dashboard.summary;
@@ -212,7 +212,7 @@ export async function downloadPptx(a: Analysis) {
     background: { color: C.paper },
     objects: [
       { rect: { x: 0, y: 7.1, w: 13.33, h: 0.4, fill: { color: C.paper } } },
-      { text: { text: 'Coral Bean · Deal Intelligence', options: { x: 0.6, y: 7.05, w: 6, h: 0.3, fontFace: sans, fontSize: 9, color: C.ink3 } } },
+      { text: { text: 'DealCortex · Pipeline Intelligence', options: { x: 0.6, y: 7.05, w: 6, h: 0.3, fontFace: sans, fontSize: 9, color: C.ink3 } } },
     ],
     slideNumber: { x: 12.3, y: 7.05, w: 0.5, h: 0.3, fontFace: sans, fontSize: 9, color: C.ink3, align: 'right' },
   });
